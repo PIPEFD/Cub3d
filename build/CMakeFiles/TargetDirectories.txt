@@ -1,0 +1,7 @@
+/home/pipe/42/Cub3d/build/CMakeFiles/mlx42.dir
+/home/pipe/42/Cub3d/build/CMakeFiles/edit_cache.dir
+/home/pipe/42/Cub3d/build/CMakeFiles/rebuild_cache.dir
+/home/pipe/42/Cub3d/build/CMakeFiles/list_install_components.dir
+/home/pipe/42/Cub3d/build/CMakeFiles/install.dir
+/home/pipe/42/Cub3d/build/CMakeFiles/install/local.dir
+/home/pipe/42/Cub3d/build/CMakeFiles/install/strip.dir
