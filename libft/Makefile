@@ -1,60 +1,92 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/24 16:39:58 by codespace         #+#    #+#              #
-#    Updated: 2024/02/24 16:40:37 by codespace        ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = libft.a
 
-NAME		=	libft.a
-INCLUDES	=	inc/
-SRC_DIR		=	src/
-CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror
-AR			=	ar rc
-RM			=	rm -f
+CFLAGS = -Wall -Wextra -Werror
 
+SOURCES = \
+	ft_strchr.c \
+	ft_strlcat.c \
+	ft_strlcpy.c \
+	ft_isascii.c \
+	ft_strlen.c \
+	ft_bzero.c \
+	ft_strncmp.c \
+	ft_strcmp.c \
+	ft_isalnum.c \
+	ft_strnstr.c \
+	ft_isalpha.c \
+	ft_strrchr.c \
+	ft_isdigit.c \
+	ft_tolower.c \
+	ft_isprint.c \
+	ft_toupper.c \
+	ft_memcpy.c \
+	ft_memmove.c \
+	ft_memset.c \
+	ft_memchr.c \
+	ft_memcmp.c \
+	ft_atoi.c \
+	 \
+	ft_calloc.c \
+	ft_strdup.c \
+	 \
+	ft_substr.c \
+	ft_strjoin.c \
+	ft_strtrim.c \
+	ft_split.c \
+	ft_itoa.c \
+	ft_strmapi.c \
+	ft_striteri.c \
+	ft_putchar_fd.c \
+	ft_putstr_fd.c \
+	ft_putendl_fd.c \
+	ft_putnbr_fd.c \
+	\
+	ft_lstnew.c \
+	ft_lstadd_front.c \
+	ft_lstsize.c \
+	ft_lstlast.c \
+	ft_lstadd_back.c \
+	ft_lstdelone.c \
+	ft_lstclear.c \
+	ft_lstiter.c \
+	ft_lstmap.c \
+	\
+	ft_printf.c \
+	ft_ismayus.c \
+	ft_islowcase.c \
+	ft_isspace.c \
+	split_len.c \
+	split_cpy.c \
+	split_free.c \
+	ft_realloc.c \
+	get_next_line.c \
+	free_list.c \
+	ft_dprintf.c \
+	ft_strsubcpy.c \
 
+ODIR = obj
 
-SRC_FILES	=	is_sign.c is_space.c\
-				
-				
-SRC	=	$(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ	=	$(SRC:.c=.o)
+OBJECTS = $(SOURCES:%.c=$(ODIR)/%.o)
 
+all: $(NAME)
 
-# COLORS
+$(NAME): $(OBJECTS)
+	ar rcs $(NAME) $(OBJECTS)
 
-DEF_COLOR = \033[0;39m
-GRAY = \033[0;90m
-RED = \033[0;31m
-GREEN = \033[0;92m
-YELLOW = \033[0;93m
-BLUE = \033[0;94m
-MAGENTA = \033[0;95m
-CYAN = \033[0;96m
-WHITE = \033[0;97m
-# **************************************************************************************** #
-all:			$(NAME)
+$(ODIR)/%.o: %.c
+	mkdir -p $(ODIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME):		$(OBJ)
-					@$(AR) $(NAME) $(OBJ)
-					@echo "$(GREEN)LIBFT COMPILED SUCCESFUL!$(DEF_COLOR)"
-.c.o:			
-				@echo "$(BLUE)COMPILING... $< $(DEF_COLOR)"
-				@$(CC) $(CCFLAGS) -I$(INCLUDES) -c $< -o $(<:.c=.o)
 clean:
-				@$(RM) $(OBJ)
-				@echo "$(YELLOW)FILES REMOVED!$(DEF_COLOR)"
+	rm -f $(OBJECTS)
 
-fclean:			clean
-				@$(RM) $(NAME)
-				@echo "$(RED)$(NAME) REMOVED!$(DEF_COLOR)"
+fclean: clean
+	rm -f $(NAME)
 
-re:				fclean all
+re: fclean $(NAME)
 
-.PHONY:			all clean fclean re bonus
+bonus: $(OBJECTS)
+	ar rcs $(NAME) $(OBJECTS)
+
+.SILENT:
+.PHONY: all clean fclean re

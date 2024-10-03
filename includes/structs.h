@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 16:41:02 by codespace         #+#    #+#             */
-/*   Updated: 2024/02/24 16:43:40 by codespace        ###   ########.fr       */
+/*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
+/*   Updated: 2024/10/01 12:04:52 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
+typedef struct s_data
+{
+	int		px;
+	int		py;
+	int		dir;
+	
+	char	*map;
+}	t_data;
 
-bool is_space(char c);
-bool is_sign(char c);
-
-
-#endif
+#endif //STRUCTS_H

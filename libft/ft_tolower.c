@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_sign.c                                          :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 16:30:00 by codespace         #+#    #+#             */
-/*   Updated: 2024/02/24 16:42:03 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/11 18:58:41 by kabasolo          #+#    #+#             */
+/*   Updated: 2024/01/30 12:44:13 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool is_sign(char c)
+int	ft_tolower(int c)
 {
-    return(c == '+' || c == '-');
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
 }

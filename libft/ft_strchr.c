@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_space.c                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/24 16:27:31 by codespace         #+#    #+#             */
-/*   Updated: 2024/02/24 16:44:06 by codespace        ###   ########.fr       */
+/*   Created: 2023/12/11 19:32:04 by kabasolo          #+#    #+#             */
+/*   Updated: 2024/01/30 11:46:25 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-bool is_space(char c)
+char	*ft_strchr(const char *s, int c)
 {
-    return ((c == ' ') || (c >= 9 && c <= 13));
+	size_t	i;
+
+	i = 0;
+	while (i <= ft_strlen(s))
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i ++;
+	}
+	return (NULL);
 }
