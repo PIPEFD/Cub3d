@@ -8,7 +8,16 @@ CC          =   gcc -fsanitize=address -g3
 FLAGS       =   -Wall -Wextra -Werror
 RM          =   rm -f
 
-SRC_FILES   =   cub3d.c
+SRC_FILES   =   draw.c \
+				player.c \
+				hook.c \
+				rays.c \
+				init_data.c \
+				render.c \
+				main.c \
+				setup.c \
+				map.c \
+				utiils.c
 
 
 SRC =   $(addprefix $(SRC_DIR), $(SRC_FILES))
