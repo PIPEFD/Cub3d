@@ -8,19 +8,13 @@ CC          =   gcc -fsanitize=address -g3
 FLAGS       =   -Wall -Wextra -Werror
 RM          =   rm -f
 
-SRC_FILES   =   main.c
-#fractal_init.c \
-#math.c \
-#fractal_render.c \
-#keyboard.c\
-#mouse.c\
-# draw_fractol.c \
-# fast_inverse_sqrt.c \
-# julia.c \
-# mandelbrot.c \
+SRC_FILES   =   cub3d.c
+
 
 SRC =   $(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJ =   $(SRC:.c=.o)
+
+OBJ_DIR		= objs/
+OBJS_FILES	= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
 
@@ -35,13 +29,18 @@ BLUE = \033[0;94m
 MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
+CLEAR = \033[0m\n
+OKLOGO = \033[80G\033[32m[OK]\033[0m\n
+
 
 # **************************************************************************** #
 
 all:        $(NAME)
 
-$(NAME):    $(LIBFT) $(MLX) $(OBJ)
-			@$(CC) -o $(NAME) $(FLAGS) $(OBJ) $(LIBFT) $(MLX) -I$(INCLUDES) -ldl -lglfw -pthread -lm
+$(NAME):    $(LIBFT) $(MLX) $(OBJS_FILES)
+			@printf "$(BLUE)COMPILING... $< $(DEF_COLOR)$(CLEAR)"
+			@$(CC) -o $(NAME) $(FLAGS) $(OBJS_FILES) $(LIBFT) $(MLX) -I$(INCLUDES) -ldl -lglfw -pthread -lm
+			@printf "033[1;34m$(NAME)\033[25G\033[33mCompile $< $(OKLOGO)"
 			@echo "$(GREEN)CUB3D COMPILED SUCCESFUL!$(DEF_COLOR)"
 
 $(LIBFT):
@@ -50,14 +49,18 @@ $(MLX):
 			@cmake -B build ./mlx 2>/dev/null
 			@make ./build 2>/dev/null
 
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) -c $< -o $@
+
 .c.o:
-			@echo "$(BLUE)COMPILING... $< $(DEF_COLOR)"
+			@printf "$(BLUE)COMPILING... $< $(DEF_COLOR)"
 			@$(CC) $(FLAGS) -I$(INC) -c $< -o $(<:.c=.o)
 
 clean:
 			@$(RM) $(OBJ)
 			@echo "$(YELLOW)FILES REMOVED!$(DEF_COLOR)"
-			@make clean -C ./libft
+			make clean -C ./libft
 #@cmake clean -C ./build
 
 fclean:     clean
