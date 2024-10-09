@@ -15,15 +15,18 @@
 int main()
 {
     mlx_t   *mlx;
-    mlx_image_t *img;
-    t_player player;
-    t_ray ray[NUM_RAYS];
-
-    setup(player, mlx, img, ray);
+    
+    mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Raycaster", true);
+    if (!mlx)
+    {
+        fprintf(stderr, "Error initializing MLX.\n");
+        exit(EXIT_FAILURE);
+    }
+    setup(mlx);
 
     mlx_loop(mlx);
 
-    destroyWindow();
+    // destroyWindow();
 
     return 0;
 }

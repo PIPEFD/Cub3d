@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/08 17:52:08 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:27:26 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 #include "../inc/cub3d.h"
 
 
-void movePlayer(float deltaTime)
+void movePlayer(float deltaTime, t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
 {
+    (void)mlx;
+    (void)img;
+    (void)ray;
     player->rotationAngle += player->turnDirection * player->turnSpeed * deltaTime;
     player->rotationAngle = fmod(player->rotationAngle, TWO_PI);
     if (player->rotationAngle < 0)
@@ -32,21 +35,3 @@ void movePlayer(float deltaTime)
 }
 
 
-void renderPlayer(t_player *player)
-{
-    unsigned int playerColor = 0xFA0000FF; // ARGB format
-    draw_rectangle(img,
-        player->x * MINIMAP_SCALE_FACTOR,
-        player->y * MINIMAP_SCALE_FACTOR,
-        player->width * MINIMAP_SCALE_FACTOR,
-        player->height * MINIMAP_SCALE_FACTOR,
-        playerColor);
-    // Draw line indicating direction
-    draw_line(
-        img,
-        player->x * MINIMAP_SCALE_FACTOR,
-        player->y * MINIMAP_SCALE_FACTOR,
-        (player->x + cos(player->rotationAngle) * 40) * MINIMAP_SCALE_FACTOR,
-        (player->y + sin(player->rotationAngle) * 40) * MINIMAP_SCALE_FACTOR,
-        playerColor);
-}

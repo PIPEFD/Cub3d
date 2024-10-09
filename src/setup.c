@@ -18,35 +18,35 @@
 #include "../inc/cub3d.h"
 
 
-void update(void* param)
+void update(t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
 {
-    (void)param; // Unused parameter
+    // (void)param; // Unused parameter
 
     // Calculate deltaTime
     unsigned int timeNow = mlx_get_time() * 1000;
     float deltaTime = (timeNow - ticksLastFrame) / 1000.0f;
     ticksLastFrame = timeNow;
 
-    movePlayer(deltaTime);
-    castAllRays();
+    movePlayer(deltaTime, player, mlx, img, ray);
+    castAllRays(player, mlx, img, ray);;
 
     // Clear the image buffer
     memset(img->pixels, 255, img->width * img->height * sizeof(unsigned int));
 
     // Render functions
-    renderMap();
-    renderRays();
-    renderPlayer();
+    renderMap(player, mlx, img, ray);
+    renderRays(player, mlx, img, ray);
+    renderPlayer(player, mlx, img, ray);
 }
 
-void setup(t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
+void setup(mlx_t *mlx)
 {
-    mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Raycaster", true);
-    if (!mlx)
-    {
-        fprintf(stderr, "Error initializing MLX.\n");
-        exit(EXIT_FAILURE);
-    }
+
+    mlx_image_t *img;
+    t_player player;
+    t_ray ray[NUM_RAYS];
+
+    
     img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
     if (!img)
     {
@@ -56,16 +56,16 @@ void setup(t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
     mlx_image_to_window(mlx, img, 0, 0);
 
     // Initialize player
-    player->x = WINDOW_WIDTH / 2;
-    player->y = WINDOW_HEIGHT / 2;
+    player.x = WINDOW_WIDTH / 2;
+    player.y = WINDOW_HEIGHT / 2;
 
-    player->width = 1;
-    player->height = 1;
-    player->turnDirection = 0;
-    player->walkDirection = 0;
-    player->rotationAngle = PI / 2;
-    player->walkSpeed = 150;
-    player->turnSpeed = 45 * (PI / 180);
+    player.width = 1;
+    player.height = 1;
+    player.turnDirection = 0;
+    player.walkDirection = 0;
+    player.rotationAngle = PI / 2;
+    player.walkSpeed = 150;
+    player.turnSpeed = 45 * (PI / 180);
 
     // Set up hooks
     mlx_key_hook(mlx, &key_hook, NULL);

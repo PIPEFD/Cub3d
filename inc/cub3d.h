@@ -24,7 +24,7 @@
 #define WINDOW_HEIGHT  (MAP_NUM_ROWS * TILE_SIZE)
 #define TILE_SIZE 64
 #define MAP_NUM_ROWS 11
-#define MAP_NUM_C OLS 15
+#define MAP_NUM_COLS 15
 #define MINIMAP_SCALE_FACTOR 1.0
 #define NUM_RAYS WINDOW_WIDTH
 #define PI 3.14159265
@@ -86,16 +86,16 @@ typedef struct s_ray
 
 void draw_rectangle(mlx_image_t* img, int x, int y, int width, int height, uint32_t color);
 void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color);
-void key_hook(mlx_key_data_t keydata, void* param);
+void key_hook(mlx_key_data_t keydata, t_player *player, mlx_t *mlx);
 int mapHasWallAt(float x, float y);
 void renderPlayer();
-void movePlayer(float deltaTime);
-void castRay(float rayAngle, int stripid);
+void movePlayer(float deltaTime, t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray);
+void castRay(float rayAngle, int stripid, t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray);
 void castAllRays();
 void renderRays();
 void renderMap();
-void update(void* param);
-void setup();
+void update(t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray);
+void setup(mlx_t *mlx);
 float normalizeAngle(float angle);
 float distanceBetweenPoints(float x1, float y1, float x2, float y2);
 
