@@ -16,7 +16,8 @@ SRC_FILES   =   draw.c \
                 render.c \
                 setup.c \
                 map.c \
-                utils.c
+                utils.c \
+				init_data.c
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -42,7 +43,7 @@ $(LIBFT):
 			@make -C ./libft
 
 $(MLX):
-			@cmake -B build ./mlx 2>/dev/null
+			@cmake -B build ./MLX42 2>/dev/null
 			@make -C build 2>/dev/null
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c

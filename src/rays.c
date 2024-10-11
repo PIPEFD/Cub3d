@@ -6,147 +6,144 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/10 16:18:28 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/11 23:34:33 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
-void castRay(t_game* game, float rayAngle, int stripid)
-{
+void cast_ray(t_game* game, float rayAngle, int stripid) {
     rayAngle = normalizeAngle(rayAngle);
 
     t_player* player = &game->player;
     t_ray* rays = game->rays;
 
-    int isRayFacingDown = rayAngle > 0 && rayAngle < PI;
-    int isRayFacingUp = !isRayFacingDown;
-    int isRayFacingRight = rayAngle < 0.5 * PI || rayAngle > 1.5 * PI;
-    int isRayFacingLeft = !isRayFacingRight;
-    float xstep;
-    float ystep;
-    float xintercept;
-    float yintercept;
+    // Accedemos a la estructura t_ray_cast correspondiente
+    t_ray_cast* ray_cast = &game->ray_casts[stripid];
 
-    int foundHorzWallhit = 0;
-    float horWallHitX = 0;
-    float horWallHitY = 0;
-    int horWallContent = 0;
+    // Determinamos las direcciones del rayo
+    ray_cast->isRayFacingDown = rayAngle > 0 && rayAngle < PI;
+    ray_cast->isRayFacingUp = !ray_cast->isRayFacingDown;
+    ray_cast->isRayFacingRight = rayAngle < 0.5 * PI || rayAngle > 1.5 * PI;
+    ray_cast->isRayFacingLeft = !ray_cast->isRayFacingRight;
 
-    yintercept = floor(player->y / TILE_SIZE) * TILE_SIZE;
-    yintercept += isRayFacingDown ? TILE_SIZE : 0;
+    // Intersección horizontal
+    ray_cast->foundHorzWallhit = 0;
+    ray_cast->horWallHitX = 0;
+    ray_cast->horWallHitY = 0;
+    ray_cast->horWallContent = 0;
 
-    xintercept = player->x + (yintercept - player->y) / tan(rayAngle);
+    ray_cast->yintercept = floor(player->y / TILE_SIZE) * TILE_SIZE;
+    ray_cast->yintercept += ray_cast->isRayFacingDown ? TILE_SIZE : 0;
 
-    ystep = TILE_SIZE;
-    ystep *= isRayFacingUp ? -1 : 1;
+    ray_cast->xintercept = player->x + (ray_cast->yintercept - player->y) / tan(rayAngle);
 
-    xstep = TILE_SIZE / tan(rayAngle);
-    xstep *= (isRayFacingLeft && xstep > 0) ? -1 : 1;
-    xstep *= (isRayFacingRight && xstep < 0) ? -1 : 1;
+    ray_cast->ystep = TILE_SIZE;
+    ray_cast->ystep *= ray_cast->isRayFacingUp ? -1 : 1;
 
-    float nextHorzTouchX = xintercept;
-    float nextHorzTouchY = yintercept;
+    ray_cast->xstep = TILE_SIZE / tan(rayAngle);
+    ray_cast->xstep *= (ray_cast->isRayFacingLeft && ray_cast->xstep > 0) ? -1 : 1;
+    ray_cast->xstep *= (ray_cast->isRayFacingRight && ray_cast->xstep < 0) ? -1 : 1;
 
-    while(nextHorzTouchX >= 0 && nextHorzTouchX <= WINDOW_WIDTH &&  nextHorzTouchY >= 0 && nextHorzTouchY <= WINDOW_HEIGHT)
-    {
-        float xToCheck = nextHorzTouchX;
-        float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
+    ray_cast->nextHorzTouchX = ray_cast->xintercept;
+    ray_cast->nextHorzTouchY = ray_cast->yintercept;
 
-        if(mapHasWallAt(game, xToCheck, yToCheck))
-        {
-            horWallHitX = nextHorzTouchX;
-            horWallHitY = nextHorzTouchY;
-            horWallContent = game->map[(int)floor(yToCheck / TILE_SIZE)] [(int)floor(xToCheck / TILE_SIZE)];
-            foundHorzWallhit = 1;
+    while (ray_cast->nextHorzTouchX >= 0 && ray_cast->nextHorzTouchX <= WINDOW_WIDTH &&
+           ray_cast->nextHorzTouchY >= 0 && ray_cast->nextHorzTouchY <= WINDOW_HEIGHT) {
+        float xToCheck = ray_cast->nextHorzTouchX;
+        float yToCheck = ray_cast->nextHorzTouchY + (ray_cast->isRayFacingUp ? -1 : 0);
+
+        if (mapHasWallAt(game, xToCheck, yToCheck)) {
+            ray_cast->horWallHitX = ray_cast->nextHorzTouchX;
+            ray_cast->horWallHitY = ray_cast->nextHorzTouchY;
+            ray_cast->horWallContent = game->map[(int)floor(yToCheck / TILE_SIZE)][(int)floor(xToCheck / TILE_SIZE)];
+            ray_cast->foundHorzWallhit = 1;
             break;
-        }
-        else
-        {
-            nextHorzTouchX += xstep;
-            nextHorzTouchY += ystep;
+        } else {
+            ray_cast->nextHorzTouchX += ray_cast->xstep;
+            ray_cast->nextHorzTouchY += ray_cast->ystep;
         }
     }
 
-    int foundVerWallhit = 0;
-    float verWallHitX = 0;
-    float verWallHitY = 0;
-    int verWallContent = 0;
+    // Intersección vertical
+    ray_cast->foundVerWallhit = 0;
+    ray_cast->verWallHitX = 0;
+    ray_cast->verWallHitY = 0;
+    ray_cast->verWallContent = 0;
 
-    xintercept = floor(player->x / TILE_SIZE) * TILE_SIZE;
-    xintercept += isRayFacingRight ? TILE_SIZE : 0;
+    ray_cast->xintercept = floor(player->x / TILE_SIZE) * TILE_SIZE;
+    ray_cast->xintercept += ray_cast->isRayFacingRight ? TILE_SIZE : 0;
 
-    yintercept = player->y + (xintercept - player->x) * tan(rayAngle);
+    ray_cast->yintercept = player->y + (ray_cast->xintercept - player->x) * tan(rayAngle);
 
-    xstep = TILE_SIZE;
-    xstep *= isRayFacingLeft ? -1 : 1;
+    ray_cast->xstep = TILE_SIZE;
+    ray_cast->xstep *= ray_cast->isRayFacingLeft ? -1 : 1;
 
-    ystep = TILE_SIZE * tan(rayAngle);
-    ystep *= (isRayFacingUp && ystep > 0) ? -1 : 1;
-    ystep *= (isRayFacingDown && ystep < 0) ? -1 : 1;
+    ray_cast->ystep = TILE_SIZE * tan(rayAngle);
+    ray_cast->ystep *= (ray_cast->isRayFacingUp && ray_cast->ystep > 0) ? -1 : 1;
+    ray_cast->ystep *= (ray_cast->isRayFacingDown && ray_cast->ystep < 0) ? -1 : 1;
 
-    float nextVerTouchX = xintercept;
-    float nextVerTouchY = yintercept;
+    ray_cast->nextVerTouchX = ray_cast->xintercept;
+    ray_cast->nextVerTouchY = ray_cast->yintercept;
 
-    while(nextVerTouchX >= 0 && nextVerTouchX <= WINDOW_WIDTH &&  nextVerTouchY >= 0 && nextVerTouchY <= WINDOW_HEIGHT)
-    {
-        float xToCheck = nextVerTouchX + (isRayFacingLeft ? -1: 0);
-        float yToCheck = nextVerTouchY;
+    while (ray_cast->nextVerTouchX >= 0 && ray_cast->nextVerTouchX <= WINDOW_WIDTH &&
+           ray_cast->nextVerTouchY >= 0 && ray_cast->nextVerTouchY <= WINDOW_HEIGHT) {
+        float xToCheck = ray_cast->nextVerTouchX + (ray_cast->isRayFacingLeft ? -1 : 0);
+        float yToCheck = ray_cast->nextVerTouchY;
 
-        if(mapHasWallAt(game, xToCheck, yToCheck))
-        {
-            verWallHitX = nextVerTouchX;
-            verWallHitY = nextVerTouchY;
-            verWallContent = game->map[(int)floor(yToCheck / TILE_SIZE)] [(int)floor(xToCheck / TILE_SIZE)];
-            foundVerWallhit  = 1;
+        if (mapHasWallAt(game, xToCheck, yToCheck)) {
+            ray_cast->verWallHitX = ray_cast->nextVerTouchX;
+            ray_cast->verWallHitY = ray_cast->nextVerTouchY;
+            ray_cast->verWallContent = game->map[(int)floor(yToCheck / TILE_SIZE)][(int)floor(xToCheck / TILE_SIZE)];
+            ray_cast->foundVerWallhit = 1;
             break;
-        }
-        else
-        {
-            nextVerTouchX += xstep;
-            nextVerTouchY += ystep;
+        } else {
+            ray_cast->nextVerTouchX += ray_cast->xstep;
+            ray_cast->nextVerTouchY += ray_cast->ystep;
         }
     }
 
-    float horHitDistance =  (foundHorzWallhit)
-    ? distanceBetweenPoints(player->x, player->y, horWallHitX, horWallHitY)
-    : FLT_MAX;
-    float verHitDistance = (foundVerWallhit)
-        ? distanceBetweenPoints(player->x, player->y, verWallHitX, verWallHitY)
+    // Calculamos las distancias
+    ray_cast->horHitDistance = (ray_cast->foundHorzWallhit)
+        ? distanceBetweenPoints(player->x, player->y, ray_cast->horWallHitX, ray_cast->horWallHitY)
         : FLT_MAX;
-    if (verHitDistance < horHitDistance)
-    {
-        rays[stripid].distance = verHitDistance;
-        rays[stripid].wallHitX = verWallHitX;
-        rays[stripid].wallHitY = verWallHitY;
-        rays[stripid].wallHitContent = verWallContent;
+    ray_cast->verHitDistance = (ray_cast->foundVerWallhit)
+        ? distanceBetweenPoints(player->x, player->y, ray_cast->verWallHitX, ray_cast->verWallHitY)
+        : FLT_MAX;
+
+    // Determinamos el impacto más cercano
+    if (ray_cast->verHitDistance < ray_cast->horHitDistance) {
+        rays[stripid].distance = ray_cast->verHitDistance;
+        rays[stripid].wallHitX = ray_cast->verWallHitX;
+        rays[stripid].wallHitY = ray_cast->verWallHitY;
+        rays[stripid].wallHitContent = ray_cast->verWallContent;
         rays[stripid].wasHitVertical = 1;
-    }
-    else
-    {
-        rays[stripid].distance = horHitDistance;
-        rays[stripid].wallHitX = horWallHitX;
-        rays[stripid].wallHitY = horWallHitY;
-        rays[stripid].wallHitContent = horWallContent;
+    } else {
+        rays[stripid].distance = ray_cast->horHitDistance;
+        rays[stripid].wallHitX = ray_cast->horWallHitX;
+        rays[stripid].wallHitY = ray_cast->horWallHitY;
+        rays[stripid].wallHitContent = ray_cast->horWallContent;
         rays[stripid].wasHitVertical = 0;
     }
+
+    // Asignamos las propiedades del rayo
     rays[stripid].rayAngle = rayAngle;
-    rays[stripid].isRayFacingDown = isRayFacingDown;
-    rays[stripid].isRayFacingUp = isRayFacingUp;
-    rays[stripid].isRayFacingLeft = isRayFacingLeft;
-    rays[stripid].isRayFacingRight = isRayFacingRight;
+    rays[stripid].isRayFacingDown = ray_cast->isRayFacingDown;
+    rays[stripid].isRayFacingUp = ray_cast->isRayFacingUp;
+    rays[stripid].isRayFacingLeft = ray_cast->isRayFacingLeft;
+    rays[stripid].isRayFacingRight = ray_cast->isRayFacingRight;
 }
 
 
-void castAllRays(t_game* game)
+
+void cast_all_rays(t_game* game)
 {
-   
+
     float rayAngle = game->player.rotationAngle - (FOV / 2);
     for (int stripid = 0; stripid < NUM_RAYS; stripid++)
     {
-        castRay(game, rayAngle, stripid);
+        cast_ray(game, rayAngle, stripid);
         rayAngle += FOV / NUM_RAYS;
     }
 }
