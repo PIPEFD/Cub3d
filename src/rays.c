@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/09 15:33:56 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:18:28 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
+extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
-void castRay(float rayAngle, int stripid, t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
+void castRay(t_game* game, float rayAngle, int stripid)
 {
-    (void)img;
-    (void)mlx;
     rayAngle = normalizeAngle(rayAngle);
+
+    t_player* player = &game->player;
+    t_ray* rays = game->rays;
 
     int isRayFacingDown = rayAngle > 0 && rayAngle < PI;
     int isRayFacingUp = !isRayFacingDown;
@@ -53,11 +55,11 @@ void castRay(float rayAngle, int stripid, t_player *player, mlx_t *mlx, mlx_imag
         float xToCheck = nextHorzTouchX;
         float yToCheck = nextHorzTouchY + (isRayFacingUp ? -1 : 0);
 
-        if(mapHasWallAt(xToCheck, yToCheck))
+        if(mapHasWallAt(game, xToCheck, yToCheck))
         {
             horWallHitX = nextHorzTouchX;
             horWallHitY = nextHorzTouchY;
-            horWallContent = map[(int)floor(yToCheck / TILE_SIZE)] [(int)floor(xToCheck / TILE_SIZE)];
+            horWallContent = game->map[(int)floor(yToCheck / TILE_SIZE)] [(int)floor(xToCheck / TILE_SIZE)];
             foundHorzWallhit = 1;
             break;
         }
@@ -93,11 +95,11 @@ void castRay(float rayAngle, int stripid, t_player *player, mlx_t *mlx, mlx_imag
         float xToCheck = nextVerTouchX + (isRayFacingLeft ? -1: 0);
         float yToCheck = nextVerTouchY;
 
-        if(mapHasWallAt(xToCheck, yToCheck))
+        if(mapHasWallAt(game, xToCheck, yToCheck))
         {
             verWallHitX = nextVerTouchX;
             verWallHitY = nextVerTouchY;
-            verWallContent = map[(int)floor(yToCheck / TILE_SIZE)] [(int)floor(xToCheck / TILE_SIZE)];
+            verWallContent = game->map[(int)floor(yToCheck / TILE_SIZE)] [(int)floor(xToCheck / TILE_SIZE)];
             foundVerWallhit  = 1;
             break;
         }
@@ -116,38 +118,35 @@ void castRay(float rayAngle, int stripid, t_player *player, mlx_t *mlx, mlx_imag
         : FLT_MAX;
     if (verHitDistance < horHitDistance)
     {
-        ray[stripid]->distance = verHitDistance;
-        ray[stripid]->wallHitX = verWallHitX;
-        ray[stripid]->wallHitY = verWallHitY;
-        ray[stripid]->wallHitContent = verWallContent;
-        ray[stripid]->wasHitVertical = 1;
+        rays[stripid].distance = verHitDistance;
+        rays[stripid].wallHitX = verWallHitX;
+        rays[stripid].wallHitY = verWallHitY;
+        rays[stripid].wallHitContent = verWallContent;
+        rays[stripid].wasHitVertical = 1;
     }
     else
     {
-        ray[stripid]->distance = horHitDistance;
-        ray[stripid]->wallHitX = horWallHitX;
-        ray[stripid]->wallHitY = horWallHitY;
-        ray[stripid]->wallHitContent = horWallContent;
-        ray[stripid]->wasHitVertical = 0;
+        rays[stripid].distance = horHitDistance;
+        rays[stripid].wallHitX = horWallHitX;
+        rays[stripid].wallHitY = horWallHitY;
+        rays[stripid].wallHitContent = horWallContent;
+        rays[stripid].wasHitVertical = 0;
     }
-    ray[stripid]->rayAngle = rayAngle;
-    ray[stripid]->isRayFacingDown = isRayFacingDown;
-    ray[stripid]->isRayFacingUp = isRayFacingUp;
-    ray[stripid]->isRayFacingLeft = isRayFacingLeft;
-    ray[stripid]->isRayFacingRight = isRayFacingRight;
+    rays[stripid].rayAngle = rayAngle;
+    rays[stripid].isRayFacingDown = isRayFacingDown;
+    rays[stripid].isRayFacingUp = isRayFacingUp;
+    rays[stripid].isRayFacingLeft = isRayFacingLeft;
+    rays[stripid].isRayFacingRight = isRayFacingRight;
 }
 
 
-void castAllRays(t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
+void castAllRays(t_game* game)
 {
-    (void)ray;
-    (void)mlx;
-    (void)img;
-    
-    float rayAngle = player->rotationAngle - (FOV / 2);
+   
+    float rayAngle = game->player.rotationAngle - (FOV / 2);
     for (int stripid = 0; stripid < NUM_RAYS; stripid++)
     {
-        castRay(rayAngle, stripid, player, mlx, img, ray);
+        castRay(game, rayAngle, stripid);
         rayAngle += FOV / NUM_RAYS;
     }
 }

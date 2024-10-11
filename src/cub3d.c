@@ -12,21 +12,40 @@
 
 #include "../inc/cub3d.h"
 
+void destroyWindow(t_game* game)
+{
+    if (game->img)
+    {
+        mlx_delete_image(game->mlx, game->img);
+        game->img = NULL;
+    }
+    if (game->mlx)
+    {
+        mlx_terminate(game->mlx);
+        game->mlx = NULL;
+    }
+    // Liberar memoria del mapa
+    if (game->map)
+    {
+        for (int i = 0; i < MAP_NUM_ROWS; i++)
+        {
+            free(game->map[i]);
+        }
+        free(game->map);
+        game->map = NULL;
+    }
+}
+
+
 int main()
 {
-    mlx_t   *mlx;
+    t_game game;
     
-    mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Raycaster", true);
-    if (!mlx)
-    {
-        fprintf(stderr, "Error initializing MLX.\n");
-        exit(EXIT_FAILURE);
-    }
-    setup(mlx);
+    setup(&game);
 
-    mlx_loop(mlx);
+    mlx_loop(game.mlx);
 
-    // destroyWindow();
+    destroyWindow(&game);
 
     return 0;
 }

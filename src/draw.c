@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:28:47 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/08 16:29:04 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/11 00:38:42 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
 
 
 void draw_rectangle(mlx_image_t* img, int x, int y, int width, int height, uint32_t color)

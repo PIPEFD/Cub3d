@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/09 15:27:26 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/10 16:14:18 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../inc/cub3d.h"
+extern const int map[MAP_NUM_ROWS][MAP_NUM_COLS];
 
 
-void movePlayer(float deltaTime, t_player *player, mlx_t *mlx, mlx_image_t *img, t_ray *ray)
+void movePlayer(t_game  *game, float deltaTime)
 {
-    (void)mlx;
-    (void)img;
-    (void)ray;
+    t_player    *player = &game->player;
+
     player->rotationAngle += player->turnDirection * player->turnSpeed * deltaTime;
     player->rotationAngle = fmod(player->rotationAngle, TWO_PI);
     if (player->rotationAngle < 0)
@@ -28,7 +28,7 @@ void movePlayer(float deltaTime, t_player *player, mlx_t *mlx, mlx_image_t *img,
 
     float newPlayerX = player->x + cos(player->rotationAngle) * moveStep;
     float newPlayerY = player->y + sin(player->rotationAngle) * moveStep;
-    if (!mapHasWallAt(newPlayerX, newPlayerY)) {
+    if (!mapHasWallAt(game, newPlayerX, newPlayerY)) {
         player->x = newPlayerX;
         player->y = newPlayerY;
     }
