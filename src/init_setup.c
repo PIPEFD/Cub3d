@@ -29,10 +29,10 @@ void	update(void *param)
 	cast_all_rays(game);
 	ft_memset(game->img->pixels, 0, game->img->width * game->img->height
 		* sizeof(unsigned int));
-	render3DProjection(game);
-	renderMap(game);
-	renderRays(game);
-	renderPlayer(game);
+	render_3d_projection(game);
+	render_map(game);
+	render_rays(game);
+	render_player(game);
 }
 
 int	setup(t_game *game, const char *directionInput)

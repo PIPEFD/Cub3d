@@ -8,18 +8,20 @@ CC          =   gcc
 FLAGS       =   -Wall -Wextra -Werror -g3 -fsanitize=address
 RM          =   rm -f
 
-SRC_FILES   =   cub3d.c \
+SRC_FILES   =   main.c \
 				hook.c \
 				init_data.c \
 				init_setup.c \
-				player_utils.c \
+				player_setup.c \
 				rays_horizontal.c \
 				rays_vertical.c \
 				draw.c \
 				map_utils.c \
-				rays_cast.c \
 				rays_setup.c \
-				render.c
+				utils_math.c \
+				render_2d.c \
+				render_3d.c
+
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -57,7 +59,9 @@ clean:
 			@echo "$(YELLOW)OBJECT FILES REMOVED!$(DEF_COLOR)"
 			@make clean -C ./libft
 			@make clean -C build
-
+normi:
+			norminette ./src
+			norminette ./inc
 fclean:     clean
 			@make fclean -C ./libft
 			@$(RM)  $(NAME)

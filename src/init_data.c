@@ -6,59 +6,19 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/12 23:24:04 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/13 01:14:01 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-
-int data_init_rays(t_game *game) {
-    // Inicializamos los rayos
-    for (int i = 0; i < NUM_RAYS; i++) {
-        // Inicializamos t_ray
-        game->rays[i].distance = 0;
-        game->rays[i].wallHitX = 0;
-        game->rays[i].wallHitY = 0;
-        game->rays[i].wallHitContent = 0;
-        game->rays[i].wasHitVertical = 0;
-        game->rays[i].rayAngle = 0;
-        game->rays[i].isRayFacingDown = 0;
-        game->rays[i].isRayFacingUp = 0;
-        game->rays[i].isRayFacingLeft = 0;
-        game->rays[i].isRayFacingRight = 0;
-
-        // Inicializamos t_ray_cast si lo has añadido a t_game
-        game->ray_casts[i].isRayFacingDown = 0;
-        game->ray_casts[i].isRayFacingUp = 0;
-        game->ray_casts[i].isRayFacingRight = 0;
-        game->ray_casts[i].isRayFacingLeft = 0;
-
-        game->ray_casts[i].xintercept = 0;
-        game->ray_casts[i].yintercept = 0;
-        game->ray_casts[i].xstep = 0;
-        game->ray_casts[i].ystep = 0;
-
-        game->ray_casts[i].foundHorzWallhit = 0;
-        game->ray_casts[i].horWallHitX = 0;
-        game->ray_casts[i].horWallHitY = 0;
-        game->ray_casts[i].horWallContent = 0;
-
-        game->ray_casts[i].foundVerWallhit = 0;
-        game->ray_casts[i].verWallHitX = 0;
-        game->ray_casts[i].verWallHitY = 0;
-        game->ray_casts[i].verWallContent = 0;
-
-        game->ray_casts[i].nextHorzTouchX = 0;
-        game->ray_casts[i].nextHorzTouchY = 0;
-        game->ray_casts[i].nextVerTouchX = 0;
-        game->ray_casts[i].nextVerTouchY = 0;
-
-        game->ray_casts[i].horHitDistance = 0;
-        game->ray_casts[i].verHitDistance = 0;
-    }
-	return(0);
+int	data_init_rays(t_game *game)
+{
+	ft_memset(game->rays, 0, sizeof(t_ray) * NUM_RAYS);
+	ft_memset(game->ray_casts, 0, sizeof(t_ray_cast) * NUM_RAYS);
+	return (0);
 }
+
 int	init_data_player(t_game *game, const char *direction_input)
 {
 	game->player.x = WINDOW_WIDTH / 2;
@@ -66,59 +26,45 @@ int	init_data_player(t_game *game, const char *direction_input)
 	game->player.width = 1;
 	game->player.height = 1;
 	game->player.turnDirection = 0;
-	game->player.strafeDirection = 0; // Inicializar strafeDirection
+	game->player.strafeDirection = 0;
 	game->player.walkDirection = 0;
 	game->player.rotationAngle = PI / 2;
 	game->player.walkSpeed = 150;
 	game->player.turnSpeed = 45 * (PI / 180);
 	game->ticksLastFrame = 0;
-	// Establecer la dirección del jugador basada en el input
 	if (direction_input != NULL)
 	{
 		set_player_direction(&game->player, direction_input);
 	}
 	else
 	{
-		// Dirección predeterminada si no se proporciona input
-		game->player.rotationAngle = PI / 2; // 90 grados
+		game->player.rotationAngle = PI / 2;
 	}
 	return (0);
 }
 
-int init_data_map(t_game *game)
+int	init_data_map(t_game *game)
 {
-	printf("HERE!!!!");
-	const char *mapData[MAP_NUM_ROWS] = {
-        "111111111111111",
-        "100000000000101",
-        "100100000000101",
-        "101110000010101",
-        "100000000010101",
-        "100000001111101",
-        "100000000000001",
-        "100000000000001",
-        "111111000111101",
-        "100000000000001",
-        "111111111111111"};
-    // Set up hooks
-    game->map = malloc(sizeof(char *) * MAP_NUM_ROWS);
-    if (!game->map)
-		return('\0');
-	int i = 0;
+	const char	*mapdata[MAP_NUM_ROWS] = {"111111111111111", "100000000000101",
+		"100100000000101", "101110000010101", "100000000010101",
+		"100000001111101", "100000000000001", "100000000000001",
+		"111111000111101", "100000000000001", "111111111111111"};
+	int			i;
 
-    while (i < MAP_NUM_ROWS)
-    {
-		write(1, "X", 1);
-		// printf("[%ld]\n", ft_strlen(game->map[i]));
-        game->map[i] = ft_strdup(mapData[i]);
-        if (!game->map[i])
-        {
-            printf("Error duplicating map row.\n");
-            return(-1);
-        }
+	game->map = malloc(sizeof(char *) * MAP_NUM_ROWS);
+	if (!game->map)
+		return ('\0');
+	i = 0;
+	while (i < MAP_NUM_ROWS)
+	{
+		game->map[i] = ft_strdup(mapdata[i]);
+		if (!game->map[i])
+		{
+			printf("Error duplicating map row.\n");
+			return (-1);
+		}
 		i++;
 		printf("[%d]", i);
-    }
-	// game->map[i] = NULL;
-	return(0);
+	}
+	return (0);
 }

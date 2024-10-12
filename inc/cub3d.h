@@ -140,7 +140,7 @@ void				destroy_window(t_game *game);
 void				key_hook(mlx_key_data_t keydata, void *param);
 
 // -- // -- // --- // -- //
-int					mapHasWallAt(t_game *game, float x, float y);
+int	map_has_wall_at(t_game *game, float x, float y);
 int					move_player(t_game *game, float deltaTime);
 // --- // --- // --- // --- // --- //
 // Funciones para determinar la poscionde del rayo en un plano 2D
@@ -166,16 +166,16 @@ void				findHorizontalIntersection(t_game *game,
 
 // --- // --- // --- // --- // --- //
 
-void				renderRays(t_game *game);
-void				renderPlayer(t_game *game);
-int					renderMap(t_game *game);
+void				render_rays(t_game *game);
+void				render_player(t_game *game);
+int					render_map(t_game *game);
 void				update(void *param);
 int					setup(t_game *game, const char *direction_input);
-float				normalizeAngle(float angle);
-float				distanceBetweenPoints(float x1, float y1, float x2,
+float				normalize_angle(float angle);
+float				distance_between_points(float x1, float y1, float x2,
 						float y2);
 
-void				render3DProjection(t_game *game);
+void				render_3d_projection(t_game *game);
 
 // Funciones para agres sprites y texturas al juego //
 
