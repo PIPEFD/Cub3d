@@ -4,11 +4,11 @@
 //
 
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/inc/libft.h"
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <math.h>
-# include "../libft/inc/libft.h"
 // --- // --- // --- // --- // --- //
 // Librerias no permitidas por el proyecto
 // --- // --- // --- // --- // --- //
@@ -109,12 +109,16 @@ typedef struct s_game
 }					t_game;
 
 // Funciones de parseo y estrucuturacion del mapa //
+// --- // --- // --- // --- // --- //
+// Funciones para la inicializacion de la estructura
+// --- // --- // --- // --- // --- //
 
 int					init_data_map(t_game *game);
-
-int					init_data_player(t_game *game, const char* directionInput);
-int					data_init_rays(t_game* game);
-int					set_player_direction(t_player *player, const char *directionInput);
+int					init_data_player(t_game *game, const char *directionInput);
+int					data_init_rays(t_game *game);
+// --- // --- // --- // --- // --- //
+int					set_player_direction(t_player *player,
+						const char *directionInput);
 // Añadido
 
 // --- // --- // --- // --- // --- // // --- // --- // --- // --- // --- //
@@ -137,12 +141,33 @@ void				key_hook(mlx_key_data_t keydata, void *param);
 
 // -- // -- // --- // -- //
 int					mapHasWallAt(t_game *game, float x, float y);
-void				renderPlayer(t_game *game);
 int					move_player(t_game *game, float deltaTime);
-void				cast_all_rays(t_game *game);
+// --- // --- // --- // --- // --- //
+// Funciones para determinar la poscionde del rayo en un plano 2D
+// Ademas de Funciones auxiliares para realizar el calculo
+// de la vista a la cual se dirijean los rayos ademas
+// de las intercepciones para determinar el chocque de los rayos
+// con los muros en el angulo de vision establecido
+// --- // --- // --- // --- // --- //
+
 void				cast_ray(t_game *game, float rayAngle, int stripid);
+void				cast_all_rays(t_game *game);
+int					determineRayDirection(t_ray_cast *ray_cast, float rayAngle);
+void				calculateDistances(t_ray_cast *ray_cast, t_player *player);
+void				determineClosestHit(t_ray_cast *ray_cast, t_ray *ray);
+void				updateRayProperties(t_ray *ray, t_ray_cast *ray_cast,
+						float rayAngle);
+void				castVerticalRay(t_game *game, t_ray_cast *ray_cast,
+						float rayAngle);
+void				castHorizontalRay(t_game *game, t_ray_cast *ray_cast,
+						float rayAngle);
+void				findHorizontalIntersection(t_game *game,
+						t_ray_cast *ray_cast);
+
+// --- // --- // --- // --- // --- //
 
 void				renderRays(t_game *game);
+void				renderPlayer(t_game *game);
 int					renderMap(t_game *game);
 void				update(void *param);
 int					setup(t_game *game, const char *direction_input);

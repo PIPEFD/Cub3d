@@ -8,16 +8,18 @@ CC          =   gcc
 FLAGS       =   -Wall -Wextra -Werror -fsanitize=address
 RM          =   rm -f
 
-SRC_FILES   =   draw.c \
-                cub3d.c \
-                player.c \
-                hook.c \
-                rays.c \
-                render.c \
-                setup.c \
-                map.c \
-                utils.c \
-				init_data.c
+SRC_FILES   =   cub3d.c \
+				hook.c \
+				init_data.c \
+				init_setup.c \
+				player_utils.c \
+				rays_horizontal.c \
+				rays_vertical.c \
+				draw.c \
+				map_utils.c \
+				rays_cast.c \
+				rays_setup.c \
+				render.c
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
 
@@ -35,7 +37,7 @@ CLEAR       =   \033[0m\n
 all:        $(NAME)
 
 $(NAME):    $(LIBFT) $(MLX) $(OBJS_FILES)
-			@printf "$(BLUE)LINKING... $(DEF_COLOR)$(CLEAR)"
+			@printf "$(BLUE)COMPILING... $(DEF_COLOR)$(CLEAR)"
 			@$(CC) $(FLAGS) -o $(NAME) $(OBJS_FILES) $(LIBFT) $(MLX) -ldl -lglfw -pthread -lm
 			@echo "$(GREEN)CUB3D COMPILED SUCCESSFULLY!$(DEF_COLOR)"
 

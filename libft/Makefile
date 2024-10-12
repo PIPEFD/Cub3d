@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 15:32:25 by dbonilla          #+#    #+#              #
-#    Updated: 2023/10/16 16:58:48 by codespace        ###   ########.fr        #
+#    Updated: 2024/10/12 00:41:00 by pipe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,14 +64,14 @@ $(NAME):		$(OBJ)
 					@$(AR) $(NAME) $(OBJ)
 					@echo "libft compiled!"
 
-.c.o:			
+.c.o:
 				@echo "Compiling"
 				@$(CC) $(CCFLAGS) -I$(INCLUDES) -c $< -o $(<:.c=.o)
 clean:
-				$(RM) $(OBJ)
+				@$(RM) $(OBJ)
 
 fclean:			clean
-				$(RM) $(NAME)
+				@$(RM) $(NAME)
 
 re:				fclean all
 

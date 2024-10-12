@@ -55,7 +55,7 @@ int	setup(t_game *game, const char *directionInput)
 	if (init_data_map(game) != 0)
 		return (-1);
 	if (data_init_rays(game) != 0)
-		return(-1);
+		return (-1);
 	mlx_key_hook(game->mlx, &key_hook, game);
 	mlx_loop_hook(game->mlx, &update, game);
 	return (0);

@@ -1,53 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/11 23:35:21 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/12 01:14:58 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-int	set_player_direction(t_player *player, const char *directionInput)
+float direction_to_radians(const char *directionInput)
 {
-	float	degrees;
-
-	if (ft_strcmp(directionInput, "N") == 0 || ft_strcmp(directionInput, "n") == 0)
-	{
-		player->rotationAngle = 3 * PI / 2; // 270 grados
-	}
-	else if (ft_strcmp(directionInput, "S") == 0 || ft_strcmp(directionInput,
-			"s") == 0)
-	{
-		player->rotationAngle = PI / 2; // 90 grados
-	}
-	else if (ft_strcmp(directionInput, "E") == 0 || ft_strcmp(directionInput,
-			"e") == 0)
-	{
-		player->rotationAngle = 0;
-	}
-	else if (ft_strcmp(directionInput, "O") == 0 || ft_strcmp(directionInput,
-			"o") == 0)
-	{
-		player->rotationAngle = PI; // 180 grados
-	}
-	else
-	{
-		// Intentar convertir el input a grados y luego a radianes
-		degrees = atof(directionInput);
-		player->rotationAngle = degrees * (PI / 180.0);
-	}
-	// Normalizar el ángulo entre 0 y 2*PI
-	if (player->rotationAngle < 0)
-		player->rotationAngle += TWO_PI;
-	if (player->rotationAngle >= TWO_PI)
-		player->rotationAngle -= TWO_PI;
-	return (0);
+    if (ft_strcmp(directionInput, "N") == 0 || ft_strcmp(directionInput, "n") == 0)
+        return 3 * PI / 2; // 270 grados
+    else if (ft_strcmp(directionInput, "S") == 0 || ft_strcmp(directionInput, "s") == 0)
+        return PI / 2; // 90 grados
+    else if (ft_strcmp(directionInput, "E") == 0 || ft_strcmp(directionInput, "e") == 0)
+        return 0; // 0 grados
+    else if (ft_strcmp(directionInput, "O") == 0 || ft_strcmp(directionInput, "o") == 0)
+        return PI; // 180 grados
+    return -1; // Dirección no válida
 }
+
+
+int set_player_direction(t_player *player, const char *directionInput)
+{
+    float degrees;
+    float rotationAngle;
+
+    // Intentar obtener el ángulo de la dirección cardinal
+    rotationAngle = direction_to_radians(directionInput);
+
+    // Si la dirección no es válida, intentar convertir el input a grados
+    if (rotationAngle == -1)
+    {
+        degrees = atof(directionInput);
+        rotationAngle = degrees * (PI / 180.0); // Convertir grados a radianes
+    }
+
+    // Normalizar el ángulo entre 0 y 2*PI
+    player->rotationAngle = normalizeAngle(rotationAngle);
+
+    return (0);
+}
+
 
 int	move_player(t_game *game, float deltaTime)
 {
