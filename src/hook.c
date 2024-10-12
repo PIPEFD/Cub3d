@@ -6,7 +6,7 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:22:07 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/12 01:17:28 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/13 00:09:16 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void key_hook(mlx_key_data_t keydata, void *param)
 
     if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
     {
+		// destroy_window(game);
         mlx_close_window(game->mlx);
     }
 

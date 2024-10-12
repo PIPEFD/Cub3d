@@ -5,7 +5,7 @@ SRC_DIR     =   src/
 MLX         =   build/libmlx42.a
 
 CC          =   gcc
-FLAGS       =   -Wall -Wextra -Werror -fsanitize=address
+FLAGS       =   -Wall -Wextra -Werror -g3 -fsanitize=address
 RM          =   rm -f
 
 SRC_FILES   =   cub3d.c \

@@ -6,7 +6,7 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/11 20:35:38 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/12 23:10:44 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ int	renderMap(t_game *game)
 	tileY = 0;
 	i = 0;
 	j = 0;
-	while (i++ < MAP_NUM_ROWS)
+	while (i < MAP_NUM_ROWS)
 	{
-		while (j++ < MAP_NUM_COLS)
+		j = 0;
+		while (j < MAP_NUM_COLS)
 		{
 			tileX = j * TILE_SIZE;
 			tileY = i * TILE_SIZE;
@@ -70,7 +71,9 @@ int	renderMap(t_game *game)
 			draw_rectangle(game->img, tileX * MINIMAP_SCALE_FACTOR, tileY
 				* MINIMAP_SCALE_FACTOR, TILE_SIZE * MINIMAP_SCALE_FACTOR,
 				TILE_SIZE * MINIMAP_SCALE_FACTOR, tileColor);
+			j++;
 		}
+		i++;
 	}
 	return (0);
 }

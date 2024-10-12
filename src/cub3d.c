@@ -32,13 +32,15 @@ void	destroy_window(t_game *game)
 	if (game->map)
 	{
 		i = 0;
-		while (i++ < MAP_NUM_ROWS)
+		while (i < MAP_NUM_ROWS)
 		{
 			free(game->map[i]);
+			i++;
 		}
 		free(game->map);
 		game->map = NULL;
 	}
+	// mlx_close_window(game->mlx);
 }
 
 int	main(int argc, char **argv)
