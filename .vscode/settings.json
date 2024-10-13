@@ -1,7 +1,15 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "structs.h": "c",
         "libft.h": "c",
         "map": "c"
     }
 }
+=======
+        "cub3d.h": "c",
+        "random": "c"
+    }
+
+}
+>>>>>>> David
