@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:44:54 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/01 11:46:41 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:18:22 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # include "libft.h"
 # include "structs.h"
 # include "utils.h"
+# include "MLX42_Int.h"
 
 #endif //CUB3D_H
