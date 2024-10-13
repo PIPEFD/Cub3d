@@ -3,7 +3,7 @@ LIBFT       =   libft/libft.a
 INC         =   inc/
 SRC_DIR     =   src/
 MLX         =   build/libmlx42.a
-
+BUILD       =   make -C build 2>/dev/null
 CC          =   gcc
 FLAGS       =   -Wall -Wextra -Werror -g3 -fsanitize=address
 RM          =   rm -f
@@ -18,6 +18,7 @@ SRC_FILES   =   main.c \
 				draw.c \
 				map_utils.c \
 				rays_setup.c \
+				rays_utils.c \
 				utils_math.c \
 				render_2d.c \
 				render_3d.c
@@ -48,7 +49,8 @@ $(LIBFT):
 
 $(MLX):
 			@cmake -B build ./MLX42 2>/dev/null
-			@make -C build 2>/dev/null
+			 $(BUILD)
+
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 			@mkdir -p $(OBJ_DIR)

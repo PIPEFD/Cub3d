@@ -6,60 +6,59 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:28:47 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 01:34:25 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/13 23:56:17 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_rectangle(mlx_image_t *img, int x, int y, int width, int height,
-		unsigned int color)
+void	draw_rectangle(t_game *game)
 {
-	for (int i = x; i < x + width; i++)
+	t_rectangle_params	*params;
+	int					i;
+	int					j;
+
+	params = game->draw_figures.rect_params;
+	i = params->x;
+	while (i < (params->x + params->width))
 	{
-		for (int j = y; j < y + height; j++)
+		j = params->y;
+		while (j < (params->y + params->height))
 		{
-			if (i >= 0 && i < (int)img->width && j >= 0 && j < (int)img->height)
-				mlx_put_pixel(img, i, j, color);
+			if (i >= 0 && i < (int)game->img->width && j >= 0
+				&& j < (int)game->img->height)
+				mlx_put_pixel(game->img, i, j, params->color);
+			j++;
 		}
+		i++;
 	}
 }
 
-void	draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1,
-		unsigned int color)
+void	draw_line(t_game *game)
 {
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
+	t_line_params		*params;
+	t_bresenham_vars	vars;
+	int					e2;
 
-	dx = ft_abs(x1 - x0);
-	dy = -ft_abs(y1 - y0);
-	sx = x0 < x1 ? 1 : -1;
-	sy = y0 < y1 ? 1 : -1;
-	err = dx + dy;
+	params = game->draw_figures.line_params;
+	init_data_bresenham(&vars, params);
 	while (1)
 	{
-		if (x0 >= 0 && x0 < (int)img->width && y0 >= 0 && y0 < (int)img->height)
-			mlx_put_pixel(img, x0, y0, color);
-		if (x0 == x1 && y0 == y1)
+		if (vars.x0 >= 0 && vars.x0 < (int)game->img->width && vars.y0 >= 0
+			&& vars.y0 < (int)game->img->height)
+			mlx_put_pixel(game->img, vars.x0, vars.y0, params->color);
+		if (vars.x0 == vars.x1 && vars.y0 == vars.y1)
 			break ;
-		e2 = 2 * err;
-		if (e2 >= dy)
+		e2 = 2 * vars.err;
+		if (e2 >= vars.dy)
 		{
-			err += dy;
-			x0 += sx;
+			vars.err += vars.dy;
+			vars.x0 += vars.sx;
 		}
-		if (e2 <= dx)
+		if (e2 <= vars.dx)
 		{
-			err += dx;
-			y0 += sy;
+			vars.err += vars.dx;
+			vars.y0 += vars.sy;
 		}
 	}
 }
-// TO DO:
-/*Crear estrucutra para funciones 3d ademas de estrucutra para funciones de dibujo necesarias para generarr el mapa
-
-*/

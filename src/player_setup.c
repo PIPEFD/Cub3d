@@ -6,38 +6,38 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 01:13:16 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/13 21:29:41 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-float	direction_to_radians(const char *directionInput)
+float	direction_to_radians(const char *direction_input)
 {
-	if (ft_strcmp(directionInput, "N") == 0 || ft_strcmp(directionInput,
+	if (ft_strcmp(direction_input, "N") == 0 || ft_strcmp(direction_input,
 			"n") == 0)
 		return (3 * PI / 2);
-	else if (ft_strcmp(directionInput, "S") == 0 || ft_strcmp(directionInput,
+	else if (ft_strcmp(direction_input, "S") == 0 || ft_strcmp(direction_input,
 			"s") == 0)
 		return (PI / 2);
-	else if (ft_strcmp(directionInput, "E") == 0 || ft_strcmp(directionInput,
+	else if (ft_strcmp(direction_input, "E") == 0 || ft_strcmp(direction_input,
 			"e") == 0)
 		return (0);
-	else if (ft_strcmp(directionInput, "O") == 0 || ft_strcmp(directionInput,
+	else if (ft_strcmp(direction_input, "O") == 0 || ft_strcmp(direction_input,
 			"o") == 0)
 		return (PI);
 	return (-1);
 }
 
-int	set_player_direction(t_player *player, const char *directionInput)
+int	set_player_direction(t_player *player, const char *direction_input)
 {
 	float	degrees;
 	float	rotation_angle;
 
-	rotation_angle = direction_to_radians(directionInput);
+	rotation_angle = direction_to_radians(direction_input);
 	if (rotation_angle == -1)
 	{
-		degrees = atof(directionInput);
+		degrees = atof(direction_input);
 		// Cambiar Funcion ATOF -------------------------------------------------------------------
 		// -------------------------------------------------------------------
 		rotation_angle = degrees * (PI / 180.0);

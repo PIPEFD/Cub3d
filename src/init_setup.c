@@ -35,7 +35,21 @@ void	update(void *param)
 	render_player(game);
 }
 
-int	setup(t_game *game, const char *directionInput)
+int	init_data_all(t_game *game, const char *direction_input)
+{
+	if (init_data_player(game, direction_input) != 0)
+		return (-1);
+	if (init_data_map(game) != 0)
+		return (-1);
+	if (data_init_rays(game) != 0)
+		return (-1);
+	if (init_data_figures(game) != 0)
+		return (-1);
+	printf("\nInitialized data correctly\n");
+	return (0);
+}
+
+int	setup(t_game *game, const char *direction_input)
 {
 	game->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
 	if (!game->mlx)
@@ -49,13 +63,9 @@ int	setup(t_game *game, const char *directionInput)
 		printf("Error creating image.\n");
 		return (-1);
 	}
+	if (init_data_all(game, direction_input) != 0)
+		return (-1);
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	if (init_data_player(game, directionInput) != 0)
-		return (-1);
-	if (init_data_map(game) != 0)
-		return (-1);
-	if (data_init_rays(game) != 0)
-		return (-1);
 	mlx_key_hook(game->mlx, &key_hook, game);
 	mlx_loop_hook(game->mlx, &update, game);
 	return (0);

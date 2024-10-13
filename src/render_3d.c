@@ -6,12 +6,13 @@
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/13 01:08:39 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 00:59:44 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
+// TO DO:
+// Asignar variables a la estrcutura para que se puedan usar en un futuro
 void	calculate_projection(t_game *game, int i, float *perp_distance,
 		float *distance_proj_plane, float *wall_strip_height,
 		int *wall_top_pixel, int *wall_bottom_pixel, unsigned int *wall_color)

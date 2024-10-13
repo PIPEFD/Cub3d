@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 01:01:08 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/13 23:03:16 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@ void	render_rays(t_game *game)
 	unsigned int	ray_color;
 	int				i;
 
-	i = 50;
 	ray_color = 0x38FF00FF;
-	while (i < NUM_RAYS)
+	i = 50;
+	while (NUM_RAYS > i)
 	{
-		draw_line(game->img, game->player.x * MINIMAP_SCALE_FACTOR,
-			game->player.y * MINIMAP_SCALE_FACTOR, game->rays[i].wallHitX
-			* MINIMAP_SCALE_FACTOR, game->rays[i].wallHitY
-			* MINIMAP_SCALE_FACTOR, ray_color);
+		game->draw_figures.line_params->x0 = game->player.x
+			* MINIMAP_SCALE_FACTOR;
+		game->draw_figures.line_params->y0 = game->player.y
+			* MINIMAP_SCALE_FACTOR;
+		game->draw_figures.line_params->x1 = game->rays[i].wallHitX
+			* MINIMAP_SCALE_FACTOR;
+		game->draw_figures.line_params->y1 = game->rays[i].wallHitY
+			* MINIMAP_SCALE_FACTOR;
+		game->draw_figures.line_params->color = ray_color;
+		draw_line(game);
 		i++;
 	}
 }
@@ -32,17 +38,26 @@ void	render_rays(t_game *game)
 void	render_player(t_game *game)
 {
 	unsigned int	player_color;
+	float			line_length;
 
 	player_color = 0xFA0000FF;
-	draw_rectangle(game->img, game->player.x * MINIMAP_SCALE_FACTOR,
-		game->player.y * MINIMAP_SCALE_FACTOR, game->player.width
-		* MINIMAP_SCALE_FACTOR, game->player.height * MINIMAP_SCALE_FACTOR,
-		player_color);
-	draw_line(game->img, game->player.x * MINIMAP_SCALE_FACTOR, game->player.y
-		* MINIMAP_SCALE_FACTOR, (game->player.x
-			+ cos(game->player.rotationAngle) * 40) * MINIMAP_SCALE_FACTOR,
-		(game->player.y + sin(game->player.rotationAngle) * 40)
-		* MINIMAP_SCALE_FACTOR, player_color);
+	game->draw_figures.rect_params->x = game->player.x * MINIMAP_SCALE_FACTOR
+		- (PLAYER_SIZE / 2);
+	game->draw_figures.rect_params->y = game->player.y * MINIMAP_SCALE_FACTOR
+		- (PLAYER_SIZE / 2);
+	game->draw_figures.rect_params->width = PLAYER_SIZE;
+	game->draw_figures.rect_params->height = PLAYER_SIZE;
+	game->draw_figures.rect_params->color = player_color;
+	draw_rectangle(game);
+	game->draw_figures.line_params->x0 = game->player.x * MINIMAP_SCALE_FACTOR;
+	game->draw_figures.line_params->y0 = game->player.y * MINIMAP_SCALE_FACTOR;
+	line_length = 20;
+	game->draw_figures.line_params->x1 = game->draw_figures.line_params->x0
+		+ cos(game->player.rotationAngle) * line_length;
+	game->draw_figures.line_params->y1 = game->draw_figures.line_params->y0
+		+ sin(game->player.rotationAngle) * line_length;
+	game->draw_figures.line_params->color = player_color;
+	draw_line(game);
 }
 
 int	render_map(t_game *game)
@@ -54,7 +69,6 @@ int	render_map(t_game *game)
 	unsigned int	tile_color;
 
 	i = 0;
-	j = 0;
 	while (i < MAP_NUM_ROWS)
 	{
 		j = 0;
@@ -66,9 +80,14 @@ int	render_map(t_game *game)
 				tile_color = 0xE9E9E9FF;
 			else
 				tile_color = 0x000000FF;
-			draw_rectangle(game->img, tile_x * MINIMAP_SCALE_FACTOR, tile_y
-				* MINIMAP_SCALE_FACTOR, TILE_SIZE * MINIMAP_SCALE_FACTOR,
-				TILE_SIZE * MINIMAP_SCALE_FACTOR, tile_color);
+			game->draw_figures.rect_params->x = tile_x * MINIMAP_SCALE_FACTOR;
+			game->draw_figures.rect_params->y = tile_y * MINIMAP_SCALE_FACTOR;
+			game->draw_figures.rect_params->width = TILE_SIZE
+				* MINIMAP_SCALE_FACTOR;
+			game->draw_figures.rect_params->height = TILE_SIZE
+				* MINIMAP_SCALE_FACTOR;
+			game->draw_figures.rect_params->color = tile_color;
+			draw_rectangle(game);
 			j++;
 		}
 		i++;
