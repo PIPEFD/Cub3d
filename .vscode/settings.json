@@ -9,7 +9,8 @@
 =======
         "cub3d.h": "c",
         "random": "c"
-    }
+	},
+	"cmake.sourceDirectory": "/home/pipe/Cub42/MLX42"
 
 }
 >>>>>>> David
