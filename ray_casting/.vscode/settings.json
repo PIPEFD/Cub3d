@@ -1,0 +1,9 @@
+{
+    "cmake.sourceDirectory": "/home/pipe/42/Cub3d/mlx",
+    "files.associations": {
+        "stdbool.h": "c",
+        "cub3d.h": "c",
+        "cstdlib": "c",
+        "unistd.h": "c"
+    }
+}
