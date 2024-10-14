@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 00:59:01 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 15:23:19 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 
-void	initialize_ray(t_game *game, float *rayAngle, int stripid)
+int	initialize_ray(t_game *game, float *rayAngle, int stripid)
 {
 	t_ray_cast	*ray_cast;
 
@@ -23,8 +23,10 @@ void	initialize_ray(t_game *game, float *rayAngle, int stripid)
 	ray_cast->isRayFacingUp = !ray_cast->isRayFacingDown;
 	ray_cast->isRayFacingRight = (*rayAngle < 0.5 * PI || *rayAngle > 1.5 * PI);
 	ray_cast->isRayFacingLeft = !ray_cast->isRayFacingRight;
+
+	return (0);
 }
-void	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid)
+int	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid)
 {
 	t_player	*player;
 	t_ray		*rays;
@@ -51,9 +53,24 @@ void	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid)
 		rays[stripid].wallHitContent = ray_cast->horWallContent;
 		rays[stripid].wasHitVertical = 0;
 	}
+	printf("// --- // --- // --- // --- // --- //\n");
+	printf("Rayos calculados\n");
+	printf("// --- // --- // --- // --- // --- //\n");
+	printf("RayAngle: [%f] \n number_of_ray -->> [%d]\n", rays[stripid].rayAngle, stripid);
+	printf("Distance: [%f] \n number_of_ray -->> [%d]\n ", rays[stripid].distance, stripid);
+	printf("WallHitX: [%f] \n number_of_ray -->> [%d]\n", rays[stripid].wallHitX, stripid);
+	printf("WallHitY: [%f] \n number_of_ray -->> [%d]\n", rays[stripid].wallHitY, stripid);
+	printf("WallHitContent: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].wallHitContent, stripid);
+	printf("WasHitVertical: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].wasHitVertical, stripid);
+	printf("IsRayFacingUp: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].isRayFacingUp, stripid);
+	printf("IsRayFacingDown: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].isRayFacingDown, stripid);
+	printf("IsRayFacingLeft: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].isRayFacingLeft, stripid);
+	printf("IsRayFacingRight: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].isRayFacingRight, stripid);
+	printf("// --- // --- // --- // --- // --- //\n");
+	return (0);
 }
 
-void	assign_ray_properties(t_game *game, float rayAngle, int stripid)
+int	assign_ray_properties(t_game *game, float rayAngle, int stripid)
 {
 	t_ray_cast	*ray_cast;
 	t_ray		*rays;
@@ -65,4 +82,6 @@ void	assign_ray_properties(t_game *game, float rayAngle, int stripid)
 	rays[stripid].isRayFacingUp = ray_cast->isRayFacingUp;
 	rays[stripid].isRayFacingLeft = ray_cast->isRayFacingLeft;
 	rays[stripid].isRayFacingRight = ray_cast->isRayFacingRight;
+
+	return (0);
 }

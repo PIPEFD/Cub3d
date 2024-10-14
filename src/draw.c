@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:28:47 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 23:56:17 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 15:03:32 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	draw_rectangle(t_game *game)
+int	draw_rectangle(t_game *game)
 {
 	t_rectangle_params	*params;
 	int					i;
@@ -32,16 +32,19 @@ void	draw_rectangle(t_game *game)
 		}
 		i++;
 	}
+	return (0);
 }
 
-void	draw_line(t_game *game)
+int	draw_line(t_game *game)
 {
 	t_line_params		*params;
 	t_bresenham_vars	vars;
 	int					e2;
 
 	params = game->draw_figures.line_params;
-	init_data_bresenham(&vars, params);
+	
+	if (init_data_bresenham(&vars, params) != 0)
+		return (-1);
 	while (1)
 	{
 		if (vars.x0 >= 0 && vars.x0 < (int)game->img->width && vars.y0 >= 0
@@ -61,4 +64,5 @@ void	draw_line(t_game *game)
 			vars.y0 += vars.sy;
 		}
 	}
+	return (0);
 }

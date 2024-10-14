@@ -174,28 +174,53 @@ typedef struct s_game
 // --- // --- // --- // --- // --- //
 // Funciones para la inicializacion de la estructura
 // --- // --- // --- // --- // --- //
-int	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params);
-
+int						init_data_bresenham(t_bresenham_vars *vars, 
+							t_line_params *params);
 int						init_data_all(t_game *game,
 							const char *direction_input);
-
 int						init_data_map(t_game *game);
 int						init_data_player(t_game *game,
 							const char *directionInput);
-int						data_init_rays(t_game *game);
-int					init_data_figures(t_game *game);
+int						init_data_rays(t_game *game);
+int						init_data_figures(t_game *game);
+int						init_data_render(t_game *game, int i);
+
+// --- // --- // --- // --- // --- //
+
+// Funciones para setear la dirección del jugador
+
 // --- // --- // --- // --- // --- //
 int						set_player_direction(t_player *player,
 							const char *directionInput);
 // Añadido
 
-// --- // --- // --- // --- // --- // // --- // --- // --- // --- // --- //
-// FUNCIONES PARA GENERA EL RAYCASTING EN MLX Y RENDERIZAR EL MAPA
-// LOS RAYOS CON BASE EN LA POSICIÓN DEL JUGADOR...
+// --- // --- // --- // --- // --- //
+// Function for update postion of player position
+int						move_player(t_game *game, float deltaTime);
+// --- // --- // --- // --- // --- //
+
+// --- // --- // --- // --- // --- //
+ /*FUNCIONES PARA GENERA EL RAYCASTING EN MLX Y RENDERIZAR EL MAPA
+ LOS RAYOS CON BASE EN LA POSICIÓN DEL JUGADOR...*/
 // --- // --- // --- // --- // --- // // --- // --- // --- // --- // --- //
 // Function for draw a rectangle form in mlx
-void draw_line(t_game *game);
-void draw_rectangle(t_game *game);
+
+// --- // --- // --- // --- // --- //
+
+	/* 
+	Funcion para dibujar una linea recta en mlx con base 
+	en el algoritmo de bresenham
+	*/
+// --- // --- // --- // --- // --- //
+int draw_line(t_game *game);
+
+// --- // --- // --- // --- // --- //
+	/*
+	Funcion para dibujar un rectangulo en mlx
+	*/
+
+// --- // --- // --- // --- // --- //
+int draw_rectangle(t_game *game);
 
 
 // void					draw_rectangle(mlx_image_t *img, int x, int y,
@@ -207,12 +232,10 @@ void draw_rectangle(t_game *game);
 
 void					destroy_window(t_game *game);
 
-// Function for update postion of player position
 void					key_hook(mlx_key_data_t keydata, void *param);
 
 // -- // -- // --- // -- //
 int						map_has_wall_at(t_game *game, float x, float y);
-int						move_player(t_game *game, float deltaTime);
 // --- // --- // --- // --- // --- //
 // Funciones para determinar la poscionde del rayo en un plano 2D
 // Ademas de Funciones auxiliares para realizar el calculo
@@ -223,14 +246,14 @@ int						move_player(t_game *game, float deltaTime);
 
 // void					cast_ray(t_game *game, float rayAngle, int stripid);
 
-void	initialize_ray(t_game *game, float *rayAngle, int stripid);
-void	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid);
-void	assign_ray_properties(t_game *game, float rayAngle, int stripid);
+int	initialize_ray(t_game *game, float *rayAngle, int stripid);
+int	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid);
+int	assign_ray_properties(t_game *game, float rayAngle, int stripid);
 
 void					cast_all_rays(t_game *game);
-void	cast_ray(t_game *game, float rayAngle, int stripid);
-void	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast, t_player *player, float rayAngle);
-void	find_vertical_hit(t_game *game, t_ray_cast *ray_cast,
+int	cast_ray_setup(t_game *game, float rayAngle, int stripid);
+int	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast, t_player *player, float rayAngle);
+int	find_vertical_hit(t_game *game, t_ray_cast *ray_cast,
 		t_player *player, float rayAngle);
 
 

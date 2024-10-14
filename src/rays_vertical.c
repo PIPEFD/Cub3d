@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rays_vertical.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 00:25:59 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 14:28:05 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-/**
- * Encuentra la intersección vertical más cercana del rayo con una pared.
- * @param game Puntero al juego.
- * @param ray_cast Puntero a la estructura de raycasting.
- * @param player Puntero al jugador.
- * @param rayAngle Ángulo del rayo.
- */
-void	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
+int	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
 		float rayAngle)
 {
 	float	xToCheck;
@@ -65,4 +58,5 @@ void	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
 			ray_cast->nextVerTouchY += ray_cast->ystep;
 		}
 	}
+	return (0);
 }

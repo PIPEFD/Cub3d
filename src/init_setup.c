@@ -26,6 +26,7 @@ void	update(void *param)
 	deltatime = (timenow - game->ticksLastFrame) / 1000.0f;
 	game->ticksLastFrame = timenow;
 	move_player(game, deltatime);
+		
 	cast_all_rays(game);
 	ft_memset(game->img->pixels, 0, game->img->width * game->img->height
 		* sizeof(unsigned int));
@@ -41,7 +42,7 @@ int	init_data_all(t_game *game, const char *direction_input)
 		return (-1);
 	if (init_data_map(game) != 0)
 		return (-1);
-	if (data_init_rays(game) != 0)
+	if (init_data_rays(game) != 0)
 		return (-1);
 	if (init_data_figures(game) != 0)
 		return (-1);

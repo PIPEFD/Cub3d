@@ -3,24 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rays_horizontal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 00:25:37 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 13:59:34 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 
-/**
- * Encuentra la intersección horizontal más cercana del rayo con una pared.
- * @param game Puntero al juego.
- * @param ray_cast Puntero a la estructura de raycasting.
- * @param player Puntero al jugador.
- * @param rayAngle Ángulo del rayo.
- */
-void	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast,
+int	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast,
 		t_player *player, float rayAngle)
 {
 	float	xToCheck;
@@ -66,4 +59,5 @@ void	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast,
 			ray_cast->nextHorzTouchY += ray_cast->ystep;
 		}
 	}
+	return (0);
 }

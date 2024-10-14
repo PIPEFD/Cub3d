@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_setup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 21:29:41 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 14:26:49 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ float	direction_to_radians(const char *direction_input)
 	if (ft_strcmp(direction_input, "N") == 0 || ft_strcmp(direction_input,
 			"n") == 0)
 		return (3 * PI / 2);
-	else if (ft_strcmp(direction_input, "S") == 0 || ft_strcmp(direction_input,
+	if (ft_strcmp(direction_input, "S") == 0 || ft_strcmp(direction_input,
 			"s") == 0)
 		return (PI / 2);
-	else if (ft_strcmp(direction_input, "E") == 0 || ft_strcmp(direction_input,
+	if (ft_strcmp(direction_input, "E") == 0 || ft_strcmp(direction_input,
 			"e") == 0)
 		return (0);
-	else if (ft_strcmp(direction_input, "O") == 0 || ft_strcmp(direction_input,
+	if (ft_strcmp(direction_input, "O") == 0 || ft_strcmp(direction_input,
 			"o") == 0)
 		return (PI);
 	return (-1);
@@ -69,5 +69,19 @@ int	move_player(t_game *game, float deltaTime)
 		player->x = newplayer_x;
 		player->y = newplayer_y;
 	}
+	return (0);
+}
+
+int	init_data_move_player(t_bresenham_vars *vars, t_line_params *params)
+{
+	vars->x0 = params->x0;
+	vars->y0 = params->y0;
+	vars->x1 = params->x1;
+	vars->y1 = params->y1;
+	vars->dx = abs(vars->x1 - vars->x0);
+	vars->dy = -abs(vars->y1 - vars->y0);
+	vars->sx = (vars->x0 < vars->x1) ? 1 : -1;
+	vars->sy = (vars->y0 < vars->y1) ? 1 : -1;
+	vars->err = vars->dx + vars->dy;
 	return (0);
 }

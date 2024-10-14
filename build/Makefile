@@ -57,23 +57,13 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pipe/Cub42/MLX42
+CMAKE_SOURCE_DIR = /home/dbonilla/Cub3D/MLX42
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pipe/Cub42/build
+CMAKE_BINARY_DIR = /home/dbonilla/Cub3D/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-.PHONY : test/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -142,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pipe/Cub42/build/CMakeFiles /home/pipe/Cub42/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dbonilla/Cub3D/build/CMakeFiles /home/dbonilla/Cub3D/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pipe/Cub42/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dbonilla/Cub3D/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -183,71 +173,6 @@ mlx42: cmake_check_build_system
 mlx42/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mlx42.dir/build.make CMakeFiles/mlx42.dir/build
 .PHONY : mlx42/fast
-
-#=============================================================================
-# Target rules for targets named unit_tests
-
-# Build rule for target.
-unit_tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unit_tests
-.PHONY : unit_tests
-
-# fast build rule for target.
-unit_tests/fast:
-	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/unit_tests.dir/build.make tests/CMakeFiles/unit_tests.dir/build
-.PHONY : unit_tests/fast
-
-#=============================================================================
-# Target rules for targets named gmock
-
-# Build rule for target.
-gmock: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
-.PHONY : gmock
-
-# fast build rule for target.
-gmock/fast:
-	$(MAKE) $(MAKESILENT) -f /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
-.PHONY : gmock/fast
-
-#=============================================================================
-# Target rules for targets named gmock_main
-
-# Build rule for target.
-gmock_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
-.PHONY : gmock_main
-
-# fast build rule for target.
-gmock_main/fast:
-	$(MAKE) $(MAKESILENT) -f /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
-.PHONY : gmock_main/fast
-
-#=============================================================================
-# Target rules for targets named gtest
-
-# Build rule for target.
-gtest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
-.PHONY : gtest
-
-# fast build rule for target.
-gtest/fast:
-	$(MAKE) $(MAKESILENT) -f /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
-.PHONY : gtest/fast
-
-#=============================================================================
-# Target rules for targets named gtest_main
-
-# Build rule for target.
-gtest_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
-.PHONY : gtest_main
-
-# fast build rule for target.
-gtest_main/fast:
-	$(MAKE) $(MAKESILENT) -f /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make /home/pipe/Cub42/MLX42/build/_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
-.PHONY : gtest_main/fast
 
 lib/glad/glad.o: lib/glad/glad.c.o
 .PHONY : lib/glad/glad.o
@@ -789,13 +714,7 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... test"
-	@echo "... gmock"
-	@echo "... gmock_main"
-	@echo "... gtest"
-	@echo "... gtest_main"
 	@echo "... mlx42"
-	@echo "... unit_tests"
 	@echo "... lib/glad/glad.o"
 	@echo "... lib/glad/glad.i"
 	@echo "... lib/glad/glad.s"

@@ -40,6 +40,33 @@ void	destroy_window(t_game *game)
 		free(game->map);
 		game->map = NULL;
 	}
+	// if (game->rays)
+	// {
+	// 	free(game->rays);
+	// 	game->rays = NULL;
+	// }
+	// if (game->ray_casts)
+	// {
+	// 	free(game->ray_casts);
+	// 	game->ray_casts = NULL;
+	// }
+	if (game->draw_figures.rect_params)
+	{
+		free(game->draw_figures.rect_params);
+		game->draw_figures.rect_params = NULL;
+	}
+	if (game->draw_figures.line_params)
+	{
+		free(game->draw_figures.line_params);
+		game->draw_figures.line_params = NULL;
+	}
+	if (game->draw_figures.line_draw)
+	{
+		free(game->draw_figures.line_draw);
+		game->draw_figures.line_draw = NULL;
+	}
+	
+	
 }
 
 int	main(int argc, char **argv)

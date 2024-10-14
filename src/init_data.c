@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 00:29:42 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 15:15:01 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int	init_data_figures(t_game *game)
 	return (0);
 }
 
-int	data_init_rays(t_game *game)
+int	init_data_rays(t_game *game)
 {
-	// ft_memset(game->rays, 0, sizeof(t_ray) * NUM_RAYS);
-	ft_memset(game->ray_casts, 0, sizeof(t_ray_cast) * NUM_RAYS);
+
+	ft_memset(&game->rays, 0, sizeof(t_ray)); 
+	ft_memset(&game->ray_casts, 0, sizeof(t_ray_cast));
+
 	return (0);
 }
 

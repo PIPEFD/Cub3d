@@ -3,61 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   render_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/14 00:59:44 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/14 15:20:30 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
 // TO DO:
 // Asignar variables a la estrcutura para que se puedan usar en un futuro
-void	calculate_projection(t_game *game, int i, float *perp_distance,
-		float *distance_proj_plane, float *wall_strip_height,
-		int *wall_top_pixel, int *wall_bottom_pixel, unsigned int *wall_color)
+
+int	init_data_render(t_game *game, int i)
 {
-	*perp_distance = game->rays[i].distance * cos(game->rays[i].rayAngle
-			- game->player.rotationAngle);
-	*distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
-	*wall_strip_height = (TILE_SIZE / *perp_distance) * *distance_proj_plane;
-	*wall_top_pixel = (WINDOW_HEIGHT / 2) - (*wall_strip_height / 2);
-	*wall_top_pixel = *wall_top_pixel < 0 ? 0 : *wall_top_pixel;
-	*wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (*wall_strip_height / 2);
-	*wall_bottom_pixel = *wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : *wall_bottom_pixel;
+	// ft_memset(&game->render_params, 0, sizeof(t_render_params));
+	game->render_params.perp_distance = game->rays[i].distance
+		* cos(game->rays[i].rayAngle - game->player.rotationAngle);
+	game->render_params.distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
+	game->render_params.wall_strip_height = (TILE_SIZE
+			/ game->render_params.perp_distance)
+		* game->render_params.distance_proj_plane;
+	game->render_params.wall_top_pixel = (WINDOW_HEIGHT / 2)
+		- (game->render_params.wall_strip_height / 2);
+	game->render_params.wall_top_pixel = game->render_params.wall_top_pixel < 0 ? 0 : game->render_params.wall_top_pixel;
+	game->render_params.wall_bottom_pixel = (WINDOW_HEIGHT / 2)
+		+ (game->render_params.wall_strip_height / 2);
+	game->render_params.wall_bottom_pixel = game->render_params.wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : game->render_params.wall_bottom_pixel;
 	if (game->rays[i].wasHitVertical)
-		*wall_color = 0xFFFFFFFF;
+		game->render_params.wall_color = 0xFFFFFFFF;
 	else
-		*wall_color = 0xCCCCCCFF;
+		game->render_params.wall_color = 0xCCCCCCFF;
+
+	
+	return (0);
 }
 
-void	render_wall_strip(t_game *game, int i, int wall_top_pixel,
-		int wall_bottom_pixel, unsigned int wall_color)
+
+
+void	render_wall_strip(t_game *game, int i)
 {
 	int	y;
 
-	y = wall_top_pixel;
-	while (y < wall_bottom_pixel)
+	y = game->render_params.wall_top_pixel;
+	while (y < game->render_params.wall_bottom_pixel)
 	{
-		mlx_put_pixel(game->img, i, y, wall_color);
+		mlx_put_pixel(game->img, i, y, game->render_params.wall_color);
 		y++;
 	}
 }
 
-void	render_floor_and_ceiling(t_game *game, int i, int wall_top_pixel,
-		int wall_bottom_pixel)
+void	render_floor_and_ceiling(t_game *game, int  i)
 {
 	int	y;
 
 	// Renderizar techo
 	y = 0;
-	while (y < wall_top_pixel)
+	while (y < game->render_params.wall_top_pixel)
 	{
 		mlx_put_pixel(game->img, i, y, 0x000000FF);
 		y++;
 	}
 	// Renderizar suelo
-	y = wall_bottom_pixel;
+	y = game->render_params.wall_bottom_pixel;
 	while (y < WINDOW_HEIGHT)
 	{
 		mlx_put_pixel(game->img, i, y, 0x7F7F7FFF);
@@ -67,23 +75,29 @@ void	render_floor_and_ceiling(t_game *game, int i, int wall_top_pixel,
 
 void	render_3d_projection(t_game *game)
 {
-	float			perp_distance;
-	float			distance_proj_plane;
-	float			wall_strip_height;
-	int				wall_top_pixel;
-	int				wall_bottom_pixel;
-	unsigned int	wall_color;
-	int				i;
-
-	i = 0;
-	while (i < NUM_RAYS)
+	int index_ray;
+	
+	index_ray = 0;
+	while (index_ray < NUM_RAYS)
 	{
-		calculate_projection(game, i, &perp_distance, &distance_proj_plane,
-			&wall_strip_height, &wall_top_pixel, &wall_bottom_pixel,
-			&wall_color);
-		render_wall_strip(game, i, wall_top_pixel, wall_bottom_pixel,
-			wall_color);
-		render_floor_and_ceiling(game, i, wall_top_pixel, wall_bottom_pixel);
-		i++;
+		init_data_render(game, index_ray);
+		// calculate_projection(game, i, &perp_distance, &distance_proj_plane,
+		// 	&wall_strip_height, &wall_top_pixel, &wall_bottom_pixel,
+		// 	&wall_color);
+		// render_wall_strip(game, index_ray, wall_top_pixel, wall_bottom_pixel,
+		// 	wall_color);
+		render_wall_strip(game, index_ray);
+		render_floor_and_ceiling(game, index_ray);
+		// render_floor_and_ceiling(game, index_ray, wall_top_pixel,
+		// 	wall_bottom_pixel);
+		index_ray++;
 	}
+	printf("// --- // --- // --- // --- // --- //\n");
+	printf("\nData initialized render correctly\n");
+	printf("// --- // --- // --- // --- // --- //\n");
+	printf("perp_distance: %f\n", game->render_params.perp_distance);
+	printf("distance_proj_plane: %f\n", game->render_params.distance_proj_plane);
+	printf("wall_strip_height: %f\n", game->render_params.wall_strip_height);
+	printf("wall_top_pixel: %d\n", game->render_params.wall_top_pixel);
+	printf("wall_bottom_pixel: %d\n", game->render_params.wall_bottom_pixel);	
 }
