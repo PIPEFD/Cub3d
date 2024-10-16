@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 20:40:22 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:31 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 int	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
 {

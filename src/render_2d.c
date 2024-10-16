@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render_2d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 23:03:16 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:59 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 void	render_rays(t_game *game)
 {

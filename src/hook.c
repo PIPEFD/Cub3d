@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:22:07 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/13 00:16:50 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:27 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 void	handle_walk_input(mlx_key_data_t keydata, t_game *game)
 {

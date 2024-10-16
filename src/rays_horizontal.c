@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rays_horizontal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 13:59:34 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:47 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 
 int	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast,

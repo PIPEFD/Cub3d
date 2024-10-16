@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   render_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/14 20:35:40 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/16 12:39:02 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 // TO DO:
 // Asignar variables a la estrcutura para que se puedan usar en un futuro

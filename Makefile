@@ -1,6 +1,6 @@
 NAME        =   cub3d
 LIBFT       =   libft/libft.a
-INC         =   inc/
+INC         =   includes/
 SRC_DIR     =   src/
 MLX         =   build/libmlx42.a
 BUILD       =   make -C build 2>/dev/null

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_setup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 20:28:30 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:44 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 float	direction_to_radians(const char *direction_input)
 {

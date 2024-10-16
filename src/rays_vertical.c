@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rays_vertical.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 14:28:05 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:55 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 int	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
 		float rayAngle)

@@ -13,7 +13,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 void	destroy_window(t_game *game)
 {

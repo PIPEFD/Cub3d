@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rays_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 20:27:51 by pipe             ###   ########.fr       */
+/*   Updated: 2024/10/16 12:38:50 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 int	cast_ray_setup(t_game *game, float rayAngle, int stripid)
 {
