@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   rays_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/14 15:23:19 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:47:20 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-
+// TO DO: FALTA NORMI .H QUITAR FUNCIONES PROHIBIDAS, NORMI DE ALGUNOS .C
+//  ADEMAS DE REFACTORIZAR EL CALCULO DE LOS RAYOS EN LA POSICION HORIZONTAL Y EN LA POSICON VERTICAL
+//  REALIZAR DOCUMENTACION DEL RAY_CAST PARA EL PARCE DEL FUTURO....!
 int	initialize_ray(t_game *game, float *rayAngle, int stripid)
 {
 	t_ray_cast	*ray_cast;
