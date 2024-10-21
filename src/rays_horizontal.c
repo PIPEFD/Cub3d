@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:47 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:58:07 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast,
 	ray_cast->nextHorzTouchX = ray_cast->xintercept;
 	ray_cast->nextHorzTouchY = ray_cast->yintercept;
 	while (ray_cast->nextHorzTouchX >= 0
-		&& ray_cast->nextHorzTouchX <= WINDOW_WIDTH
+		&& ray_cast->nextHorzTouchX <= game->width
 		&& ray_cast->nextHorzTouchY >= 0
-		&& ray_cast->nextHorzTouchY <= WINDOW_HEIGHT)
+		&& ray_cast->nextHorzTouchY <= game->heigth)
 	{
 		xToCheck = ray_cast->nextHorzTouchX;
 		yToCheck = ray_cast->nextHorzTouchY + (ray_cast->isRayFacingUp ?

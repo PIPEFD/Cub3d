@@ -9,6 +9,7 @@ FLAGS       =   -Wall -Wextra -Werror -g3 #-fsanitize=address
 RM          =   rm -f
 
 SRC_FILES   =   main.c \
+				parsing.c \
 				hook.c \
 				init_data.c \
 				init_setup.c \

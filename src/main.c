@@ -17,9 +17,6 @@
 
 void	destroy_window(t_game *game)
 {
-	int	i;
-
-	i = 0;
 	if (game->img)
 	{
 		mlx_delete_image(game->mlx, game->img);
@@ -30,16 +27,8 @@ void	destroy_window(t_game *game)
 		mlx_terminate(game->mlx);
 		game->mlx = NULL;
 	}
-	if (game->map)
-	{
-		while (i < MAP_NUM_ROWS)
-		{
-			free(game->map[i]);
-			i++;
-		}
-		free(game->map);
-		game->map = NULL;
-	}
+	split_free(game->map);
+
 	// if (game->rays)
 	// {
 	// 	free(game->rays);
@@ -74,11 +63,11 @@ int	main(int argc, char **argv)
 	t_game		game;
 	const char	*direction_input;
 
-	direction_input = NULL;
-	if (argc > 1)
-	{
-		direction_input = argv[1];
-	}
+	direction_input = "N";
+	//if (argc > 1)
+	//	direction_input = argv[1];
+	if (argc != 2 || !parsing(&game, argv[1]))
+		return (1);
 	if (setup(&game, direction_input) != 0)
 		return (-1);
 	mlx_loop(game.mlx);

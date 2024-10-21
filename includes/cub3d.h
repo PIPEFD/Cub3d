@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:33:21 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/16 12:51:18 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:37:55 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "structs.h"
 # include "utils.h"
 
+
+int 	parsing(t_game *game, char *file_name);
 // Funciones de parseo y estrucuturacion del mapa //
 // --- // --- // --- // --- // --- //
 // Funciones para la inicializacion de la estructura
@@ -38,7 +40,7 @@ int		set_player_direction(t_player *player, const char *directionInput);
 
 // --- // --- // --- // --- // --- //
 // Function for update postion of player position
-int		move_player(t_game *game, float deltaTime);
+void	move_player(t_game *game, float deltaTime);
 // --- // --- // --- // --- // --- //
 
 // --- // --- // --- // --- // --- //
@@ -94,7 +96,7 @@ int		find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player, flo
 
 void	render_rays(t_game *game);
 void	render_player(t_game *game);
-int		render_map(t_game *game);
+void	render_map(t_game *game);
 void	update(void *param);
 int		setup(t_game *game, const char *direction_input);
 float	normalize_angle(float angle);

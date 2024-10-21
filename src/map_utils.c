@@ -6,12 +6,27 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:34 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:39 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:30:33 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	map_has_wall_at(t_game *game, float x, float y)
+{
+	int		map_grid_index_x;
+	int		map_grid_index_y;
+	char	tile;
+
+	if (x < 0 || y < 0)
+		return (1);
+	map_grid_index_x = floor(x / TILE_SIZE);
+	map_grid_index_y = floor(y / TILE_SIZE);
+	tile = game->map[map_grid_index_y][map_grid_index_x];
+	return (tile != '0');
+}
+
+/*
 int	map_has_wall_at(t_game *game, float x, float y)
 {
 	int		map_grid_index_x;
@@ -32,3 +47,4 @@ int	map_has_wall_at(t_game *game, float x, float y)
 	tile = game->map[map_grid_index_y][map_grid_index_x];
 	return (tile != '0');
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:31 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:01:08 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,13 @@ int	init_data_rays(t_game *game)
 
 int	init_data_player(t_game *game, const char *direction_input)
 {
-	game->player.x = WINDOW_WIDTH / 2;
-	game->player.y = WINDOW_HEIGHT / 2;
 	game->player.width = 1;
 	game->player.height = 1;
 	game->player.turnDirection = 0;
 	game->player.strafeDirection = 0;
 	game->player.walkDirection = 0;
 	game->player.rotationAngle = PI / 2;
-	game->player.walkSpeed = 150;
+	game->player.walkSpeed = SPEED;
 	game->player.turnSpeed = 80 * (PI / 180);
 	game->ticksLastFrame = 0;
 	if (direction_input != NULL)
@@ -72,6 +70,7 @@ int	init_data_player(t_game *game, const char *direction_input)
 	return (0);
 }
 
+/*
 int	init_data_map(t_game *game)
 {
 	const char	*mapdata[MAP_NUM_ROWS] = {"111111111111111", "100000000000101",
@@ -97,3 +96,4 @@ int	init_data_map(t_game *game)
 	}
 	return (0);
 }
+*/

@@ -40,8 +40,8 @@ int	init_data_all(t_game *game, const char *direction_input)
 {
 	if (init_data_player(game, direction_input) != 0)
 		return (-1);
-	if (init_data_map(game) != 0)
-		return (-1);
+	//if (init_data_map(game) != 0)
+	//	return (-1);
 	if (init_data_rays(game) != 0)
 		return (-1);
 	if (init_data_figures(game) != 0)
@@ -52,12 +52,6 @@ int	init_data_all(t_game *game, const char *direction_input)
 
 int	setup(t_game *game, const char *direction_input)
 {
-	game->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
-	if (!game->mlx)
-	{
-		printf("Error initializing MLX.\n");
-		return (-1);
-	}
 	game->img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!game->img)
 	{

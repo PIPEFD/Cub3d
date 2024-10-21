@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:59 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:35:40 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	render_player(t_game *game)
 	draw_line(game);
 }
 
-int	render_map(t_game *game)
+void	render_map(t_game *game)
 {
 	int				i;
 	int				j;
@@ -68,18 +68,18 @@ int	render_map(t_game *game)
 	int				tile_y;
 	unsigned int	tile_color;
 
-	i = 0;
-	while (i < MAP_NUM_ROWS)
+	i = -1;
+	while (game->map[++i])
 	{
-		j = 0;
-		while (j < MAP_NUM_COLS)
+		j = -1;
+		while (game->map[i][++j])
 		{
+			if (game->map[i][j] == '0')
+				tile_color = 0x000000FF;
+			else
+				tile_color = 0xE9E9E9FF;
 			tile_x = j * TILE_SIZE;
 			tile_y = i * TILE_SIZE;
-			if (game->map[i][j] != '0')
-				tile_color = 0xE9E9E9FF;
-			else
-				tile_color = 0x000000FF;
 			game->draw_figures.rect_params->x = tile_x * MINIMAP_SCALE_FACTOR;
 			game->draw_figures.rect_params->y = tile_y * MINIMAP_SCALE_FACTOR;
 			game->draw_figures.rect_params->width = TILE_SIZE
@@ -88,9 +88,6 @@ int	render_map(t_game *game)
 				* MINIMAP_SCALE_FACTOR;
 			game->draw_figures.rect_params->color = tile_color;
 			draw_rectangle(game);
-			j++;
 		}
-		i++;
 	}
-	return (0);
 }

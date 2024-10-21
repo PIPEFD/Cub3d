@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:55 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:57:39 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
 	ray_cast->nextVerTouchX = ray_cast->xintercept;
 	ray_cast->nextVerTouchY = ray_cast->yintercept;
 	while (ray_cast->nextVerTouchX >= 0
-		&& ray_cast->nextVerTouchX <= WINDOW_WIDTH
+		&& ray_cast->nextVerTouchX <= game->width
 		&& ray_cast->nextVerTouchY >= 0
-		&& ray_cast->nextVerTouchY <= WINDOW_HEIGHT)
+		&& ray_cast->nextVerTouchY <= game->heigth)
 	{
 		xToCheck = ray_cast->nextVerTouchX + (ray_cast->isRayFacingLeft ?
 				-1 : 0);

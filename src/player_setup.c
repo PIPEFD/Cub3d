@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:44 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:37:36 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	set_player_direction(t_player *player, const char *direction_input)
 	return (0);
 }
 
-int	move_player(t_game *game, float deltaTime)
+void	move_player(t_game *game, float deltaTime)
 {
 	t_player	*player;
 	float		movestep;
@@ -65,7 +65,6 @@ int	move_player(t_game *game, float deltaTime)
 		player->x = newplayer_x;
 		player->y = newplayer_y;
 	}
-	return (0);
 }
 
 int	init_data_move_player(t_bresenham_vars *vars, t_line_params *params)

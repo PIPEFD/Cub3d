@@ -6,13 +6,14 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:29:16 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/16 12:35:28 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:21:43 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBS_H
 # define LIBS_H
 
+# include <fcntl.h>
 # include "MLX42.h"
 # include "libft.h"
 # include <math.h>

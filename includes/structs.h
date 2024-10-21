@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/16 12:36:11 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:58:42 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "libs.h"
 # include "defs.h"
+
 typedef struct s_texture {
 	char	*file;				// Filename
-	void	*img;				// Pointer to image
 	int		width;				// Width
 	int		height;				// Height
-	int		*data;				// Colors
+	int		**img;				// Bidimensional array with the texture
 } t_texture;
 
 typedef struct s_data
@@ -31,10 +31,10 @@ typedef struct s_data
 	int				py;			// Player y
 	int				dir;		// Player direction
 
-	t_texture		no;			// North image data-struct
-	t_texture		so;			// South image data-struct
-	t_texture		we;			// West image data-struct
-	t_texture		ea;			// East image data-struct
+	t_texture		*no;		// North image data-struct
+	t_texture		*so;		// South image data-struct
+	t_texture		*we;		// West image data-struct
+	t_texture		*ea;		// East image data-struct
 
 	unsigned int	floor;		// Floor RGB
 	unsigned int	ceiling;	// Ceiling RGB
@@ -141,6 +141,7 @@ typedef struct s_player
 	float				y;
 	float				width;
 	float				height;
+	char				dir;
 	int turnDirection;   // -1 for left, +1 for right
 	int walkDirection;   // -1 for back, +1 for front
 	int strafeDirection; // -1 para izquierda, +1 para derecha
@@ -163,8 +164,36 @@ typedef struct s_ray
 	int					wallHitContent;
 }						t_ray;
 
+/*
+typedef struct s_data
+{
+	char			**map;		// The map 
+
+	int				px;			// Player x
+	int				py;			// Player y
+	int				dir;		// Player direction
+
+	t_texture		*no;		// North image data-struct
+	t_texture		*so;		// South image data-struct
+	t_texture		*we;		// West image data-struct
+	t_texture		*ea;		// East image data-struct
+
+	unsigned int	floor;		// Floor RGB
+	unsigned int	ceiling;	// Ceiling RGB
+
+}	t_data;
+*/
+
 typedef struct s_game
 {
+	t_texture		*no;		// North image data-struct
+	t_texture		*so;		// South image data-struct
+	t_texture		*we;		// West image data-struct
+	t_texture		*ea;
+
+	unsigned int	floor;		// Floor RGB
+	unsigned int	ceiling;	// Ceiling RGB
+	
 	mlx_t				*mlx;
 	mlx_image_t			*img;
 	t_player			player;
@@ -174,6 +203,8 @@ typedef struct s_game
 	t_ray				rays[NUM_RAYS];
 	unsigned int		ticksLastFrame;
 	char				**map;
+	size_t				heigth;
+	size_t				width;
 
 }						t_game;
 

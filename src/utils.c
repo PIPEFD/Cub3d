@@ -6,11 +6,22 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:07:57 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/16 12:39:12 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:22:38 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	mod_strcomp(char *s1, char *s2)
+{
+	int	i;
+	
+	i = -1;
+	while (s1[++i] && s2[i])
+		if (s1[i] != s2[i])
+			return (1);
+	return (0);
+}
 
 char	*mod_join(char *s1, char *s2)
 {
@@ -27,7 +38,7 @@ char	*mod_join(char *s1, char *s2)
 	return (str);
 }
 
-char	*read_the_file(char *file_name)
+char	*ft_read_the_file(char *file_name)
 {
 	int		fd;
 	int		bytes;
@@ -46,7 +57,7 @@ char	*read_the_file(char *file_name)
 			return (close(fd), free(line), NULL);
 		if (bytes == 0)
 			return (close(fd), line);
-		line = ft_modjoin(line, buff);
+		line = mod_join(line, buff);
 	}
 }
 
