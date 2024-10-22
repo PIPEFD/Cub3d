@@ -61,15 +61,12 @@ void	destroy_window(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game		game;
-	const char	*direction_input;
 
-	direction_input = "N";
-	//if (argc > 1)
-	//	direction_input = argv[1];
 	if (argc != 2 || !parsing(&game, argv[1]))
 		return (1);
-	if (setup(&game, direction_input) != 0)
-		return (-1);
+	mlx_image_to_window(game.mlx, game.img, 0, 0);
+	mlx_key_hook(game.mlx, &key_hook, &game);
+	mlx_loop_hook(game.mlx, &update, &game);
 	mlx_loop(game.mlx);
 	destroy_window(&game);
 	return (0);

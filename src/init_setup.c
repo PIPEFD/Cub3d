@@ -19,26 +19,27 @@ void	update(void *param)
 {
 	t_game			*game;
 	unsigned int	timenow;
-	float			deltatime;
 
 	game = (t_game *)param;
 	timenow = mlx_get_time() * 1000;
-	deltatime = (timenow - game->ticksLastFrame) / 1000.0f;
-	game->ticksLastFrame = timenow;
-	move_player(game, deltatime);
-		
-	cast_all_rays(game);
-	ft_memset(game->img->pixels, 0, game->img->width * game->img->height
-		* sizeof(unsigned int));
-	render_3d_projection(game);
-	render_map(game);
-	render_rays(game);
-	render_player(game);
+
+	if (timenow - game->ticksLastFrame > 50)
+	{
+		move_player(game);
+		cast_all_rays(game);
+		ft_memset(game->img->pixels, 0, game->img->width * game->img->height
+			* sizeof(unsigned int));
+		render_3d_projection(game);
+		render_map(game);
+		//render_rays(game);
+		render_player(game);
+		game->ticksLastFrame = timenow;
+	}
 }
 
-int	init_data_all(t_game *game, const char *direction_input)
+int	init_data_all(t_game *game)
 {
-	if (init_data_player(game, direction_input) != 0)
+	if (init_data_player(game) != 0)
 		return (-1);
 	//if (init_data_map(game) != 0)
 	//	return (-1);
@@ -50,7 +51,7 @@ int	init_data_all(t_game *game, const char *direction_input)
 	return (0);
 }
 
-int	setup(t_game *game, const char *direction_input)
+int	setup(t_game *game)
 {
 	game->img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!game->img)
@@ -58,10 +59,7 @@ int	setup(t_game *game, const char *direction_input)
 		printf("Error creating image.\n");
 		return (-1);
 	}
-	if (init_data_all(game, direction_input) != 0)
+	if (init_data_all(game) != 0)
 		return (-1);
-	mlx_image_to_window(game->mlx, game->img, 0, 0);
-	mlx_key_hook(game->mlx, &key_hook, game);
-	mlx_loop_hook(game->mlx, &update, game);
 	return (0);
 }

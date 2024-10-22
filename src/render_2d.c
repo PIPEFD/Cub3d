@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 11:35:40 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:06:06 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	render_map(t_game *game)
 		j = -1;
 		while (game->map[i][++j])
 		{
-			if (game->map[i][j] == '0')
+			if (game->map[i][j] == '0' || game->map[i][j] == ' ')
 				tile_color = 0x000000FF;
 			else
 				tile_color = 0xE9E9E9FF;

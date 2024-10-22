@@ -6,43 +6,35 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 11:37:36 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:52:00 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	direction_to_radians(const char *direction_input)
+float	direction_to_radians(const char direction_input)
 {
-	if (ft_strcmp(direction_input, "N") == 0)
+	if (direction_input == 'N')
 		return (3 * PI / 2);
-	if (ft_strcmp(direction_input, "S") == 0)
+	else if (direction_input == 'S')
 		return (PI / 2);
-	if (ft_strcmp(direction_input, "E") == 0)
+	else if (direction_input == 'E')
 		return (0);
-	if (ft_strcmp(direction_input, "O") == 0)
+	else if (direction_input == 'O')
 		return (PI);
 	return (-1);
 }
 
-int	set_player_direction(t_player *player, const char *direction_input)
+int	set_player_direction(t_player *player)
 {
-	float	degrees;
 	float	rotation_angle;
 
-	rotation_angle = direction_to_radians(direction_input);
-	if (rotation_angle == -1)
-	{
-		degrees = atof(direction_input);
-		// Cambiar Funcion ATOF -------------------------------------------------------------------
-		// -------------------------------------------------------------------
-		rotation_angle = degrees * (PI / 180.0);
-	}
+	rotation_angle = direction_to_radians(player->dir);
 	player->rotationAngle = normalize_angle(rotation_angle);
 	return (0);
 }
 
-void	move_player(t_game *game, float deltaTime)
+void	move_player(t_game *game)
 {
 	t_player	*player;
 	float		movestep;
@@ -51,11 +43,10 @@ void	move_player(t_game *game, float deltaTime)
 	float		newplayer_y;
 
 	player = &game->player;
-	player->rotationAngle += player->turnDirection * player->turnSpeed
-		* deltaTime;
+	player->rotationAngle += player->turnDirection * player->turnSpeed;
 	player->rotationAngle = normalize_angle(player->rotationAngle);
-	movestep = player->walkDirection * player->walkSpeed * deltaTime;
-	strafestep = player->strafeDirection * player->walkSpeed * deltaTime;
+	movestep = player->walkDirection * player->walkSpeed;
+	strafestep = player->strafeDirection * player->walkSpeed;
 	newplayer_x = player->x + cos(player->rotationAngle) * movestep
 		+ cos(player->rotationAngle + PI / 2) * strafestep;
 	newplayer_y = player->y + sin(player->rotationAngle) * movestep

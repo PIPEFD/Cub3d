@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:53 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:46:33 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid)
 		rays[stripid].wallHitContent = ray_cast->horWallContent;
 		rays[stripid].wasHitVertical = 0;
 	}
+	/*
 	printf("// --- // --- // --- // --- // --- //\n");
 	printf("Rayos calculados\n");
 	printf("// --- // --- // --- // --- // --- //\n");
@@ -67,6 +68,7 @@ int	calculate_hit_distances(t_game *game, t_ray_cast *ray_cast, int stripid)
 	printf("IsRayFacingLeft: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].isRayFacingLeft, stripid);
 	printf("IsRayFacingRight: [%d] \n number_of_ray -->> [%d]\n", rays[stripid].isRayFacingRight, stripid);
 	printf("// --- // --- // --- // --- // --- //\n");
+	*/
 	return (0);
 }
 

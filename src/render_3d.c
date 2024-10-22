@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/16 12:39:02 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:42:32 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ int	init_data_render(t_game *game, int i)
 		+ (game->render_params.wall_strip_height / 2);
 	game->render_params.wall_bottom_pixel = game->render_params.wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : game->render_params.wall_bottom_pixel;
 	if (game->rays[i].wasHitVertical)
-		game->render_params.wall_color = 0xFFFFFFFF;
+		game->render_params.wall_color = 0xffffffff;
 	else
-		game->render_params.wall_color = 0xCCCCCCFF;
-
-
+		game->render_params.wall_color = 0x000000ff;
 	return (0);
 }
 
@@ -61,14 +59,14 @@ void	render_floor_and_ceiling(t_game *game, int  i)
 	y = 0;
 	while (y < game->render_params.wall_top_pixel)
 	{
-		mlx_put_pixel(game->img, i, y, 0x000000FF);
+		mlx_put_pixel(game->img, i, y, game->ceiling);
 		y++;
 	}
 	// Renderizar suelo
 	y = game->render_params.wall_bottom_pixel;
 	while (y < WINDOW_HEIGHT)
 	{
-		mlx_put_pixel(game->img, i, y, 0x7F7F7FFF);
+		mlx_put_pixel(game->img, i, y, game->floor);
 		y++;
 	}
 }
@@ -85,6 +83,7 @@ void	render_3d_projection(t_game *game)
 		render_floor_and_ceiling(game, index_ray);
 		index_ray++;
 	}
+	/*
 	printf("// --- // --- // --- // --- // --- //\n");
 	printf("\nData initialized render correctly\n");
 	printf("// --- // --- // --- // --- // --- //\n");
@@ -93,4 +92,5 @@ void	render_3d_projection(t_game *game)
 	printf("wall_strip_height: %f\n", game->render_params.wall_strip_height);
 	printf("wall_top_pixel: %d\n", game->render_params.wall_top_pixel);
 	printf("wall_bottom_pixel: %d\n", game->render_params.wall_bottom_pixel);
+	*/
 }

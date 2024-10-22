@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 11:01:08 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:21:45 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,18 @@ int	init_data_rays(t_game *game)
 	return (0);
 }
 
-int	init_data_player(t_game *game, const char *direction_input)
+int	init_data_player(t_game *game)
 {
-	game->player.width = 1;
-	game->player.height = 1;
+	game->player.width = 2;
+	game->player.height = 2;
 	game->player.turnDirection = 0;
 	game->player.strafeDirection = 0;
 	game->player.walkDirection = 0;
 	game->player.rotationAngle = PI / 2;
 	game->player.walkSpeed = SPEED;
-	game->player.turnSpeed = 80 * (PI / 180);
+	game->player.turnSpeed = TURN_SPEED * (PI / 180);
 	game->ticksLastFrame = 0;
-	if (direction_input != NULL)
-		set_player_direction(&game->player, direction_input);
-	else
-		game->player.rotationAngle = PI / 2;
+	set_player_direction(&game->player);
 	return (0);
 }
 

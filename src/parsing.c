@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/21 11:58:25 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:50:55 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ int	get_player_data(t_game *data)
 			{
 				if (data->player.dir != 0)
 					return (0);
-				data->player.x = x * TILE_SIZE;
-				data->player.y = y * TILE_SIZE;
+				data->player.x = x * TILE_SIZE + TILE_SIZE / 2;
+				data->player.y = y * TILE_SIZE + TILE_SIZE / 2;
 				data->player.dir = data->map[y][x];
+				data->map[y][x] = '0';
 			}
 		}
 	}
@@ -40,7 +41,7 @@ int	flood_fill(char **map, int x, int y)
 {
 	int	end;
 
-	if (!map[y] || !map[y][x] || map[y][x] == ' ')
+	if (x < 0 || y < 0 || !map[y] || !map[y][x] || map[y][x] == ' ')
 		return (1);
 	if (map[y][x] == '1')
 		return (0);
@@ -122,18 +123,29 @@ int	get_map(t_game *data, char **file)
 		return (0);
 */
 
-int	get_rgb(char *line)
+unsigned int	get_rgb(char *line)
 {
+	char			*temp;
 	unsigned char	rgb[3];
 	char			**red_green_blue;
-
+	
 	red_green_blue = ft_split(line, ',');
 	if (split_len(red_green_blue) != 3)
-		return (0);
+		return (split_free(red_green_blue), 0);
+	temp = ft_strtrim(red_green_blue[0], " ");
+	free(red_green_blue[0]);
+	red_green_blue[0] = temp;
+	temp = ft_strtrim(red_green_blue[1], " ");
+	free(red_green_blue[1]);
+	red_green_blue[1] = temp;
+	temp = ft_strtrim(red_green_blue[2], " ");
+	free(red_green_blue[2]);
+	red_green_blue[2] = temp;
 	rgb[0] = (unsigned char)ft_atoi(red_green_blue[0]);
 	rgb[1] = (unsigned char)ft_atoi(red_green_blue[1]);
 	rgb[2] = (unsigned char)ft_atoi(red_green_blue[2]);
-	return (0 << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	split_free(red_green_blue);
+	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 }
 
 /*
@@ -159,18 +171,24 @@ int	mod_strcomp(char *s1, char *s2)
 
 char	*get_filename(char **file, char *id)
 {
-	int	i;
+	int		i;
+	char	*temp;
+	char	*res;
 	
 	i = -1;
 	while (file[++i])
 	{
 		if (!mod_strcomp(file[i], id))
-			return (ft_strdup(&file[i][3]));
+		{
+			temp = ft_strtrim(&file[i][3], " ");
+			res = ft_strdup(temp);
+			return (free(temp), res);
+		}
 	}
 	return (NULL);
 }
 
-void	load_sprite(void *mlx, t_texture *text)
+int	load_sprite(void *mlx, t_texture *text)
 {
 	xpm_t			*xpm_image;
 	mlx_image_t		*mlx_img;
@@ -179,7 +197,7 @@ void	load_sprite(void *mlx, t_texture *text)
 
 	xpm_image = mlx_load_xpm42(text->file);
 	if (!xpm_image)
-    	return;
+    	return (0);
 	mlx_img = mlx_texture_to_image(mlx, &xpm_image->texture);
 	text->height = mlx_img->height;
 	text->width = mlx_img->width;
@@ -192,14 +210,19 @@ void	load_sprite(void *mlx, t_texture *text)
 		while (++x < text->width)
 			text->img[y][x] = ((unsigned int *)mlx_img->pixels)[y * mlx_img->width + x];
 	}
+	return (1);
 }
 
 int	get_sprites(t_game *data)
 {
-	load_sprite(data->mlx, data->no);
-	load_sprite(data->mlx, data->so);
-	load_sprite(data->mlx, data->we);
-	load_sprite(data->mlx, data->ea);
+	if (!load_sprite(data->mlx, data->no))
+		return (0);
+	if (!load_sprite(data->mlx, data->so))
+		return (0);
+	if (!load_sprite(data->mlx, data->we))
+		return (0);
+	if (!load_sprite(data->mlx, data->ea))
+		return (0);
 	return (1);
 }
 
@@ -241,10 +264,24 @@ char	*read_the_file(char *file_name)
 	}
 }
 
+void get_rgbs(char **file, t_game *data)
+{
+	int	i;
+
+	i = -1;
+	while (file[++i])
+	{
+		if (file[i][0] == 'C' && file[i][1] == ' ')
+			data->ceiling = get_rgb(&file[i][2]);
+		if (file[i][0] == 'F' && file[i][1] == ' ')
+			data->floor = get_rgb(&file[i][2]);
+	}
+}
+
 int	get_file_data(t_game *data, char *file_name)
 {
-	char *the_whole_file;
-	char **file;
+	char	*the_whole_file;
+	char	**file;
 
 	the_whole_file = read_the_file(file_name);
 	file = ft_split(the_whole_file, '\n');
@@ -253,6 +290,7 @@ int	get_file_data(t_game *data, char *file_name)
 	data->so->file = get_filename(file, "SO ");
 	data->we->file = get_filename(file, "WE ");
 	data->ea->file = get_filename(file, "EA ");
+	get_rgbs(file, data);
 	if (!get_map(data, file))
 		return (split_free(file), 0);
 	split_free(file);
@@ -297,6 +335,8 @@ int parsing(t_game *game, char *file_name)
 		return (0);
 	get_map_data(game);
 	if (!get_player_data(game))
+		return (0);
+	if (setup(game) != 0)
 		return (0);
 	return (1);
 }

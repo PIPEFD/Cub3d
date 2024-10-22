@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:28:47 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:23 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:45:26 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ int	draw_line(t_game *game)
 		if (vars.x0 == vars.x1 && vars.y0 == vars.y1)
 			break ;
 		e2 = 2 * vars.err;
+		vars.err += vars.dy * (e2 >= vars.dy) + vars.dx * (e2 <= vars.dx);
+		vars.x0 += vars.sx * (e2 >= vars.dy);
+		vars.y0 += vars.sy * (e2 <= vars.dx);
+		/*
 		if (e2 >= vars.dy)
 		{
 			vars.err += vars.dy;
@@ -63,6 +67,7 @@ int	draw_line(t_game *game)
 			vars.err += vars.dx;
 			vars.y0 += vars.sy;
 		}
+		*/
 	}
-	return (0);
+	return (1);
 }
