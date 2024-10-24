@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/21 11:58:42 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:16:43 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # include "defs.h"
 
 typedef struct s_texture {
-	char	*file;				// Filename
-	int		width;				// Width
-	int		height;				// Height
-	int		**img;				// Bidimensional array with the texture
+	char			*file;				// Filename
+	int				width;				// Width
+	int				height;				// Height
+	unsigned int	**img;				// Bidimensional array with the texture
 } t_texture;
 
 typedef struct s_data
@@ -153,8 +153,8 @@ typedef struct s_player
 typedef struct s_ray
 {
 	float				rayAngle;
-	float				wallHitX;
-	float				wallHitY;
+	float				wallHitX;	//Ray collision X
+	float				wallHitY;	//Ray collision Y
 	float				distance;
 	int					wasHitVertical;
 	int					isRayFacingUp;
@@ -186,6 +186,7 @@ typedef struct s_data
 
 typedef struct s_game
 {
+	unsigned int	strip[WINDOW_HEIGHT];
 	t_texture		*no;		// North image data-struct
 	t_texture		*so;		// South image data-struct
 	t_texture		*we;		// West image data-struct

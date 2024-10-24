@@ -32,7 +32,7 @@ void	update(void *param)
 		render_3d_projection(game);
 		render_map(game);
 		//render_rays(game);
-		render_player(game);
+		//render_player(game);
 		game->ticksLastFrame = timenow;
 	}
 }
@@ -47,7 +47,7 @@ int	init_data_all(t_game *game)
 		return (-1);
 	if (init_data_figures(game) != 0)
 		return (-1);
-	printf("\nInitialized data correctly\n");
+	//printf("\nInitialized data correctly\n");
 	return (0);
 }
 

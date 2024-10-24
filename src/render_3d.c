@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/22 12:42:32 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:16:02 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,40 @@
 
 // TO DO:
 // Asignar variables a la estrcutura para que se puedan usar en un futuro
+
+void	get_strip(t_game *game, t_texture *text, int x)
+{
+	int y;
+	int	anti_y;
+	int	image_x;
+	int	image_y;
+
+	//ft_printf("%d\n", x);
+	//ft_printf("%d\n", game->render_params.wall_top_pixel);
+	//ft_printf("%d\n", game->render_params.wall_bottom_pixel);
+	//ft_printf("%d\n", WINDOW_HEIGHT);
+	y = -1;
+	while (++y < game->render_params.wall_top_pixel)
+		game->strip[y] = game->ceiling;
+
+
+	
+	image_x = (x * text->width) / TILE_SIZE;
+	anti_y = y + 1;
+	while (++y < game->render_params.wall_bottom_pixel)
+	{
+		image_y = ((y - anti_y) * text->height) / (game->render_params.wall_bottom_pixel - game->render_params.wall_top_pixel);
+		//ft_printf("X: %d\n", image_x);
+		//ft_printf("Y: %d\n", y / text->height);
+		game->strip[y] = text->img[image_y][image_x];
+	}
+
+
+
+	
+	while (y < WINDOW_HEIGHT)
+		game->strip[y++] = game->floor;
+}
 
 int	init_data_render(t_game *game, int i)
 {
@@ -30,15 +64,28 @@ int	init_data_render(t_game *game, int i)
 	game->render_params.wall_bottom_pixel = (WINDOW_HEIGHT / 2)
 		+ (game->render_params.wall_strip_height / 2);
 	game->render_params.wall_bottom_pixel = game->render_params.wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : game->render_params.wall_bottom_pixel;
-	if (game->rays[i].wasHitVertical)
-		game->render_params.wall_color = 0xffffffff;
+	if (!game->rays[i].wasHitVertical)
+	{
+		if (game->rays[i].rayAngle < PI && game->rays[i].rayAngle > 0)
+			get_strip(game, game->no, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+		else
+			get_strip(game, game->so, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+	}
 	else
-		game->render_params.wall_color = 0x000000ff;
+	{
+		if (game->rays[i].rayAngle > PI * 1/2 && game->rays[i].rayAngle < PI * 3/2)
+			get_strip(game, game->ea, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+		else
+			get_strip(game, game->we, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+	}
+	/*
+	else if (game->ray_casts[i].isRayFacingLeft)
+	else if (game->ray_casts[i].isRayFacingRight)
+		get_strip(game, game->we, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+	*/
 	return (0);
 }
-
-
-
+/*
 void	render_wall_strip(t_game *game, int i)
 {
 	int	y;
@@ -70,6 +117,16 @@ void	render_floor_and_ceiling(t_game *game, int  i)
 		y++;
 	}
 }
+*/
+
+void	render_strip(t_game *game, int x)
+{
+	int	y;
+
+	y = -1;
+	while (++y < WINDOW_HEIGHT)
+		mlx_put_pixel(game->img, x, y, game->strip[y]);
+}
 
 void	render_3d_projection(t_game *game)
 {
@@ -79,8 +136,9 @@ void	render_3d_projection(t_game *game)
 	while (index_ray < NUM_RAYS)
 	{
 		init_data_render(game, index_ray);
-		render_wall_strip(game, index_ray);
-		render_floor_and_ceiling(game, index_ray);
+		render_strip(game, index_ray);
+		//render_wall_strip(game, index_ray);
+		//render_floor_and_ceiling(game, index_ray);
 		index_ray++;
 	}
 	/*

@@ -57,6 +57,31 @@ void	destroy_window(t_game *game)
 	
 	
 }
+/*
+void print_image(t_texture *text, mlx_image_t *img, int scale)
+{
+	int	y;
+	int	x;
+	int i;
+	int	j;
+
+	y = -1;
+	while (++y < text->height)
+	{
+		x = -1;
+		while (++x < text->width)
+		{
+			j = -1;
+			while (++j < scale)
+			{
+				i = -1;
+				while (++i < scale)
+					mlx_put_pixel(img, i + x * scale, j + y * scale, text->img[y][x]);
+			}
+		}
+	}
+}
+*/
 
 int	main(int argc, char **argv)
 {
@@ -65,6 +90,7 @@ int	main(int argc, char **argv)
 	if (argc != 2 || !parsing(&game, argv[1]))
 		return (1);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
+	//print_image(game.no, game.img, 50);
 	mlx_key_hook(game.mlx, &key_hook, &game);
 	mlx_loop_hook(game.mlx, &update, &game);
 	mlx_loop(game.mlx);

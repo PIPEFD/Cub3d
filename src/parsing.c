@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/22 12:50:55 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:04:51 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,25 +190,35 @@ char	*get_filename(char **file, char *id)
 
 int	load_sprite(void *mlx, t_texture *text)
 {
-	xpm_t			*xpm_image;
+	mlx_texture_t	*png_image;
 	mlx_image_t		*mlx_img;
+	//unsigned int	pixel;
 	int				x;
 	int				y;
 
-	xpm_image = mlx_load_xpm42(text->file);
-	if (!xpm_image)
-    	return (0);
-	mlx_img = mlx_texture_to_image(mlx, &xpm_image->texture);
+	png_image = mlx_load_png(text->file);
+	if (!png_image)
+		return (0);
+	mlx_img = mlx_texture_to_image(mlx, png_image);
 	text->height = mlx_img->height;
 	text->width = mlx_img->width;
-	text->img = (int **)malloc(text->height * sizeof(int *));
+	text->img = (unsigned int **)malloc(text->height * sizeof(unsigned int *));
 	y = -1;
 	while (++y < text->height)
 	{
-		text->img[y] = malloc(text->width * sizeof(int));
+		text->img[y] = malloc(text->width * sizeof(unsigned int));
 		x = -1;
 		while (++x < text->width)
+		{
+			/*
+			pixel = ((unsigned int *)mlx_img->pixels)[y * mlx_img->width + x];
+			text->img[y][x] = (pixel & 0xFF000000) |                           // Alpha
+						(pixel & 0x00FF0000) >> 16 |                        // Rojo a Azul
+						(pixel & 0x0000FF00) |                             // Verde
+						(pixel & 0x000000FF) << 16;
+						*/
 			text->img[y][x] = ((unsigned int *)mlx_img->pixels)[y * mlx_img->width + x];
+		}
 	}
 	return (1);
 }
