@@ -6,14 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/23 14:16:02 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:10:01 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// TO DO:
-// Asignar variables a la estrcutura para que se puedan usar en un futuro
 
 void	get_strip(t_game *game, t_texture *text, int x)
 {
@@ -26,25 +23,16 @@ void	get_strip(t_game *game, t_texture *text, int x)
 	//ft_printf("%d\n", game->render_params.wall_top_pixel);
 	//ft_printf("%d\n", game->render_params.wall_bottom_pixel);
 	//ft_printf("%d\n", WINDOW_HEIGHT);
-	y = -1;
-	while (++y < game->render_params.wall_top_pixel)
-		game->strip[y] = game->ceiling;
-
-
-	
+	y = 0;
+	while (y < game->render_params.wall_top_pixel)
+		game->strip[y++] = game->ceiling;
 	image_x = (x * text->width) / TILE_SIZE;
-	anti_y = y + 1;
-	while (++y < game->render_params.wall_bottom_pixel)
+	anti_y = y;
+	while (y < game->render_params.wall_bottom_pixel)
 	{
 		image_y = ((y - anti_y) * text->height) / (game->render_params.wall_bottom_pixel - game->render_params.wall_top_pixel);
-		//ft_printf("X: %d\n", image_x);
-		//ft_printf("Y: %d\n", y / text->height);
-		game->strip[y] = text->img[image_y][image_x];
+		game->strip[y++] = text->img[image_y][image_x];
 	}
-
-
-
-	
 	while (y < WINDOW_HEIGHT)
 		game->strip[y++] = game->floor;
 }
@@ -118,6 +106,7 @@ void	render_floor_and_ceiling(t_game *game, int  i)
 	}
 }
 */
+
 
 void	render_strip(t_game *game, int x)
 {

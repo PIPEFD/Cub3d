@@ -1,8 +1,7 @@
-NO assets/textures/NO.xpm
-	SO assets/textures/SO.xpm
-
-EA assets/textures/EA.xpm
-	WE assets/textures/WE.xpm
+NO assets/textures/NO.png
+SO assets/textures/SO.png
+EA assets/textures/EA.png
+WE assets/textures/WE.png
 
 
 F      17,    38,     64

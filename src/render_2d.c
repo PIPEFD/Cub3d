@@ -6,11 +6,20 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 14:06:06 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:30:25 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+# define MINI_W (WINDOW_WIDTH / 5)
+# define MINI_H (WINDOW_HEIGHT / 5)
+
+#if MINI_W > MINI_H
+    #define MINI_T (MINI_W / 20)
+#else
+    #define MINI_T (MINI_H / 20)
+#endif
 
 void	render_rays(t_game *game)
 {
@@ -37,29 +46,64 @@ void	render_rays(t_game *game)
 
 void	render_player(t_game *game)
 {
-	unsigned int	player_color;
 	float			line_length;
 
-	player_color = 0xFA0000FF;
-	game->draw_figures.rect_params->x = game->player.x * MINIMAP_SCALE_FACTOR
-		- (PLAYER_SIZE / 2);
-	game->draw_figures.rect_params->y = game->player.y * MINIMAP_SCALE_FACTOR
-		- (PLAYER_SIZE / 2);
+	game->draw_figures.rect_params->x = MINI_W / 2 - PLAYER_SIZE / 2;
+	game->draw_figures.rect_params->y = MINI_H / 2 - PLAYER_SIZE / 2;
 	game->draw_figures.rect_params->width = PLAYER_SIZE;
 	game->draw_figures.rect_params->height = PLAYER_SIZE;
-	game->draw_figures.rect_params->color = player_color;
+	game->draw_figures.rect_params->color = 0xFF0000FF;
 	draw_rectangle(game);
-	game->draw_figures.line_params->x0 = game->player.x * MINIMAP_SCALE_FACTOR;
-	game->draw_figures.line_params->y0 = game->player.y * MINIMAP_SCALE_FACTOR;
+	game->draw_figures.line_params->x0 = MINI_W / 2;
+	game->draw_figures.line_params->y0 = MINI_H / 2;
 	line_length = 20;
 	game->draw_figures.line_params->x1 = game->draw_figures.line_params->x0
 		+ cos(game->player.rotationAngle) * line_length;
 	game->draw_figures.line_params->y1 = game->draw_figures.line_params->y0
 		+ sin(game->player.rotationAngle) * line_length;
-	game->draw_figures.line_params->color = player_color;
+	game->draw_figures.line_params->color = 0xFF0000FF;
 	draw_line(game);
 }
 
+int	is_this_floor(t_game *game, int x, int y)
+{
+	int	map_y;
+	int	map_x;
+	
+	map_y = (y * TILE_SIZE) / MINI_T + (int)game->player.y - (MINI_H / MINI_T) / 2 * TILE_SIZE;
+	map_x = (x * TILE_SIZE) / MINI_T + (int)game->player.x - (MINI_W / MINI_T) / 2 * TILE_SIZE;
+	map_y /= TILE_SIZE;
+	map_x /= TILE_SIZE;
+
+	if (map_y < 0 || map_y >= split_len(game->map))
+		return (0);
+	if (map_x < 0 || map_x >= (int)ft_strlen(game->map[map_y]))
+		return (0);
+	if (game->map[map_y][map_x] == '1')
+		return (0);
+	return (1);
+}
+
+void	render_map(t_game *game)
+{
+	int	y;
+	int	x;
+	
+	y = -1;
+	while (++y <= MINI_H)
+	{
+		x = -1;
+		while (++x <= MINI_W)
+		{
+			if (is_this_floor(game, x, y) && x % 2 && y % 2)
+				mlx_put_pixel(game->img, x, y, 0xffffffff);
+			else if ((x % 2 && y % 2) || y == MINI_H || x == MINI_W)
+				mlx_put_pixel(game->img, x, y, 0x000000ff);
+		}
+	}
+}
+
+/*
 void	render_map(t_game *game)
 {
 	int				i;
@@ -91,3 +135,4 @@ void	render_map(t_game *game)
 		}
 	}
 }
+*/

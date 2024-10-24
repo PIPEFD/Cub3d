@@ -23,7 +23,7 @@ void	update(void *param)
 	game = (t_game *)param;
 	timenow = mlx_get_time() * 1000;
 
-	if (timenow - game->ticksLastFrame > 50)
+	if (timenow - game->ticksLastFrame > 1000 / FRAMES)
 	{
 		move_player(game);
 		cast_all_rays(game);
@@ -32,7 +32,7 @@ void	update(void *param)
 		render_3d_projection(game);
 		render_map(game);
 		//render_rays(game);
-		//render_player(game);
+		render_player(game);
 		game->ticksLastFrame = timenow;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/24 11:04:51 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:24:33 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,20 +188,31 @@ char	*get_filename(char **file, char *id)
 	return (NULL);
 }
 
-int	load_sprite(void *mlx, t_texture *text)
+uint32_t	get_color(uint8_t *p)
+{
+	uint32_t	b;
+	uint32_t	g;
+	uint32_t	r;
+	uint32_t	a;
+
+	r = (uint32_t) *(p);
+	g = (uint32_t) *(p + 1);
+	b = (uint32_t) *(p + 2);
+	a = (uint32_t) *(p + 3);
+	return ((r << 24) + (g << 16) + (b << 8) + a);
+}
+
+int	load_sprite(t_texture *text)
 {
 	mlx_texture_t	*png_image;
-	mlx_image_t		*mlx_img;
-	//unsigned int	pixel;
 	int				x;
 	int				y;
 
 	png_image = mlx_load_png(text->file);
 	if (!png_image)
 		return (0);
-	mlx_img = mlx_texture_to_image(mlx, png_image);
-	text->height = mlx_img->height;
-	text->width = mlx_img->width;
+	text->height = png_image->height;
+	text->width = png_image->width;
 	text->img = (unsigned int **)malloc(text->height * sizeof(unsigned int *));
 	y = -1;
 	while (++y < text->height)
@@ -209,29 +220,20 @@ int	load_sprite(void *mlx, t_texture *text)
 		text->img[y] = malloc(text->width * sizeof(unsigned int));
 		x = -1;
 		while (++x < text->width)
-		{
-			/*
-			pixel = ((unsigned int *)mlx_img->pixels)[y * mlx_img->width + x];
-			text->img[y][x] = (pixel & 0xFF000000) |                           // Alpha
-						(pixel & 0x00FF0000) >> 16 |                        // Rojo a Azul
-						(pixel & 0x0000FF00) |                             // Verde
-						(pixel & 0x000000FF) << 16;
-						*/
-			text->img[y][x] = ((unsigned int *)mlx_img->pixels)[y * mlx_img->width + x];
-		}
+			text->img[y][x] = get_color(&png_image->pixels[(y * png_image->width + x) * png_image->bytes_per_pixel]);
 	}
 	return (1);
 }
 
 int	get_sprites(t_game *data)
 {
-	if (!load_sprite(data->mlx, data->no))
+	if (!load_sprite(data->no))
 		return (0);
-	if (!load_sprite(data->mlx, data->so))
+	if (!load_sprite(data->so))
 		return (0);
-	if (!load_sprite(data->mlx, data->we))
+	if (!load_sprite(data->we))
 		return (0);
-	if (!load_sprite(data->mlx, data->ea))
+	if (!load_sprite(data->ea))
 		return (0);
 	return (1);
 }
@@ -311,7 +313,8 @@ int	get_file_data(t_game *data, char *file_name)
 
 void	init_data(t_game *data)
 {
-	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
+	char *arr = "Cub3d";
+	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, arr, true);
 	if (!data->mlx)
 		return ((void)printf("Error initializing MLX.\n"));
 	data->player.dir = 0;

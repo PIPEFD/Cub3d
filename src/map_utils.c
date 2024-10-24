@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:34 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 12:47:51 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 17:26:13 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ int	map_has_wall_at(t_game *game, float x, float y)
 
 	map_grid_index_x = floor(x / TILE_SIZE);
 	map_grid_index_y = floor(y / TILE_SIZE);
+	if (map_grid_index_y < 0 || map_grid_index_y >= split_len(game->map))
+		return (0);
+	if (map_grid_index_x < 0 || map_grid_index_x >= (int)ft_strlen(game->map[map_grid_index_y]))
+		return (0);
 	tile = game->map[map_grid_index_y][map_grid_index_x];
 	return (tile != '0');
 }
