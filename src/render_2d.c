@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/24 18:30:25 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 18:44:23 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,44 @@ void	render_rays(t_game *game)
 	}
 }
 
+int draw_circle(t_game *game)
+{
+    t_rectangle_params *params; // You may want to rename this to circle_params
+    int x, y;
+    int radius; // Assuming width is the diameter
+
+    params = game->draw_figures.rect_params; // Keep the same struct if it has radius information
+    radius = params->width / 2;
+	x = -radius - 1;
+	while (++x <= radius)
+    {
+		y = -radius - 1;
+        while (++y <= radius)
+        {
+            if (x * x + y * y <= radius * radius) // Check if the point is within the circle
+            {
+                int pixel_x = params->x + x;
+                int pixel_y = params->y + y;
+
+                if (pixel_x >= 0 && pixel_x < (int)game->img->width &&
+                    pixel_y >= 0 && pixel_y < (int)game->img->height)
+                    mlx_put_pixel(game->img, pixel_x, pixel_y, params->color);
+            }
+        }
+    }
+    return (0);
+}
+
 void	render_player(t_game *game)
 {
 	float			line_length;
 
-	game->draw_figures.rect_params->x = MINI_W / 2 - PLAYER_SIZE / 2;
-	game->draw_figures.rect_params->y = MINI_H / 2 - PLAYER_SIZE / 2;
+	game->draw_figures.rect_params->x = MINI_W / 2;
+	game->draw_figures.rect_params->y = MINI_H / 2;
 	game->draw_figures.rect_params->width = PLAYER_SIZE;
 	game->draw_figures.rect_params->height = PLAYER_SIZE;
 	game->draw_figures.rect_params->color = 0xFF0000FF;
-	draw_rectangle(game);
+	draw_circle(game);
 	game->draw_figures.line_params->x0 = MINI_W / 2;
 	game->draw_figures.line_params->y0 = MINI_H / 2;
 	line_length = 20;
