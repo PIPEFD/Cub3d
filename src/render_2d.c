@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/24 18:44:23 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:00:13 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,13 @@ void	render_map(t_game *game)
 		x = -1;
 		while (++x <= MINI_W)
 		{
-			if (is_this_floor(game, x, y) && x % 2 && y % 2)
-				mlx_put_pixel(game->img, x, y, 0xffffffff);
-			else if ((x % 2 && y % 2) || y == MINI_H || x == MINI_W)
-				mlx_put_pixel(game->img, x, y, 0x000000ff);
+			if (x % 2 && y % 2)
+			{
+				if (is_this_floor(game, x, y))
+					mlx_put_pixel(game->img, x, y, 0xffffffff);
+				else
+					mlx_put_pixel(game->img, x, y, 0x000000ff);
+			}
 		}
 	}
 }

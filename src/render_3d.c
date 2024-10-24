@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/24 18:10:01 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:27:39 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ int	init_data_render(t_game *game, int i)
 	if (!game->rays[i].wasHitVertical)
 	{
 		if (game->rays[i].rayAngle < PI && game->rays[i].rayAngle > 0)
-			get_strip(game, game->no, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+			get_strip(game, game->so, TILE_SIZE - 1 - ((int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE));
 		else
-			get_strip(game, game->so, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+			get_strip(game, game->no, (int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE);
 	}
 	else
 	{
 		if (game->rays[i].rayAngle > PI * 1/2 && game->rays[i].rayAngle < PI * 3/2)
-			get_strip(game, game->ea, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+			get_strip(game, game->we, TILE_SIZE - 1 - ((int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE));
 		else
-			get_strip(game, game->we, (int)game->rays[i].wallHitX % TILE_SIZE + (int)game->rays[i].wallHitY % TILE_SIZE);
+			get_strip(game, game->ea, (int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE);
 	}
 	/*
 	else if (game->ray_casts[i].isRayFacingLeft)

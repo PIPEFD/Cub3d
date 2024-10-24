@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:30:31 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/24 18:25:37 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:37:28 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DEFS_H
 
 // Harcodeo de informacion del mapa //
-# define FRAMES 60
+# define FRAMES 30
 # define SPEED 10
 # define TURN_SPEED 2
 # define TILE_SIZE 100
