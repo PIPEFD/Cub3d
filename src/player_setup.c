@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 13:52:00 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:27:09 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,10 @@ void	move_player(t_game *game)
 		+ cos(player->rotationAngle + PI / 2) * strafestep;
 	newplayer_y = player->y + sin(player->rotationAngle) * movestep
 		+ sin(player->rotationAngle + PI / 2) * strafestep;
-	if (!map_has_wall_at(game, newplayer_x, newplayer_y))
-	{
-		player->x = newplayer_x;
+	if (!map_has_wall_at(game, player->x, newplayer_y))
 		player->y = newplayer_y;
-	}
+	if (!map_has_wall_at(game, newplayer_x, player->y))
+		player->x = newplayer_x;
 }
 
 int	init_data_move_player(t_bresenham_vars *vars, t_line_params *params)
