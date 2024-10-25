@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/24 14:24:33 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:29:43 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,14 +212,14 @@ int	load_sprite(t_texture *text)
 	if (!png_image)
 		return (0);
 	text->height = png_image->height;
-	text->width = png_image->width;
+	text->width2 = png_image->width;
 	text->img = (unsigned int **)malloc(text->height * sizeof(unsigned int *));
 	y = -1;
 	while (++y < text->height)
 	{
-		text->img[y] = malloc(text->width * sizeof(unsigned int));
+		text->img[y] = malloc(text->width2 * sizeof(unsigned int));
 		x = -1;
-		while (++x < text->width)
+		while (++x < text->width2)
 			text->img[y][x] = get_color(&png_image->pixels[(y * png_image->width + x) * png_image->bytes_per_pixel]);
 	}
 	return (1);
@@ -227,6 +227,9 @@ int	load_sprite(t_texture *text)
 
 int	get_sprites(t_game *data)
 {
+	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
+	if (!data->mlx)
+		return ((void)printf("Error initializing MLX.\n"), 0);
 	if (!load_sprite(data->no))
 		return (0);
 	if (!load_sprite(data->so))
@@ -296,6 +299,8 @@ int	get_file_data(t_game *data, char *file_name)
 	char	**file;
 
 	the_whole_file = read_the_file(file_name);
+	if (!the_whole_file)
+		return (0);
 	file = ft_split(the_whole_file, '\n');
 	free(the_whole_file);
 	data->no->file = get_filename(file, "NO ");
@@ -313,10 +318,6 @@ int	get_file_data(t_game *data, char *file_name)
 
 void	init_data(t_game *data)
 {
-	char *arr = "Cub3d";
-	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, arr, true);
-	if (!data->mlx)
-		return ((void)printf("Error initializing MLX.\n"));
 	data->player.dir = 0;
 	data->no = (t_texture *)malloc(sizeof(t_texture));
 	data->so = (t_texture *)malloc(sizeof(t_texture));

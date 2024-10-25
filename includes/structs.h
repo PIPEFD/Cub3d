@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/25 11:24:50 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:59:04 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct s_texture {
 	char			*file;				// Filename
-	int				width;				// Width
+	int				width2;				// Width
 	int				height;				// Height
 	unsigned int	**img;				// Array with the texture
 } t_texture;

@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:30:31 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/24 19:37:28 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/25 17:42:25 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 // Harcodeo de informacion del mapa //
 # define FRAMES 30
 # define SPEED 10
-# define TURN_SPEED 2
+# define TURN_SPEED 3
 # define TILE_SIZE 100
 # define WINDOW_WIDTH 2000
 # define WINDOW_HEIGHT 1000
 # define NUM_RAYS WINDOW_WIDTH
+# define SIZE 20
 # define PLAYER_SIZE 10 // Tamaño del jugador en píxeles en el minimapa
 
 // --- // --- // --- // --- // --- //

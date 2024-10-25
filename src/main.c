@@ -69,7 +69,7 @@ void print_image(t_texture *text, mlx_image_t *img, int scale)
 	while (++y < text->height)
 	{
 		x = -1;
-		while (++x < text->width)
+		while (++x < text->width2)
 		{
 			j = -1;
 			while (++j < scale)

@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/24 19:27:39 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:44:35 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,26 @@ void	get_strip(t_game *game, t_texture *text, int x)
 	int	image_x;
 	int	image_y;
 
-	//ft_printf("%d\n", x);
-	//ft_printf("%d\n", game->render_params.wall_top_pixel);
-	//ft_printf("%d\n", game->render_params.wall_bottom_pixel);
-	//ft_printf("%d\n", WINDOW_HEIGHT);
+	//ft_printf("X: %d\n", x);
+	//ft_printf("WIDTH: %p\n", text->width2);
+	//ft_printf("TOP: %d\n", game->render_params.wall_top_pixel);
+	//ft_printf("BOT: %d\n", game->render_params.wall_bottom_pixel);
+	//ft_printf("WIN: %d\n", WINDOW_HEIGHT);
 	y = 0;
 	while (y < game->render_params.wall_top_pixel)
-		game->strip[y++] = game->ceiling;
-	image_x = (x * text->width) / TILE_SIZE;
+			game->strip[y++] = game->ceiling;
+	image_x = 1;
+	if (x != 1)
+		image_x = (x * text->width2) / TILE_SIZE;
 	anti_y = y;
-	while (y < game->render_params.wall_bottom_pixel)
+	if (game->render_params.wall_top_pixel < 0)
+		anti_y += game->render_params.wall_top_pixel;
+	while (y < game->render_params.wall_bottom_pixel && y < WINDOW_HEIGHT)
 	{
 		image_y = ((y - anti_y) * text->height) / (game->render_params.wall_bottom_pixel - game->render_params.wall_top_pixel);
-		game->strip[y++] = text->img[image_y][image_x];
+		if (image_y >= 0 && image_y < text->height && image_x >= 0 && image_x < text->width2)
+			game->strip[y] = text->img[image_y][image_x];
+		y++;
 	}
 	while (y < WINDOW_HEIGHT)
 		game->strip[y++] = game->floor;
@@ -48,16 +55,16 @@ int	init_data_render(t_game *game, int i)
 		* game->render_params.distance_proj_plane;
 	game->render_params.wall_top_pixel = (WINDOW_HEIGHT / 2)
 		- (game->render_params.wall_strip_height / 2);
-	game->render_params.wall_top_pixel = game->render_params.wall_top_pixel < 0 ? 0 : game->render_params.wall_top_pixel;
+	//game->render_params.wall_top_pixel = game->render_params.wall_top_pixel < 0 ? 0 : game->render_params.wall_top_pixel;
 	game->render_params.wall_bottom_pixel = (WINDOW_HEIGHT / 2)
 		+ (game->render_params.wall_strip_height / 2);
-	game->render_params.wall_bottom_pixel = game->render_params.wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : game->render_params.wall_bottom_pixel;
+	//game->render_params.wall_bottom_pixel = game->render_params.wall_bottom_pixel > WINDOW_HEIGHT ? WINDOW_HEIGHT : game->render_params.wall_bottom_pixel;
 	if (!game->rays[i].wasHitVertical)
 	{
 		if (game->rays[i].rayAngle < PI && game->rays[i].rayAngle > 0)
-			get_strip(game, game->so, TILE_SIZE - 1 - ((int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE));
-		else
 			get_strip(game, game->no, (int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE);
+		else
+			get_strip(game, game->so, TILE_SIZE - 1 - ((int)(game->rays[i].wallHitX + game->rays[i].wallHitY) % TILE_SIZE));
 	}
 	else
 	{
