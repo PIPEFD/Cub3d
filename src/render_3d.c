@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/25 16:44:35 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:43:59 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,13 @@ void	render_3d_projection(t_game *game)
 {
 	int index_ray;
 
-	index_ray = 0;
-	while (index_ray < NUM_RAYS)
+	index_ray = -1;
+	while (++index_ray < NUM_RAYS)
 	{
 		init_data_render(game, index_ray);
 		render_strip(game, index_ray);
 		//render_wall_strip(game, index_ray);
 		//render_floor_and_ceiling(game, index_ray);
-		index_ray++;
 	}
 	/*
 	printf("// --- // --- // --- // --- // --- //\n");

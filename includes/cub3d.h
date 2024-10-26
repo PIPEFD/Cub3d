@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:33:21 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/21 13:52:10 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 19:27:48 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int 	parsing(t_game *game, char *file_name);
 // --- // --- // --- // --- // --- //
 // Funciones para la inicializacion de la estructura
 // --- // --- // --- // --- // --- //
-int		init_data_bresenham(t_bresenham_vars *vars, t_line_params *params);
+void	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params);
 int		init_data_all(t_game *game);
 int		init_data_map(t_game *game);
-int		init_data_player(t_game *game);
-int		init_data_rays(t_game *game);
+void	init_data_player(t_game *game);
+void	init_data_rays(t_game *game);
 int		init_data_figures(t_game *game);
 int		init_data_render(t_game *game, int i);
 
@@ -35,12 +35,12 @@ int		init_data_render(t_game *game, int i);
 // Funciones para setear la dirección del jugador
 
 // --- // --- // --- // --- // --- //
-int		set_player_direction(t_player *player);
+void	set_player_direction(t_player *player);
 // Añadido
 
 // --- // --- // --- // --- // --- //
 // Function for update postion of player position
-void	move_player(t_game *game);
+void	move_player(t_game *game, t_player *player);
 // --- // --- // --- // --- // --- //
 
 // --- // --- // --- // --- // --- //
@@ -94,9 +94,8 @@ int		find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player, flo
 
 // --- // --- // --- // --- // --- //
 
-void	render_rays(t_game *game);
-void	render_player(t_game *game);
-void	render_map(t_game *game);
+void	render_minimap(t_game *game);
+//void	render_rays(t_game *game);
 void	update(void *param);
 int		setup(t_game *game);
 float	normalize_angle(float angle);

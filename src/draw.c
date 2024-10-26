@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:28:47 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/22 11:45:26 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:44:37 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	draw_rectangle(t_game *game)
 	}
 	return (0);
 }
-
+/*
 int	draw_line(t_game *game)
 {
 	t_line_params		*params;
@@ -56,7 +56,7 @@ int	draw_line(t_game *game)
 		vars.err += vars.dy * (e2 >= vars.dy) + vars.dx * (e2 <= vars.dx);
 		vars.x0 += vars.sx * (e2 >= vars.dy);
 		vars.y0 += vars.sy * (e2 <= vars.dx);
-		/*
+		
 		if (e2 >= vars.dy)
 		{
 			vars.err += vars.dy;
@@ -67,7 +67,8 @@ int	draw_line(t_game *game)
 			vars.err += vars.dx;
 			vars.y0 += vars.sy;
 		}
-		*/
+		
 	}
 	return (1);
 }
+*/

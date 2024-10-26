@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:06 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:39:05 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:16:14 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 float	normalize_angle(float angle)
 {
-	angle = remainder(angle, TWO_PI);
+	angle = remainder(angle, 2 * PI);
 	if (angle < 0)
 	{
-		angle = TWO_PI + angle;
+		angle = 2 * PI + angle;
 	}
 	return (angle);
 }

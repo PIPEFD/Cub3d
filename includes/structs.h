@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/25 15:59:04 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 19:24:40 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,8 @@ typedef struct s_player
 {
 	float				x;
 	float				y;
-	float				width;
-	float				height;
 	char				dir;
+	int					mouseDirection;
 	int 				turnDirection;   // -1 for left, +1 for right
 	int 				walkDirection;   // -1 for back, +1 for front
 	int 				strafeDirection; // -1 para izquierda, +1 para derecha

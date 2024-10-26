@@ -83,6 +83,18 @@ void print_image(t_texture *text, mlx_image_t *img, int scale)
 }
 */
 
+void	mouse_hook(double xpos, double ypos, void* param)
+{
+	t_game *game;
+	//static double	x;
+
+	game = (t_game *)param;
+	ypos = (xpos > WINDOW_WIDTH / 2) - (xpos < WINDOW_WIDTH / 2);
+	game->player.turnDirection = ypos;
+	if (xpos > WINDOW_WIDTH / 3 && xpos < WINDOW_WIDTH * 2 / 3)
+		game->player.turnDirection = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	t_game		game;
@@ -90,8 +102,8 @@ int	main(int argc, char **argv)
 	if (argc != 2 || !parsing(&game, argv[1]))
 		return (1);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	//print_image(game.no, game.img, 50);
 	mlx_key_hook(game.mlx, &key_hook, &game);
+	mlx_cursor_hook(game.mlx, &mouse_hook, &game);
 	mlx_loop_hook(game.mlx, &update, &game);
 	mlx_loop(game.mlx);
 	destroy_window(&game);

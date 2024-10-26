@@ -6,13 +6,13 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/21 13:21:45 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 19:24:53 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
+void	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
 {
 	vars->x0 = params->x0;
 	vars->y0 = params->y0;
@@ -23,7 +23,6 @@ int	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
 	vars->sx = (vars->x0 < vars->x1) - (vars->x0 >= vars->x1);  // Magia Koldiana
 	vars->sy = (vars->y0 < vars->y1) - (vars->y0 >= vars->y1); // Magia Koldiana
 	vars->err = vars->dx + vars->dy;
-	return (0);
 }
 
 int	init_data_figures(t_game *game)
@@ -43,19 +42,14 @@ int	init_data_figures(t_game *game)
 	return (0);
 }
 
-int	init_data_rays(t_game *game)
+void	init_data_rays(t_game *game)
 {
-
 	ft_memset(&game->rays, 0, sizeof(t_ray));
 	ft_memset(&game->ray_casts, 0, sizeof(t_ray_cast));
-
-	return (0);
 }
 
-int	init_data_player(t_game *game)
+void	init_data_player(t_game *game)
 {
-	game->player.width = 2;
-	game->player.height = 2;
 	game->player.turnDirection = 0;
 	game->player.strafeDirection = 0;
 	game->player.walkDirection = 0;
@@ -64,7 +58,6 @@ int	init_data_player(t_game *game)
 	game->player.turnSpeed = TURN_SPEED * (PI / 180);
 	game->ticksLastFrame = 0;
 	set_player_direction(&game->player);
-	return (0);
 }
 
 /*

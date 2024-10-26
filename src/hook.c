@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:22:07 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/16 12:38:27 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 18:54:37 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
 		mlx_close_window(game->mlx);
-	}
 	handle_walk_input(keydata, game);
 	handle_strafe_input(keydata, game);
 	handle_turn_input(keydata, game);

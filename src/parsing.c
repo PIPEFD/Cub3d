@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/25 17:29:43 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/26 20:01:49 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,9 +227,8 @@ int	load_sprite(t_texture *text)
 
 int	get_sprites(t_game *data)
 {
-	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
-	if (!data->mlx)
-		return ((void)printf("Error initializing MLX.\n"), 0);
+	if (!data->no->file || !data->so->file || !data->we->file || !data->ea->file)
+		return (0);
 	if (!load_sprite(data->no))
 		return (0);
 	if (!load_sprite(data->so))
@@ -310,6 +309,8 @@ int	get_file_data(t_game *data, char *file_name)
 	get_rgbs(file, data);
 	if (!get_map(data, file))
 		return (split_free(file), 0);
+	if (!valid_map(data->map))
+		return (0);
 	split_free(file);
 	if (!get_sprites(data))
 		return (0);
@@ -340,13 +341,18 @@ void get_map_data(t_game *game)
 	game->heigth = split_len(game->map) * TILE_SIZE;
 }
 
-int parsing(t_game *game, char *file_name)
+int parsing(t_game *game, char *file)
 {
-	init_data(game);
-	if (!get_file_data(game, file_name))
-		return(0);
-	if (!valid_map(game->map))
+	int l;
+
+	l = ft_strlen(file);
+	if (l < 4)
 		return (0);
+	if (mod_strcomp(".cub", &file[l - 4]))
+		return (0);
+	init_data(game);
+	if (!get_file_data(game, file))
+		return(0);
 	get_map_data(game);
 	if (!get_player_data(game))
 		return (0);

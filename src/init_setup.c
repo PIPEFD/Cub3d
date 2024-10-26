@@ -22,43 +22,35 @@ void	update(void *param)
 
 	game = (t_game *)param;
 	timenow = mlx_get_time() * 1000;
-
 	if (timenow - game->ticksLastFrame > 1000 / FRAMES)
 	{
-		move_player(game);
+		move_player(game, &game->player);
 		cast_all_rays(game);
 		ft_memset(game->img->pixels, 0, game->img->width * game->img->height
 			* sizeof(unsigned int));
 		render_3d_projection(game);
-		render_map(game);
-		//render_rays(game);
-		render_player(game);
+		render_minimap(game);
 		game->ticksLastFrame = timenow;
 	}
 }
 
 int	init_data_all(t_game *game)
 {
-	if (init_data_player(game) != 0)
-		return (-1);
-	//if (init_data_map(game) != 0)
-	//	return (-1);
-	if (init_data_rays(game) != 0)
-		return (-1);
+	init_data_player(game);
+	init_data_rays(game);
 	if (init_data_figures(game) != 0)
 		return (-1);
-	//printf("\nInitialized data correctly\n");
 	return (0);
 }
 
 int	setup(t_game *game)
 {
+	game->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
+	if (!game->mlx)
+		return ((void)printf("Error initializing MLX.\n"), 0);
 	game->img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!game->img)
-	{
-		printf("Error creating image.\n");
-		return (-1);
-	}
+		return (printf("Error creating image.\n"), -1);
 	if (init_data_all(game) != 0)
 		return (-1);
 	return (0);
