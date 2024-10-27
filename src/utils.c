@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:07:57 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/17 18:22:38 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:59:18 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	mod_strcomp(char *s1, char *s2)
 {
 	int	i;
-	
+
 	i = -1;
 	while (s1[++i] && s2[i])
 		if (s1[i] != s2[i])
@@ -29,7 +29,7 @@ char	*mod_join(char *s1, char *s2)
 	size_t	size;
 
 	size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	str = (char *)malloc(sizeof(char ) * size);
+	str = (char *)malloc(sizeof(char) * size);
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s1, size);
@@ -68,4 +68,11 @@ void	free_data(t_data *data)
 	if (data->map)
 		split_free(data->map);
 	free(data);
+}
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (n * -1);
+	return (n);
 }

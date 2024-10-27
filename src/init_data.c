@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/26 19:24:53 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:16:05 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
 	vars->y1 = params->y1;
 	vars->dx = abs(vars->x1 - vars->x0);
 	vars->dy = -abs(vars->y1 - vars->y0);
-	vars->sx = (vars->x0 < vars->x1) - (vars->x0 >= vars->x1);  // Magia Koldiana
-	vars->sy = (vars->y0 < vars->y1) - (vars->y0 >= vars->y1); // Magia Koldiana
+	vars->sx = (vars->x0 < vars->x1) - (vars->x0 >= vars->x1);
+	vars->sy = (vars->y0 < vars->y1) - (vars->y0 >= vars->y1);
 	vars->err = vars->dx + vars->dy;
 }
 
@@ -60,30 +60,14 @@ void	init_data_player(t_game *game)
 	set_player_direction(&game->player);
 }
 
-/*
-int	init_data_map(t_game *game)
+void	init_data(t_game *data)
 {
-	const char	*mapdata[MAP_NUM_ROWS] = {"111111111111111", "100000000000101",
-		"100100000000101", "101110000010101", "100000000010101",
-		"100000001111101", "100000000000001", "100000000000001",
-		"111111000111101", "100000000000001", "111111111111111"};
-	int			i;
-
-	game->map = malloc(sizeof(char *) * MAP_NUM_ROWS);
-	if (!game->map)
-		return ('\0');
-	i = 0;
-	while (i < MAP_NUM_ROWS)
-	{
-		game->map[i] = ft_strdup(mapdata[i]);
-		if (!game->map[i])
-		{
-			printf("Error duplicating map row.\n");
-			return (-1);
-		}
-		i++;
-		printf("[%d]", i);
-	}
-	return (0);
+	data->player.dir = 0;
+	data->no = (t_texture *)malloc(sizeof(t_texture));
+	data->so = (t_texture *)malloc(sizeof(t_texture));
+	data->ea = (t_texture *)malloc(sizeof(t_texture));
+	data->we = (t_texture *)malloc(sizeof(t_texture));
+	data->ceiling = 0;
+	data->floor = 0;
+	data->map = NULL;
 }
-*/

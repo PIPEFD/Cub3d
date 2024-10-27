@@ -5,12 +5,13 @@ SRC_DIR     =   src/
 MLX         =   build/libmlx42.a
 BUILD       =   make -C build 2>/dev/null
 CC          =   gcc
-FLAGS       =   -Wall -Wextra -Werror -g3 #-fsanitize=address
+FLAGS       =   -Wall -Wextra -Werror -g3 -fsanitize=address
 RM          =   rm -f
 
 SRC_FILES   =   main.c \
 				parsing.c \
 				hook.c \
+				get_file_data.c \
 				init_data.c \
 				init_setup.c \
 				player_setup.c \
@@ -22,7 +23,9 @@ SRC_FILES   =   main.c \
 				rays_utils.c \
 				utils_math.c \
 				render_2d.c \
-				render_3d.c
+				render_3d.c \
+				utils.c \
+				destroy_window.c \
 
 
 SRC         =   $(addprefix $(SRC_DIR), $(SRC_FILES))
@@ -51,7 +54,6 @@ $(LIBFT):
 $(MLX):
 			@cmake -B build ./MLX42 2>/dev/null
 			@make -C build 2>/dev/null
-			cmake -DBUILD_TESTS=ON -B build && cmake --build build --parallel
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 			@mkdir -p $(OBJ_DIR)
@@ -61,10 +63,10 @@ clean:
 			@$(RM) $(OBJS_FILES)
 			@echo "$(YELLOW)OBJECT FILES REMOVED!$(DEF_COLOR)"
 			@make clean -C ./libft
-			@make clean -C build
+			@make clean -C ./build
 normi:
 			norminette ./src
-			norminette ./inc
+#norminette ./inc
 fclean:     clean
 			@make fclean -C ./libft
 			@$(RM)  $(NAME)
@@ -72,4 +74,4 @@ fclean:     clean
 
 re:         fclean all
 
-.PHONY:     all clean fclean re
+.PHONY:     all clean fclean re normi

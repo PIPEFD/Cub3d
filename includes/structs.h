@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/26 19:24:40 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/27 16:39:27 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,34 +163,14 @@ typedef struct s_ray
 	int					wallHitContent;
 }						t_ray;
 
-/*
-typedef struct s_data
-{
-	char			**map;		// The map 
-
-	int				px;			// Player x
-	int				py;			// Player y
-	int				dir;		// Player direction
-
-	t_texture		*no;		// North image data-struct
-	t_texture		*so;		// South image data-struct
-	t_texture		*we;		// West image data-struct
-	t_texture		*ea;		// East image data-struct
-
-	unsigned int	floor;		// Floor RGB
-	unsigned int	ceiling;	// Ceiling RGB
-
-}	t_data;
-*/
-
 typedef struct s_game
 {
 	unsigned int	strip[WINDOW_HEIGHT];
+
 	t_texture		*no;		// North image data-struct
 	t_texture		*so;		// South image data-struct
 	t_texture		*we;		// West image data-struct
 	t_texture		*ea;
-
 	unsigned int	floor;		// Floor RGB
 	unsigned int	ceiling;	// Ceiling RGB
 	

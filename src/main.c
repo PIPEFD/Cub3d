@@ -15,78 +15,39 @@
 
 #include "cub3d.h"
 
-void	destroy_window(t_game *game)
+int	get_sprites(t_game *data)
 {
-	if (game->img)
-	{
-		mlx_delete_image(game->mlx, game->img);
-		game->img = NULL;
-	}
-	if (game->mlx)
-	{
-		mlx_terminate(game->mlx);
-		game->mlx = NULL;
-	}
-	split_free(game->map);
-
-	// if (game->rays)
-	// {
-	// 	free(game->rays);
-	// 	game->rays = NULL;
-	// }
-	// if (game->ray_casts)
-	// {
-	// 	free(game->ray_casts);
-	// 	game->ray_casts = NULL;
-	// }
-	if (game->draw_figures.rect_params)
-	{
-		free(game->draw_figures.rect_params);
-		game->draw_figures.rect_params = NULL;
-	}
-	if (game->draw_figures.line_params)
-	{
-		free(game->draw_figures.line_params);
-		game->draw_figures.line_params = NULL;
-	}
-	if (game->draw_figures.line_draw)
-	{
-		free(game->draw_figures.line_draw);
-		game->draw_figures.line_draw = NULL;
-	}
-	
-	
+	if (!data->no->file || !data->so->file || !data->we->file
+		|| !data->ea->file)
+		return (0);
+	if (!load_sprite(data->no, -1, -1))
+		return (0);
+	if (!load_sprite(data->so, -1, -1))
+		return (0);
+	if (!load_sprite(data->we, -1, -1))
+		return (0);
+	if (!load_sprite(data->ea, -1, -1))
+		return (0);
+	return (1);
 }
-/*
-void print_image(t_texture *text, mlx_image_t *img, int scale)
-{
-	int	y;
-	int	x;
-	int i;
-	int	j;
 
-	y = -1;
-	while (++y < text->height)
+void	free_texture(t_texture **texture)
+{
+	if (*texture)
 	{
-		x = -1;
-		while (++x < text->width2)
+		if ((*texture)->file)
 		{
-			j = -1;
-			while (++j < scale)
-			{
-				i = -1;
-				while (++i < scale)
-					mlx_put_pixel(img, i + x * scale, j + y * scale, text->img[y][x]);
-			}
+			free((*texture)->file);
+			(*texture)->file = NULL;
 		}
+		free(*texture);
+		*texture = NULL;
 	}
 }
-*/
 
-void	mouse_hook(double xpos, double ypos, void* param)
+void	mouse_hook(double xpos, double ypos, void *param)
 {
-	t_game *game;
-	//static double	x;
+	t_game	*game;
 
 	game = (t_game *)param;
 	ypos = (xpos > WINDOW_WIDTH / 2) - (xpos < WINDOW_WIDTH / 2);
@@ -97,10 +58,12 @@ void	mouse_hook(double xpos, double ypos, void* param)
 
 int	main(int argc, char **argv)
 {
-	t_game		game;
+	t_game	game;
 
 	if (argc != 2 || !parsing(&game, argv[1]))
-		return (1);
+	{
+		return (printf("Error parsing file.\n"), split_free(game.map), -1);
+	}
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, &key_hook, &game);
 	mlx_cursor_hook(game.mlx, &mouse_hook, &game);

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   libs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:29:16 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/24 11:33:31 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/27 14:37:43 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBS_H
 # define LIBS_H
 
-# include <fcntl.h>
 # include "MLX42.h"
 # include "libft.h"
+# include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -30,4 +30,4 @@
 
 // --- // --- // --- // --- // --- //
 
-#endif //LIBS_H
+#endif // LIBS_H

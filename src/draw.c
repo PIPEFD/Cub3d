@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:28:47 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/26 18:44:37 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/27 13:07:43 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,41 +34,3 @@ int	draw_rectangle(t_game *game)
 	}
 	return (0);
 }
-/*
-int	draw_line(t_game *game)
-{
-	t_line_params		*params;
-	t_bresenham_vars	vars;
-	int					e2;
-
-	params = game->draw_figures.line_params;
-
-	if (init_data_bresenham(&vars, params) != 0)
-		return (-1);
-	while (1)
-	{
-		if (vars.x0 >= 0 && vars.x0 < (int)game->img->width && vars.y0 >= 0
-			&& vars.y0 < (int)game->img->height)
-			mlx_put_pixel(game->img, vars.x0, vars.y0, params->color);
-		if (vars.x0 == vars.x1 && vars.y0 == vars.y1)
-			break ;
-		e2 = 2 * vars.err;
-		vars.err += vars.dy * (e2 >= vars.dy) + vars.dx * (e2 <= vars.dx);
-		vars.x0 += vars.sx * (e2 >= vars.dy);
-		vars.y0 += vars.sy * (e2 <= vars.dx);
-		
-		if (e2 >= vars.dy)
-		{
-			vars.err += vars.dy;
-			vars.x0 += vars.sx;
-		}
-		if (e2 <= vars.dx)
-		{
-			vars.err += vars.dx;
-			vars.y0 += vars.sy;
-		}
-		
-	}
-	return (1);
-}
-*/
