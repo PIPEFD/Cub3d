@@ -6,41 +6,41 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/27 16:39:27 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:56:06 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-# include "libs.h"
 # include "defs.h"
+# include "libs.h"
 
-typedef struct s_texture {
-	char			*file;				// Filename
-	int				width2;				// Width
-	int				height;				// Height
-	unsigned int	**img;				// Array with the texture
-} t_texture;
+typedef struct s_texture
+{
+	char				*file;
+	int					width2;
+	int					height;
+	unsigned int		**img;
+}						t_texture;
 
 typedef struct s_data
 {
-	char			**map;		// The map 
+	char				**map;
 
-	int				px;			// Player x
-	int				py;			// Player y
-	int				dir;		// Player direction
+	int					px;
+	int					py;
+	int					dir;
 
-	t_texture		*no;		// North image data-struct
-	t_texture		*so;		// South image data-struct
-	t_texture		*we;		// West image data-struct
-	t_texture		*ea;		// East image data-struct
+	t_texture			*no;
+	t_texture			*so;
+	t_texture			*we;
+	t_texture			*ea;
 
-	unsigned int	floor;		// Floor RGB
-	unsigned int	ceiling;	// Ceiling RGB
+	unsigned int		floor;
+	unsigned int		ceiling;
 
-}	t_data;
-
+}						t_data;
 
 typedef struct s_render_params
 {
@@ -70,110 +70,106 @@ typedef struct s_line_params
 	unsigned int		color;
 }						t_line_params;
 
-typedef struct s_bresenham_vars {
-    int x0;
-    int y0;
-    int x1;
-    int y1;
-    int dx;
-    int dy;
-    int sx;
-    int sy;
-    int err;
-    int e2;
-} t_bresenham_vars;
-typedef struct s_line_draw_params {
-    mlx_image_t *img;
-    int x0;
-    int y0;
-    int x1;
-    int y1;
-    unsigned int color;
-} t_line_draw_params;
+typedef struct s_bresenham_vars
+{
+	int					x0;
+	int					y0;
+	int					x1;
+	int					y1;
+	int					dx;
+	int					dy;
+	int					sx;
+	int					sy;
+	int					err;
+	int					e2;
+}						t_bresenham_vars;
+typedef struct s_line_draw_params
+{
+	mlx_image_t			*img;
+	int					x0;
+	int					y0;
+	int					x1;
+	int					y1;
+	unsigned int		color;
+}						t_line_draw_params;
 
 typedef struct s_draw_figures
 {
 	t_rectangle_params	*rect_params;
 	t_line_params		*line_params;
 	t_line_draw_params	*line_draw;
-	// Puedes agregar más tipos de figuras en el futuro
+
 }						t_draw_figures;
 
 typedef struct s_ray_cast
 {
-	// Direcciones del rayo
-	int					isRayFacingDown;
-	int					isRayFacingUp;
-	int					isRayFacingRight;
-	int					isRayFacingLeft;
+	int					israyfacingdown;
+	int					israyfacingup;
+	int					israyfacingright;
+	int					israyfacingleft;
 
-	// Interceptos y pasos
 	float				xintercept;
 	float				yintercept;
 	float				xstep;
 	float				ystep;
 
-	// Información de impacto horizontal
-	int					foundHorzWallhit;
-	float				horWallHitX;
-	float				horWallHitY;
-	int					horWallContent;
+	int					foundhorzwallhit;
+	float				horwallhitx;
+	float				horwallhity;
+	int					horwallcontent;
 
-	// Información de impacto vertical
-	int					foundVerWallhit;
-	float				verWallHitX;
-	float				verWallHitY;
-	int					verWallContent;
+	int					foundverwallhit;
+	float				verwallhitx;
+	float				verwallhity;
+	int					verwallcontent;
 
-	// Próximos puntos de intersección
-	float				nextHorzTouchX;
-	float				nextHorzTouchY;
-	float				nextVerTouchX;
-	float				nextVerTouchY;
+	float				nexthorztouchx;
+	float				nexthorztouchy;
+	float				nextvertouchx;
+	float				nextvertouchy;
 
-	// Distancias
-	float				horHitDistance;
-	float				verHitDistance;
+	float				horhitdistance;
+	float				verhitdistance;
 }						t_ray_cast;
 typedef struct s_player
 {
 	float				x;
 	float				y;
 	char				dir;
-	int					mouseDirection;
-	int 				turnDirection;   // -1 for left, +1 for right
-	int 				walkDirection;   // -1 for back, +1 for front
-	int 				strafeDirection; // -1 para izquierda, +1 para derecha
-	float				rotationAngle;
-	float				walkSpeed;
-	float				turnSpeed;
+	int					mousedirection;
+	int					turndirection;
+	int					walkdirection;
+	int					strafedirection;
+	float				rotationangle;
+	float				walkspeed;
+	float				turnspeed;
 }						t_player;
 
 typedef struct s_ray
 {
-	float				rayAngle;
-	float				wallHitX;	//Ray collision X
-	float				wallHitY;	//Ray collision Y
+	float				rayangle;
+	float				wallhitx;
+	float				wallhity;
 	float				distance;
-	int					wasHitVertical;
-	int					isRayFacingUp;
-	int					isRayFacingDown;
-	int					isRayFacingLeft;
-	int					isRayFacingRight;
-	int					wallHitContent;
+	int					washitvertical;
+	int					israyfacingup;
+	int					israyfacingdown;
+	int					israyfacingleft;
+	int					israyfacingright;
+	int					wallhitcontent;
 }						t_ray;
 
 typedef struct s_game
 {
-	unsigned int	strip[WINDOW_HEIGHT];
+	unsigned int		strip[WINDOW_HEIGHT];
 
-	t_texture		*no;		// North image data-struct
-	t_texture		*so;		// South image data-struct
-	t_texture		*we;		// West image data-struct
-	t_texture		*ea;
-	unsigned int	floor;		// Floor RGB
-	unsigned int	ceiling;	// Ceiling RGB
-	
+	t_texture			*no;
+	t_texture			*so;
+	t_texture			*we;
+	t_texture			*ea;
+	unsigned int		floor;
+	unsigned int		ceiling;
+
 	mlx_t				*mlx;
 	mlx_image_t			*img;
 	t_player			player;
@@ -181,11 +177,11 @@ typedef struct s_game
 	t_draw_figures		draw_figures;
 	t_ray_cast			ray_casts[NUM_RAYS];
 	t_ray				rays[NUM_RAYS];
-	unsigned int		ticksLastFrame;
+	unsigned int		tickslastframe;
 	char				**map;
 	size_t				heigth;
 	size_t				width;
 
 }						t_game;
 
-#endif //STRUCTS_H
+#endif

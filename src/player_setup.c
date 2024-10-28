@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 14:21:00 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:31:22 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,46 @@ void	move_player(t_game *game, t_player *player)
 	float	newplayer_x;
 	float	newplayer_y;
 
-	player->rotationAngle += player->turnDirection * player->turnSpeed;
-	player->rotationAngle = normalize_angle(player->rotationAngle);
-	movestep = player->walkDirection * player->walkSpeed;
-	strafestep = player->strafeDirection * player->walkSpeed;
-	newplayer_x = player->x + cos(player->rotationAngle) * movestep
-		+ cos(player->rotationAngle + PI / 2) * strafestep;
-	newplayer_y = player->y + sin(player->rotationAngle) * movestep
-		+ sin(player->rotationAngle + PI / 2) * strafestep;
-	if (!map_has_wall_at(game, newplayer_x, player->y))
-		player->x = newplayer_x;
-	if (!map_has_wall_at(game, player->x, newplayer_y))
-		player->y = newplayer_y;
+	player->rotationangle += player->turndirection * player->turnspeed;
+	player->rotationangle = normalize_angle(player->rotationangle);
+	movestep = player->walkdirection * player->walkspeed;
+	strafestep = player->strafedirection * player->walkspeed;
+	newplayer_x = player->x + cos(player->rotationangle) * movestep
+		+ cos(player->rotationangle + PI / 2) * strafestep;
+	newplayer_y = player->y + sin(player->rotationangle) * movestep
+		+ sin(player->rotationangle + PI / 2) * strafestep;
+	if (!map_has_wall_at(game, newplayer_x - player->walkdirection * PLAYER_SIZE / 2, player->y))
+	{
+		if (!map_has_wall_at(game, newplayer_x, player->y))
+		{	
+			
+			player->x = newplayer_x;
+			printf("player->x = %f\n", player->x);
+		}
+	}
+	if (!map_has_wall_at(game, player->x, newplayer_y - player->strafedirection * PLAYER_SIZE / 2))	
+	// if (!map_has_wall_at(game, newplayer_y - player->walkdirection * PLAYER_SIZE / 2, player->y))
+	{	
+		if (!map_has_wall_at(game, player->x, newplayer_y))
+		{
+			player->y = newplayer_y;
+			printf("player->y = %f\n", player->y);
+		}
+	}
+			
+		
 }
 
 float	direction_to_radians(const char direction_input)
 {
 	if (direction_input == 'N')
-		return (3 * PI / 2 + 0.003f);
+		return (3 * PI / 2);
 	else if (direction_input == 'S')
-		return (PI / 2 + 0.003f);
+		return (PI / 2);
 	else if (direction_input == 'E')
-		return (0.003f);
+		return (0);
 	else if (direction_input == 'W')
-		return (PI + 0.003f);
+		return (PI);
 	return (-1);
 }
 
@@ -51,7 +67,10 @@ void	set_player_direction(t_player *player)
 	float	rotation_angle;
 
 	rotation_angle = direction_to_radians(player->dir);
-	player->rotationAngle = normalize_angle(rotation_angle);
+	
+	printf("rotation_angle = %f\n", rotation_angle);
+	
+	player->rotationangle = normalize_angle(rotation_angle);
 }
 
 int	init_data_move_player(t_bresenham_vars *vars, t_line_params *params)

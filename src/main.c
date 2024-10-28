@@ -51,9 +51,9 @@ void	mouse_hook(double xpos, double ypos, void *param)
 
 	game = (t_game *)param;
 	ypos = (xpos > WINDOW_WIDTH / 2) - (xpos < WINDOW_WIDTH / 2);
-	game->player.turnDirection = ypos;
+	game->player.turndirection = ypos;
 	if (xpos > WINDOW_WIDTH / 3 && xpos < WINDOW_WIDTH * 2 / 3)
-		game->player.turnDirection = 0;
+		game->player.turndirection = 0;
 }
 
 int	main(int argc, char **argv)

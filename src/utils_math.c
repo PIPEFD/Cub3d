@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:06 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/26 18:16:14 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:31:33 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 float	normalize_angle(float angle)
 {
 	angle = remainder(angle, 2 * PI);
+	// printf("result ->>>>> [%f]\n", angle);
 	if (angle < 0)
 	{
 		angle = 2 * PI + angle;

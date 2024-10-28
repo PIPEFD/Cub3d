@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:33:21 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/27 21:57:54 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:50:57 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 # define CUB3D_H
 
 # include "structs.h"
-# include "utils.h"
 
 int				parsing(t_game *game, char *file_name);
 // Funciones de parseo y estrucuturacion del mapa //
 // --- // --- // --- // --- // --- //
 // Funciones para la inicializacion de la estructura
 // --- // --- // --- // --- // --- //
-void			init_data(t_game *data);
 // --- // --- // --- // --- // --- //
+void			init_data(t_game *data);
 int				init_data_all(t_game *game);
 int				init_data_map(t_game *game);
 void			init_data_player(t_game *game);
@@ -138,15 +137,12 @@ int				mod_strcomp(char *s1, char *s2);
 // Utils.c
 int				ft_abs(int n);
 
-
-void	free_sprite(t_texture *text);
-void	free_texture(t_texture **texture);
-void	destroy_window(t_game *game);
-void	destroy_window2(t_game *game);
-void	destroy_window3(t_game *game);
-void	destroy_window4(t_game *game);
-
-
+void			free_sprite(t_texture *text);
+void			free_texture(t_texture **texture);
+void			destroy_window(t_game *game);
+void			destroy_window2(t_game *game);
+void			destroy_window3(t_game *game);
+void			destroy_window4(t_game *game);
 
 // Funciones para agres sprites y texturas al juego //
 

@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 21:16:05 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:46:14 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
 	vars->y0 = params->y0;
 	vars->x1 = params->x1;
 	vars->y1 = params->y1;
-	vars->dx = abs(vars->x1 - vars->x0);
-	vars->dy = -abs(vars->y1 - vars->y0);
+	vars->dx = ft_abs(vars->x1 - vars->x0);
+	vars->dy = -ft_abs(vars->y1 - vars->y0);
 	vars->sx = (vars->x0 < vars->x1) - (vars->x0 >= vars->x1);
 	vars->sy = (vars->y0 < vars->y1) - (vars->y0 >= vars->y1);
 	vars->err = vars->dx + vars->dy;
@@ -34,11 +34,11 @@ int	init_data_figures(t_game *game)
 	game->draw_figures.line_params = malloc(sizeof(t_line_params));
 	if (!game->draw_figures.line_params)
 		return (printf("Error al asignar memoria para line_params\n"), -1);
-	memset(game->draw_figures.line_params, 0, sizeof(t_line_params));
+	ft_memset(game->draw_figures.line_params, 0, sizeof(t_line_params));
 	game->draw_figures.line_draw = malloc(sizeof(t_line_params));
 	if (!game->draw_figures.line_draw)
 		return (printf("Error al asignar memoria para line_params\n"), -1);
-	memset(game->draw_figures.line_draw, 0, sizeof(t_line_params));
+	ft_memset(game->draw_figures.line_draw, 0, sizeof(t_line_params));
 	return (0);
 }
 
@@ -50,13 +50,13 @@ void	init_data_rays(t_game *game)
 
 void	init_data_player(t_game *game)
 {
-	game->player.turnDirection = 0;
-	game->player.strafeDirection = 0;
-	game->player.walkDirection = 0;
-	game->player.rotationAngle = PI / 2;
-	game->player.walkSpeed = SPEED;
-	game->player.turnSpeed = TURN_SPEED * (PI / 180);
-	game->ticksLastFrame = 0;
+	game->player.turndirection = 0;
+	game->player.strafedirection = 0;
+	game->player.walkdirection = 0;
+	game->player.rotationangle = PI / 2;
+	game->player.walkspeed = SPEED;
+	game->player.turnspeed = TURN_SPEED * (PI / 180);
+	game->tickslastframe = 0;
 	set_player_direction(&game->player);
 }
 

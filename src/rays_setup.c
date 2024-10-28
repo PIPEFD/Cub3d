@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 15:25:17 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:11:58 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	cast_all_rays(t_game *game)
 	int		stripid;
 
 	stripid = 0;
-	rayangle = game->player.rotationAngle - (FOV / 2);
+	rayangle = game->player.rotationangle - (FOV / 2);
 	while (stripid < NUM_RAYS)
 	{
 		if (cast_ray_setup(game, rayangle, stripid) != 0)

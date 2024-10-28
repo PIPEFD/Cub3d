@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/27 14:02:12 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:24:03 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,35 @@ void	get_strip(t_game *game, t_texture *text, int x)
 
 void	render(t_game *game, int i)
 {
-	if (!game->rays[i].wasHitVertical)
+	if (!game->rays[i].washitvertical)
 	{
-		if (game->rays[i].rayAngle < PI && game->rays[i].rayAngle > 0)
-			get_strip(game, game->no, (int)(game->rays[i].wallHitX
-					+ game->rays[i].wallHitY) % TILE_SIZE);
+		if (game->rays[i].rayangle < PI && game->rays[i].rayangle > 0)
+			get_strip(game, game->no, (int)(game->rays[i].wallhitx
+					+ game->rays[i].wallhity) % TILE_SIZE);
 		else
 			get_strip(game, game->so, TILE_SIZE - 1
-				- ((int)(game->rays[i].wallHitX + game->rays[i].wallHitY)
+				- ((int)(game->rays[i].wallhitx + game->rays[i].wallhity)
 					% TILE_SIZE));
 	}
 	else
 	{
-		if (game->rays[i].rayAngle > PI * 1 / 2 && game->rays[i].rayAngle < PI
+		if (game->rays[i].rayangle > PI * 1 / 2 && game->rays[i].rayangle < PI
 			* 3 / 2)
 			get_strip(game, game->we, TILE_SIZE - 1
-				- ((int)(game->rays[i].wallHitX + game->rays[i].wallHitY)
+				- ((int)(game->rays[i].wallhitx + game->rays[i].wallhity)
 					% TILE_SIZE));
 		else
-			get_strip(game, game->ea, (int)(game->rays[i].wallHitX
-					+ game->rays[i].wallHitY) % TILE_SIZE);
+			get_strip(game, game->ea, (int)(game->rays[i].wallhitx
+					+ game->rays[i].wallhity) % TILE_SIZE);
 	}
 }
 
 int	init_data_render(t_game *game, int i)
 {
+	if(game->rays[i].distance == 0)
+		game->rays[i].distance = 0.1;
 	game->render_params.perp_distance = game->rays[i].distance
-		* cos(game->rays[i].rayAngle - game->player.rotationAngle);
+		* cos(game->rays[i].rayangle - game->player.rotationangle);
 	game->render_params.distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
 	game->render_params.wall_strip_height = (TILE_SIZE
 			/ game->render_params.perp_distance)

@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:24:36 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 13:50:10 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:23:47 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	is_this_floor(t_game *game, int x, int y)
 	float	rotated_x;
 	float	rotated_y;
 
-	rotated_x = (x - MINI_R) * cos(game->player.rotationAngle + PI / 2);
-	rotated_x -= (y - MINI_R) * sin(game->player.rotationAngle + PI / 2);
-	rotated_y = (x - MINI_R) * sin(game->player.rotationAngle + PI / 2);
-	rotated_y += (y - MINI_R) * cos(game->player.rotationAngle + PI / 2);
+	rotated_x = (x - MINI_R) * cos(game->player.rotationangle + PI / 2);
+	rotated_x -= (y - MINI_R) * sin(game->player.rotationangle + PI / 2);
+	rotated_y = (x - MINI_R) * sin(game->player.rotationangle + PI / 2);
+	rotated_y += (y - MINI_R) * cos(game->player.rotationangle + PI / 2);
 	map_x = (int)(rotated_x * 0.05 + game->player.x / TILE_SIZE);
 	map_y = (int)(rotated_y * 0.05 + game->player.y / TILE_SIZE);
 	if (map_y < 0 || map_y >= split_len(game->map))

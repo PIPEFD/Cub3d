@@ -6,7 +6,7 @@
 /*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:34 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 16:57:57 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:52:48 by dbonilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	map_has_wall_at(t_game *game, float x, float y)
 	int		map_grid_index_y;
 	char	tile;
 
-	map_grid_index_x = floor(x / TILE_SIZE);
-	map_grid_index_y = floor(y / TILE_SIZE);
+	map_grid_index_x = ((int)x / TILE_SIZE);
+	map_grid_index_y = ((int)y / TILE_SIZE);
 	if (map_grid_index_y < 0 || map_grid_index_y >= split_len(game->map))
 		return (0);
 	if (map_grid_index_x < 0
