@@ -5,7 +5,7 @@ SRC_DIR     =   src/
 MLX         =   build/libmlx42.a
 BUILD       =   make -C build 2>/dev/null
 CC          =   gcc
-FLAGS       =   -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS       =   -Wall -Wextra -Werror -g3 #-fsanitize=address
 RM          =   rm -f
 
 SRC_FILES   =   main.c \
@@ -66,7 +66,7 @@ clean:
 			@make clean -C ./build
 normi:
 			norminette ./src
-#norminette ./inc
+			norminette ./includes
 fclean:     clean
 			@make fclean -C ./libft
 			@$(RM)  $(NAME)

@@ -48,9 +48,6 @@ int	setup(t_game *game)
 	game->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", true);
 	if (!game->mlx)
 		return ((void)printf("Error initializing MLX.\n"), 0);
-	game->img = mlx_new_image(game->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!game->img)
-		return (printf("Error creating image.\n"), -1);
 	if (init_data_all(game) != 0)
 		return (-1);
 	return (0);

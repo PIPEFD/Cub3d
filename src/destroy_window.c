@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_window.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:56:20 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 22:00:07 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:13:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	destroy_window4(t_game *game)
 
 void	destroy_window2(t_game *game)
 {
-	destroy_window3(game);
 	if (game->we)
 	{
 		free(game->we->file);
@@ -104,5 +103,6 @@ void	destroy_window(t_game *game)
 	free_sprite(game->we);
 	free_sprite(game->ea);
 	destroy_window2(game);
+	destroy_window3(game);
 	destroy_window4(game);
 }

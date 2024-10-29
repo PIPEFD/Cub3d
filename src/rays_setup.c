@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_setup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/28 11:11:58 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:07:47 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	cast_all_rays(t_game *game)
 	int		stripid;
 
 	stripid = 0;
-	rayangle = game->player.rotationangle - (FOV / 2);
+	rayangle = game->player.rotationangle - (game->player.fov / 2);
 	while (stripid < NUM_RAYS)
 	{
 		if (cast_ray_setup(game, rayangle, stripid) != 0)
 			break ;
-		rayangle += FOV / NUM_RAYS;
+		rayangle += game->player.fov / NUM_RAYS;
 		stripid++;
 	}
 }

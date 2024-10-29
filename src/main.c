@@ -15,6 +15,13 @@
 
 #include "cub3d.h"
 
+/*
+git clone https://github.com/codam-coding-college/MLX42.git
+cd MLX42
+cmake -B build # build here refers to the outputfolder.
+cmake --build build -j4 # or do make -C build -j4
+*/
+
 int	get_sprites(t_game *data)
 {
 	if (!data->no->file || !data->so->file || !data->we->file
@@ -56,14 +63,28 @@ void	mouse_hook(double xpos, double ypos, void *param)
 		game->player.turndirection = 0;
 }
 
+void	freedom(t_game	*game)
+{
+	split_free(game->map);
+	free_sprite(game->no);
+	free_sprite(game->so);
+	free_sprite(game->we);
+	free_sprite(game->ea);
+	destroy_window2(game);
+	destroy_window4(game);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
 	if (argc != 2 || !parsing(&game, argv[1]))
 	{
-		return (printf("Error parsing file.\n"), split_free(game.map), -1);
+		return (printf("Error parsing file.\n"), freedom(&game), -1);
 	}
+	game.img = mlx_new_image(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!game.img)
+		return (printf("Error creating image.\n"), -1);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, &key_hook, &game);
 	mlx_cursor_hook(game.mlx, &mouse_hook, &game);

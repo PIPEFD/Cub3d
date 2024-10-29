@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_3d.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/28 14:24:03 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:08:54 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,12 @@ void	render(t_game *game, int i)
 
 int	init_data_render(t_game *game, int i)
 {
-	if(game->rays[i].distance == 0)
+	if (game->rays[i].distance == 0)
 		game->rays[i].distance = 0.1;
 	game->render_params.perp_distance = game->rays[i].distance
 		* cos(game->rays[i].rayangle - game->player.rotationangle);
-	game->render_params.distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
+	game->render_params.distance_proj_plane = (WINDOW_WIDTH / 2) \
+		/ tan(game->player.fov / 2);
 	game->render_params.wall_strip_height = (TILE_SIZE
 			/ game->render_params.perp_distance)
 		* game->render_params.distance_proj_plane;

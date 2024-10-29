@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/28 11:46:14 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/29 17:06:24 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_data_player(t_game *game)
 	game->player.walkspeed = SPEED;
 	game->player.turnspeed = TURN_SPEED * (PI / 180);
 	game->tickslastframe = 0;
+	game->player.fov = (60 * PI / 180);
 	set_player_direction(&game->player);
 }
 
@@ -64,9 +65,13 @@ void	init_data(t_game *data)
 {
 	data->player.dir = 0;
 	data->no = (t_texture *)malloc(sizeof(t_texture));
+	data->no->img = NULL;
 	data->so = (t_texture *)malloc(sizeof(t_texture));
+	data->so->img = NULL;
 	data->ea = (t_texture *)malloc(sizeof(t_texture));
+	data->ea->img = NULL;
 	data->we = (t_texture *)malloc(sizeof(t_texture));
+	data->we->img = NULL;
 	data->ceiling = 0;
 	data->floor = 0;
 	data->map = NULL;

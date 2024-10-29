@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/27 22:01:27 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/29 16:18:43 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,6 @@ int	parsing(t_game *game, char *file)
 	init_data(game);
 	if (!get_file_data(game, file))
 	{
-		free_texture(&game->no);
-		free_texture(&game->ea);
-		free_texture(&game->we);
-		free_texture(&game->so);
 		return (0);
 	}
 	get_map_data(game);
