@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_horizontal.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/28 11:11:48 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:40:33 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	find_horizontal_hit(t_game *game, t_ray_cast *ray_cast,
 		{
 			ray_cast->horwallhitx = ray_cast->nexthorztouchx;
 			ray_cast->horwallhity = ray_cast->nexthorztouchy;
-			ray_cast->horwallcontent = game->map[(int)floor(ytocheck
-					/ TILE_SIZE)][(int)floor(xtocheck / TILE_SIZE)];
+			// ray_cast->horwallcontent = game->map[(int)floor(ytocheck
+					// / TILE_SIZE)][(int)floor(xtocheck / TILE_SIZE)];
 			ray_cast->foundhorzwallhit = 1;
 			break ;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays_vertical.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:08 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/28 11:24:42 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:40:53 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
 		&& ray_cast->nextvertouchy <= game->heigth)
 	{
 		xtocheck = ray_cast->nextvertouchx;
+		ytocheck = ray_cast->nextvertouchy;
+
 		if (ray_cast->israyfacingleft)
 			xtocheck -= 1;
 		ytocheck = ray_cast->nextvertouchy;
@@ -56,8 +58,8 @@ void	find_vertical_hit(t_game *game, t_ray_cast *ray_cast, t_player *player,
 		{
 			ray_cast->verwallhitx = ray_cast->nextvertouchx;
 			ray_cast->verwallhity = ray_cast->nextvertouchy;
-			ray_cast->verwallcontent = game->map[(int)floor(ytocheck
-					/ TILE_SIZE)][(int)floor(xtocheck / TILE_SIZE)];
+			// ray_cast->verwallcontent = game->map[(int)floor(ytocheck
+					// / TILE_SIZE)][(int)floor(xtocheck / TILE_SIZE)];
 			ray_cast->foundverwallhit = 1;
 			break ;
 		}

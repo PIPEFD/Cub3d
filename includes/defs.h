@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:30:31 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/28 12:55:43 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:12:18 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WINDOW_WIDTH 2000
 # define WINDOW_HEIGHT 1000
 # define NUM_RAYS WINDOW_WIDTH
-# define PLAYER_SIZE 10 // Tamaño del jugador en píxeles en el minimapa
+# define PLAYER_SIZE 10
 
 
 # define MINI_W (WINDOW_WIDTH / 3)

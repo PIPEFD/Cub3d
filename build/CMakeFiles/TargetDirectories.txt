@@ -1,7 +1,7 @@
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/mlx42.dir
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/edit_cache.dir
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/rebuild_cache.dir
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/list_install_components.dir
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/install.dir
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/install/local.dir
-/sgoinfre/students/dbonilla/Cub3d/build/CMakeFiles/install/strip.dir
+/home/pipe/Cub42/build/CMakeFiles/mlx42.dir
+/home/pipe/Cub42/build/CMakeFiles/edit_cache.dir
+/home/pipe/Cub42/build/CMakeFiles/rebuild_cache.dir
+/home/pipe/Cub42/build/CMakeFiles/list_install_components.dir
+/home/pipe/Cub42/build/CMakeFiles/install.dir
+/home/pipe/Cub42/build/CMakeFiles/install/local.dir
+/home/pipe/Cub42/build/CMakeFiles/install/strip.dir

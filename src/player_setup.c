@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_setup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pipe <pipe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:19:51 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/28 14:31:22 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/28 23:56:11 by pipe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,22 @@ void	move_player(t_game *game, t_player *player)
 	if (!map_has_wall_at(game, newplayer_x - player->walkdirection * PLAYER_SIZE / 2, player->y))
 	{
 		if (!map_has_wall_at(game, newplayer_x, player->y))
-		{	
-			
+		{
+
 			player->x = newplayer_x;
 			printf("player->x = %f\n", player->x);
 		}
 	}
-	if (!map_has_wall_at(game, player->x, newplayer_y - player->strafedirection * PLAYER_SIZE / 2))	
-	// if (!map_has_wall_at(game, newplayer_y - player->walkdirection * PLAYER_SIZE / 2, player->y))
-	{	
+	if (!map_has_wall_at(game, player->x, newplayer_y - player->strafedirection * PLAYER_SIZE / 2))
+	{
 		if (!map_has_wall_at(game, player->x, newplayer_y))
 		{
 			player->y = newplayer_y;
 			printf("player->y = %f\n", player->y);
 		}
 	}
-			
-		
+
+
 }
 
 float	direction_to_radians(const char direction_input)
@@ -67,9 +66,9 @@ void	set_player_direction(t_player *player)
 	float	rotation_angle;
 
 	rotation_angle = direction_to_radians(player->dir);
-	
+
 	printf("rotation_angle = %f\n", rotation_angle);
-	
+
 	player->rotationangle = normalize_angle(rotation_angle);
 }
 
