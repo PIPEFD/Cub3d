@@ -1,14 +1,17 @@
-NO assets/textures/NO.png
-SO assets/textures/SO.png
+NO     assets/textures/NO.png
+ SO   assets/textures/SO.png
 
-EA assets/textures/EA.png
+EA  assets/textures/EA.png
 WE assets/textures/WE.png
 
 
 
 
-F 51, 47, 44
-C 119, 119, 119
+
+F 40,40, 40
+
+
+C 0,     150,    255
 
 
 

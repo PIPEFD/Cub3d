@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:33:21 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/29 16:33:41 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:49:53 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int				flood_fill(char **map, int x, int y);
 // Funciones para el mapa 2D //
 // -- // -- // --- // -- //
 int				get_map(t_game *data, char **file);
-int				valid_map(char **map);
+int				valid_map(t_game *game);
 int				non_valid_characters(char **map);
 int				everything_closed(char **map);
 int				player_wall(t_game *game, float x, float y);

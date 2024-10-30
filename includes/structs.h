@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/29 17:07:03 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:23:32 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,8 +168,8 @@ typedef struct s_game
 	t_texture			*so;
 	t_texture			*we;
 	t_texture			*ea;
-	unsigned int		floor;
 	unsigned int		ceiling;
+	unsigned int		floor;
 
 	mlx_t				*mlx;
 	mlx_image_t			*img;

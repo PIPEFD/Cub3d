@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/29 17:06:24 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:38:25 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,16 @@ void	init_data(t_game *data)
 {
 	data->player.dir = 0;
 	data->no = (t_texture *)malloc(sizeof(t_texture));
+	data->no->file = NULL;
 	data->no->img = NULL;
 	data->so = (t_texture *)malloc(sizeof(t_texture));
+	data->so->file = NULL;
 	data->so->img = NULL;
 	data->ea = (t_texture *)malloc(sizeof(t_texture));
+	data->ea->file = NULL;
 	data->ea->img = NULL;
 	data->we = (t_texture *)malloc(sizeof(t_texture));
+	data->we->file = NULL;
 	data->we->img = NULL;
 	data->ceiling = 0;
 	data->floor = 0;

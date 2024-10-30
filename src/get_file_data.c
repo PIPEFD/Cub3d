@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_file_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:12:03 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/27 21:30:03 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:42:31 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 char	*get_filename(char **file, char *id)
 {
 	int		i;
-	char	*temp;
+	char	*temp1;
+	char	*temp2;
 	char	*res;
 
 	i = -1;
 	while (file[++i])
 	{
-		if (!mod_strcomp(file[i], id))
+		temp1 = ft_strtrim(file[i], " ");
+		if (!mod_strcomp(temp1, id))
 		{
-			temp = ft_strtrim(&file[i][3], " ");
-			res = ft_strdup(temp);
-			return (free(temp), res);
+			temp2 = ft_strtrim(&file[i][3], " ");
+			res = ft_strdup(temp2);
+			return (free(temp1), free(temp2), res);
 		}
+		free(temp1);
 	}
 	return (NULL);
 }
@@ -56,18 +59,48 @@ unsigned int	get_rgb(char *line)
 	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 }
 
-void	get_rgbs(char **file, t_game *data)
+int	get_ceiling(char **file, t_game *data)
 {
 	int	i;
+	char	*temp;
 
 	i = -1;
 	while (file[++i])
 	{
-		if (file[i][0] == 'C' && file[i][1] == ' ')
-			data->ceiling = get_rgb(&file[i][2]);
-		if (file[i][0] == 'F' && file[i][1] == ' ')
-			data->floor = get_rgb(&file[i][2]);
+		temp = ft_strtrim(file[i], " ");
+		if (temp)
+		{
+			if (!mod_strcomp(temp, "C "))
+			{
+				data->ceiling = get_rgb(&temp[2]);
+				return (free(temp), 1);
+			}
+			free(temp);
+		}
 	}
+	return (0);
+}
+
+int	get_floor(char **file, t_game *data)
+{
+	int	i;
+	char	*temp;
+
+	i = -1;
+	while (file[++i])
+	{
+		temp = ft_strtrim(file[i], " ");
+		if (temp)
+		{
+			if (!mod_strcomp(temp, "F "))
+			{
+				data->floor = get_rgb(&temp[2]);
+				return (free(temp), 1);
+			}
+			free(temp);
+		}
+	}
+	return (0);
 }
 
 int	get_file_data(t_game *data, char *file_name)
@@ -84,14 +117,17 @@ int	get_file_data(t_game *data, char *file_name)
 	data->so->file = get_filename(file, "SO ");
 	data->we->file = get_filename(file, "WE ");
 	data->ea->file = get_filename(file, "EA ");
-	get_rgbs(file, data);
+	if (!data->no->file || !data->so->file)
+		return (split_free(file), 0);
+	if (!data->we->file || !data->ea->file)
+		return (split_free(file), 0);
+	if (!get_floor(file, data))
+		return (split_free(file), 0);
+	if (!get_ceiling(file, data))
+		return (split_free(file), 0);
 	if (!get_map(data, file))
 		return (split_free(file), 0);
-	if (!valid_map(data->map))
-		return (split_free(file), 0);
 	split_free(file);
-	if (!get_sprites(data))
-		return (0);
 	return (1);
 }
 

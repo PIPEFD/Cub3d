@@ -38,20 +38,6 @@ int	get_sprites(t_game *data)
 	return (1);
 }
 
-void	free_texture(t_texture **texture)
-{
-	if (*texture)
-	{
-		if ((*texture)->file)
-		{
-			free((*texture)->file);
-			(*texture)->file = NULL;
-		}
-		free(*texture);
-		*texture = NULL;
-	}
-}
-
 void	mouse_hook(double xpos, double ypos, void *param)
 {
 	t_game	*game;
@@ -63,6 +49,27 @@ void	mouse_hook(double xpos, double ypos, void *param)
 		game->player.turndirection = 0;
 }
 
+void	free_sprite(t_texture *text)
+{
+	int	y;
+
+	y = 0;
+	if (text->img)
+	{
+		while (y < text->height)
+		{
+			if (text->img[y])
+				free(text->img[y]);
+			y++;
+		}
+		free(text->img);
+		text->img = NULL;
+	}
+	if (text->file)
+		free(text->file);
+	free(text);
+}
+
 void	freedom(t_game	*game)
 {
 	split_free(game->map);
@@ -70,26 +77,26 @@ void	freedom(t_game	*game)
 	free_sprite(game->so);
 	free_sprite(game->we);
 	free_sprite(game->ea);
-	destroy_window2(game);
-	destroy_window4(game);
+	//destroy_window2(game);
+	//destroy_window4(game);
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc != 2 || !parsing(&game, argv[1]))
-	{
+	if (argc != 2)
+		return (printf("Error, 2 arguments pls.\n"), 1);
+	if (!parsing(&game, argv[1]))
 		return (printf("Error parsing file.\n"), freedom(&game), -1);
-	}
-	game.img = mlx_new_image(game.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!game.img)
-		return (printf("Error creating image.\n"), -1);
+	if (setup(&game) != 0)
+		return (0);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);
 	mlx_key_hook(game.mlx, &key_hook, &game);
 	mlx_cursor_hook(game.mlx, &mouse_hook, &game);
 	mlx_loop_hook(game.mlx, &update, &game);
 	mlx_loop(game.mlx);
+	freedom(&game);
 	destroy_window(&game);
 	return (0);
 }

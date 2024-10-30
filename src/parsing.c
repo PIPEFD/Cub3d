@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/29 16:18:43 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/30 14:38:46 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,20 +99,19 @@ int	parsing(t_game *game, char *file)
 {
 	int	l;
 
+	init_data(game);
 	l = ft_strlen(file);
 	if (l < 4)
 		return (0);
 	if (mod_strcomp(".cub", &file[l - 4]))
 		return (0);
-	init_data(game);
 	if (!get_file_data(game, file))
-	{
 		return (0);
-	}
-	get_map_data(game);
+	if (!valid_map(game))
+		return (0);
 	if (!get_player_data(game))
 		return (0);
-	if (setup(game) != 0)
+	if (!get_sprites(game))
 		return (0);
 	return (1);
 }

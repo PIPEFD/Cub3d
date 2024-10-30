@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:34 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/29 16:51:04 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:49:20 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ int	map_has_wall_at(t_game *game, float x, float y)
 	return (tile != '0');
 }
 
-int	valid_map(char **map)
+int	valid_map(t_game *game)
 {
-	if (non_valid_characters(map))
+	get_map_data(game);
+	if (non_valid_characters(game->map))
 		return (0);
-	if (!everything_closed(map))
+	if (!everything_closed(game->map))
 		return (0);
 	return (1);
 }
