@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:06 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/29 16:56:27 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 float	normalize_angle(float angle)
 {

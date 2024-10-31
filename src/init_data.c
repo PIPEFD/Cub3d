@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:26:49 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/30 14:38:25 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 void	init_data_bresenham(t_bresenham_vars *vars, t_line_params *params)
 {
@@ -54,7 +54,7 @@ void	init_data_player(t_game *game)
 	game->player.strafedirection = 0;
 	game->player.walkdirection = 0;
 	game->player.rotationangle = PI / 2;
-	game->player.walkspeed = SPEED;
+	game->player.walkspeed = TILE_SIZE / 10;
 	game->player.turnspeed = TURN_SPEED * (PI / 180);
 	game->tickslastframe = 0;
 	game->player.fov = (60 * PI / 180);

@@ -13,7 +13,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 /*
 git clone https://github.com/codam-coding-college/MLX42.git
@@ -28,13 +28,13 @@ int	get_sprites(t_game *data)
 		|| !data->ea->file)
 		return (0);
 	if (!load_sprite(data->no, -1, -1))
-		return (0);
+		return (printf("Error: NO texture load\n"), 0);
 	if (!load_sprite(data->so, -1, -1))
-		return (0);
+		return (printf("Error: SO texture load\n"), 0);
 	if (!load_sprite(data->we, -1, -1))
-		return (0);
+		return (printf("Error: WE texture load\n"), 0);
 	if (!load_sprite(data->ea, -1, -1))
-		return (0);
+		return (printf("Error: EA texture load\n"), 0);
 	return (1);
 }
 
@@ -77,8 +77,6 @@ void	freedom(t_game	*game)
 	free_sprite(game->so);
 	free_sprite(game->we);
 	free_sprite(game->ea);
-	//destroy_window2(game);
-	//destroy_window4(game);
 }
 
 int	main(int argc, char **argv)
@@ -88,7 +86,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (printf("Error, 2 arguments pls.\n"), 1);
 	if (!parsing(&game, argv[1]))
-		return (printf("Error parsing file.\n"), freedom(&game), -1);
+		return (freedom(&game), -1);
 	if (setup(&game) != 0)
 		return (0);
 	mlx_image_to_window(game.mlx, game.img, 0, 0);

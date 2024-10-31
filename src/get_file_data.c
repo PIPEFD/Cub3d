@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:12:03 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/30 14:42:31 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:45:26 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 char	*get_filename(char **file, char *id)
 {
@@ -25,7 +25,7 @@ char	*get_filename(char **file, char *id)
 		temp1 = ft_strtrim(file[i], " ");
 		if (!mod_strcomp(temp1, id))
 		{
-			temp2 = ft_strtrim(&file[i][3], " ");
+			temp2 = ft_strtrim(&temp1[3], " ");
 			res = ft_strdup(temp2);
 			return (free(temp1), free(temp2), res);
 		}
@@ -59,50 +59,6 @@ unsigned int	get_rgb(char *line)
 	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255);
 }
 
-int	get_ceiling(char **file, t_game *data)
-{
-	int	i;
-	char	*temp;
-
-	i = -1;
-	while (file[++i])
-	{
-		temp = ft_strtrim(file[i], " ");
-		if (temp)
-		{
-			if (!mod_strcomp(temp, "C "))
-			{
-				data->ceiling = get_rgb(&temp[2]);
-				return (free(temp), 1);
-			}
-			free(temp);
-		}
-	}
-	return (0);
-}
-
-int	get_floor(char **file, t_game *data)
-{
-	int	i;
-	char	*temp;
-
-	i = -1;
-	while (file[++i])
-	{
-		temp = ft_strtrim(file[i], " ");
-		if (temp)
-		{
-			if (!mod_strcomp(temp, "F "))
-			{
-				data->floor = get_rgb(&temp[2]);
-				return (free(temp), 1);
-			}
-			free(temp);
-		}
-	}
-	return (0);
-}
-
 int	get_file_data(t_game *data, char *file_name)
 {
 	char	*the_whole_file;
@@ -110,7 +66,7 @@ int	get_file_data(t_game *data, char *file_name)
 
 	the_whole_file = read_the_file(file_name);
 	if (!the_whole_file)
-		return (0);
+		return (printf("Error: Reading file\n"), 0);
 	file = ft_split(the_whole_file, '\n');
 	free(the_whole_file);
 	data->no->file = get_filename(file, "NO ");
@@ -118,15 +74,15 @@ int	get_file_data(t_game *data, char *file_name)
 	data->we->file = get_filename(file, "WE ");
 	data->ea->file = get_filename(file, "EA ");
 	if (!data->no->file || !data->so->file)
-		return (split_free(file), 0);
+		return (split_free(file), printf("Error: texture name\n"), 0);
 	if (!data->we->file || !data->ea->file)
-		return (split_free(file), 0);
+		return (split_free(file), printf("Error: texture name\n"), 0);
 	if (!get_floor(file, data))
 		return (split_free(file), 0);
 	if (!get_ceiling(file, data))
 		return (split_free(file), 0);
 	if (!get_map(data, file))
-		return (split_free(file), 0);
+		return (split_free(file), printf("Error: getting map\n"), 0);
 	split_free(file);
 	return (1);
 }

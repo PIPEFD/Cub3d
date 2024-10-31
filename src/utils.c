@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbonilla <dbonilla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:07:57 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/27 21:59:18 by dbonilla         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 int	mod_strcomp(char *s1, char *s2)
 {
@@ -59,15 +59,6 @@ char	*ft_read_the_file(char *file_name)
 			return (close(fd), line);
 		line = mod_join(line, buff);
 	}
-}
-
-void	free_data(t_data *data)
-{
-	if (!data)
-		return ;
-	if (data->map)
-		split_free(data->map);
-	free(data);
 }
 
 int	ft_abs(int n)

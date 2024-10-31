@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 16:21:34 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/30 13:49:20 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 int	map_has_wall_at(t_game *game, float x, float y)
 {
@@ -33,9 +33,9 @@ int	valid_map(t_game *game)
 {
 	get_map_data(game);
 	if (non_valid_characters(game->map))
-		return (0);
+		return (printf("Error: map with non-valid characters\n"), 0);
 	if (!everything_closed(game->map))
-		return (0);
+		return (printf("Error: map not closed\n"), 0);
 	return (1);
 }
 

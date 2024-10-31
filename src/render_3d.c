@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 00:56:38 by pipe              #+#    #+#             */
-/*   Updated: 2024/10/29 17:08:54 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 void	render_strip(t_game *game, int x)
 {
@@ -37,14 +37,14 @@ void	get_strip(t_game *game, t_texture *text, int x)
 	anti_y = y;
 	if (game->render_params.wall_top_pixel < 0)
 		anti_y += game->render_params.wall_top_pixel;
-	while (y++ < game->render_params.wall_bottom_pixel && y < WINDOW_HEIGHT)
+	while (y < game->render_params.wall_bottom_pixel && y < WINDOW_HEIGHT)
 	{
 		img_y = ((y - anti_y) * text->height)
 			/ (game->render_params.wall_bottom_pixel
 				- game->render_params.wall_top_pixel);
 		if (img_y >= 0 && img_y < text->height && img_x >= 0
 			&& img_x < text->width2)
-			game->strip[y] = text->img[img_y][img_x];
+			game->strip[y++] = text->img[img_y][img_x];
 	}
 	while (y < WINDOW_HEIGHT)
 		game->strip[y++] = game->floor;
@@ -55,12 +55,12 @@ void	render(t_game *game, int i)
 	if (!game->rays[i].washitvertical)
 	{
 		if (game->rays[i].rayangle < PI && game->rays[i].rayangle > 0)
-			get_strip(game, game->no, (int)(game->rays[i].wallhitx
-					+ game->rays[i].wallhity) % TILE_SIZE);
-		else
 			get_strip(game, game->so, TILE_SIZE - 1
 				- ((int)(game->rays[i].wallhitx + game->rays[i].wallhity)
 					% TILE_SIZE));
+		else
+			get_strip(game, game->no, (int)(game->rays[i].wallhitx
+					+ game->rays[i].wallhity) % TILE_SIZE);
 	}
 	else
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:33:21 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/30 13:49:53 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:46:02 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int				non_valid_characters(char **map);
 int				everything_closed(char **map);
 int				player_wall(t_game *game, float x, float y);
 int				map_has_wall_at(t_game *game, float x, float y);
+int				get_ceiling(char **file, t_game *data);
+int				get_floor(char **file, t_game *data);
 // --- // --- // --- // --- // --- //
 // Funciones para determinar la poscionde del rayo en un plano 2D
 // Ademas de Funciones auxiliares para realizar el calculo

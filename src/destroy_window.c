@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:56:20 by dbonilla          #+#    #+#             */
-/*   Updated: 2024/10/30 14:45:31 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 void	destroy_window2(t_game *game)
 {
@@ -30,6 +30,7 @@ void	destroy_window2(t_game *game)
 		game->draw_figures.line_draw = NULL;
 	}
 }
+
 void	destroy_window(t_game *game)
 {
 	if (game->img)
@@ -42,10 +43,5 @@ void	destroy_window(t_game *game)
 		mlx_terminate(game->mlx);
 		game->mlx = NULL;
 	}
-	//split_free(game->map);
-	//free_sprite(game->no);
-	//free_sprite(game->so);
-	//free_sprite(game->we);
-	//free_sprite(game->ea);
 	destroy_window2(game);
 }

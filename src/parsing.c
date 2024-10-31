@@ -6,11 +6,11 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:34:05 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/30 14:38:46 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 16:39:17 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3D.h"
 
 int	flood_fill(char **map, int x, int y)
 {
@@ -53,16 +53,14 @@ int	load_sprite(t_texture *text, int x, int y)
 	text->height = png_image->height;
 	text->width2 = png_image->width;
 	text->img = (unsigned int **)malloc(text->height * sizeof(unsigned int *));
+	if (!text->img)
+		return (mlx_delete_texture(png_image), 0);
 	y = -1;
 	while (++y < text->height)
 	{
 		text->img[y] = malloc(text->width2 * sizeof(unsigned int));
 		if (!text->img[y])
-		{
-			free_sprite(text);
-			mlx_delete_texture(png_image);
-			return (1);
-		}
+			return (free_sprite(text), mlx_delete_texture(png_image), 0);
 		x = -1;
 		while (++x < text->width2)
 			text->img[y][x] = get_color(&png_image->pixels[(y * png_image->width
@@ -102,15 +100,15 @@ int	parsing(t_game *game, char *file)
 	init_data(game);
 	l = ft_strlen(file);
 	if (l < 4)
-		return (0);
+		return (printf("Error: filename\n"), 0);
 	if (mod_strcomp(".cub", &file[l - 4]))
-		return (0);
+		return (printf("Error: filename\n"), 0);
 	if (!get_file_data(game, file))
 		return (0);
 	if (!valid_map(game))
 		return (0);
 	if (!get_player_data(game))
-		return (0);
+		return (printf("Error: non-valid player quantity\n"), 0);
 	if (!get_sprites(game))
 		return (0);
 	return (1);

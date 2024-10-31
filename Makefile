@@ -1,4 +1,4 @@
-NAME        =   cub3d
+NAME        =   cub3D
 LIBFT       =   libft/libft.a
 INC         =   includes/
 SRC_DIR     =   src/
@@ -12,6 +12,7 @@ SRC_FILES   =   main.c \
 				parsing.c \
 				hook.c \
 				get_file_data.c \
+				rgb_utils.c \
 				init_data.c \
 				init_setup.c \
 				player_setup.c \

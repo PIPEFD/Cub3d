@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 11:42:24 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/30 14:23:32 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 11:33:06 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,6 @@ typedef struct s_texture
 	int					height;
 	unsigned int		**img;
 }						t_texture;
-
-typedef struct s_data
-{
-	char				**map;
-
-	int					px;
-	int					py;
-	int					dir;
-
-	t_texture			*no;
-	t_texture			*so;
-	t_texture			*we;
-	t_texture			*ea;
-
-	unsigned int		floor;
-	unsigned int		ceiling;
-
-}						t_data;
 
 typedef struct s_render_params
 {
