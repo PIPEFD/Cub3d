@@ -6,7 +6,7 @@
 /*   By: kabasolo <kabasolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:37:35 by kabasolo          #+#    #+#             */
-/*   Updated: 2024/10/31 16:45:50 by kabasolo         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:09:36 by kabasolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	get_ceiling(char **file, t_game *data)
 			free(temp);
 		}
 	}
-	return (0);
+	return (printf("Error: ceiling RGB not found\n"), 0);
 }
 
 int	get_floor(char **file, t_game *data)
@@ -95,5 +95,5 @@ int	get_floor(char **file, t_game *data)
 			free(temp);
 		}
 	}
-	return (0);
+	return (printf("Error: floor RGB not found\n"), 0);
 }

@@ -87,13 +87,14 @@ int	main(int argc, char **argv)
 		return (printf("Error, 2 arguments pls.\n"), 1);
 	if (!parsing(&game, argv[1]))
 		return (freedom(&game), -1);
-	if (setup(&game) != 0)
-		return (0);
-	mlx_image_to_window(game.mlx, game.img, 0, 0);
-	mlx_key_hook(game.mlx, &key_hook, &game);
-	mlx_cursor_hook(game.mlx, &mouse_hook, &game);
-	mlx_loop_hook(game.mlx, &update, &game);
-	mlx_loop(game.mlx);
+	if (setup(&game) == 0)
+	{
+		mlx_image_to_window(game.mlx, game.img, 0, 0);
+		mlx_key_hook(game.mlx, &key_hook, &game);
+		mlx_cursor_hook(game.mlx, &mouse_hook, &game);
+		mlx_loop_hook(game.mlx, &update, &game);
+		mlx_loop(game.mlx);
+	}
 	freedom(&game);
 	destroy_window(&game);
 	return (0);
